@@ -1,0 +1,13 @@
+{
+  "name": "bj-weekly-meeting",
+  "version": "1.0.0",
+  "private": true,
+  "description": "伯俊周会账号隔离部署版",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+data/
+.env
+GitHub.txt
+token.txt
+*.log
