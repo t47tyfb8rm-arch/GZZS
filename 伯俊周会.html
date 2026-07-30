@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>伯俊周会</title>
+<title>一周有数</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans SC','Segoe UI',sans-serif;background:#f5f7fa;color:#333;height:100vh;overflow:hidden;}
@@ -923,13 +923,77 @@ body.dark-mode .auth-card,body.dark-mode .admin-panel{background:#1f232a;border-
 body.dark-mode .auth-card h1{color:#eef2f7;}
 body.dark-mode .auth-card p,body.dark-mode .auth-card label{color:#a7b0bd;}
 body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode .admin-panel select{background:#262b33;color:#eef2f7;border-color:#46505c;}
+.auth-screen{background:linear-gradient(180deg,#ffffff 0%,#f6f8fb 100%)!important;}
+.auth-wrap{width:min(980px,100%);display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:44px;align-items:center;}
+.auth-copy{padding:12px 0;}
+.auth-logo{width:46px;height:46px;border-radius:12px;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;margin-bottom:22px;box-shadow:0 14px 30px rgba(37,99,235,.22);}
+.auth-copy h1{font-size:42px;line-height:1.15;letter-spacing:0;color:#111827;margin:0 0 12px;}
+.auth-copy .auth-lead{font-size:17px;line-height:1.8;color:#6b7280;margin:0 0 24px;max-width:560px;}
+.auth-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.auth-value{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;box-shadow:0 8px 22px rgba(15,23,42,.04);}
+.auth-value strong{display:block;font-size:14px;color:#111827;margin-bottom:5px;}
+.auth-value span{font-size:12px;color:#6b7280;line-height:1.5;}
+.auth-card{max-width:none!important;border-radius:16px!important;border-color:#e5e7eb!important;box-shadow:0 20px 50px rgba(15,23,42,.1)!important;}
+.auth-card h1{font-size:22px!important;color:#111827!important;}
+.auth-card p{font-size:13px!important;color:#6b7280!important;}
+.auth-card button{background:#2563eb!important;border-radius:8px!important;}
+.app{gap:0!important;padding:0!important;background:#f6f8fb;}
+.sidebar{width:282px!important;min-width:282px!important;border-radius:0!important;border:0!important;border-right:1px solid #e5e7eb!important;box-shadow:none!important;background:#fff!important;backdrop-filter:none!important;}
+.s-hd h2 .hd-i{background:#2563eb!important;box-shadow:none!important;}
+.main{background:#f6f8fb!important;}
+.top{border-radius:0!important;border:0!important;border-bottom:1px solid #e5e7eb!important;background:#fff!important;box-shadow:none!important;padding:16px 24px!important;overflow:visible!important;}
+.top::after{display:none!important;}
+.product-title{display:flex;flex-direction:column;gap:2px;}
+.product-title strong{font-size:18px;color:#111827;}
+.product-title span{font-size:12px;color:#6b7280;}
+.viewer-control{display:none;align-items:center;gap:8px;font-size:12px;color:#6b7280;font-weight:800;}
+.viewer-control.show{display:inline-flex;}
+.viewer-control select{height:34px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;color:#111827;padding:0 28px 0 10px;outline:none;}
+.meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:12px;margin:16px 24px 12px;padding:16px 18px;box-shadow:0 8px 24px rgba(15,23,42,.04);}
+.meeting-context-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.meeting-context h2{font-size:22px;line-height:1.25;color:#111827;margin:0 0 8px;}
+.meeting-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:#6b7280;}
+.mode-pill{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:800;background:#eff6ff;color:#1e40af;}
+.mode-pill.readonly{background:#fffbeb;color:#92400e;}
+.meeting-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.readonly-note{display:none;margin-top:12px;border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:800;}
+.readonly-note.show{display:block;}
+.metric-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 24px 12px;}
+.metric-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px rgba(15,23,42,.04);}
+.metric-card span{display:block;font-size:12px;color:#6b7280;font-weight:800;}
+.metric-card strong{display:block;font-size:26px;color:#111827;margin-top:6px;line-height:1;}
+.nv{margin:0 24px!important;border:1px solid #e5e7eb!important;border-bottom:none!important;border-radius:12px 12px 0 0!important;background:#fff!important;padding:0 12px!important;}
+.tc{margin:0 24px 24px!important;border:1px solid #e5e7eb!important;border-top:none!important;border-radius:0 0 12px 12px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
+.tc>.ca{background:transparent!important;}
+.app.readonly-mode .edit-only{display:none!important;}
+.app.readonly-mode .status-select{pointer-events:none;opacity:.72;}
+.app.readonly-mode .p-del,.app.readonly-mode .p-move,.app.readonly-mode .dd,.app.readonly-mode .dm,.app.readonly-mode .ix{display:none!important;}
+.app.readonly-mode .wi-del{display:none!important;}
+@media(max-width:900px){
+  .auth-wrap{grid-template-columns:1fr;gap:22px;}
+  .auth-copy h1{font-size:34px;}
+  .auth-values,.metric-row{grid-template-columns:1fr;}
+  .meeting-context-top{flex-direction:column;}
+  .meeting-actions{justify-content:flex-start;}
+}
 </style>
 </head>
 <body>
 <div class="auth-screen" id="auth-screen">
+<div class="auth-wrap">
+<div class="auth-copy">
+<div class="auth-logo">数</div>
+<h1>一周有数</h1>
+<p class="auth-lead">让团队每周进展清楚可见。事项、项目、讨论和沉淀，一处跟进。</p>
+<div class="auth-values">
+<div class="auth-value"><strong>账号隔离</strong><span>每个人维护自己的周会内容。</span></div>
+<div class="auth-value"><strong>全局查看</strong><span>管理员按用户查看团队进展。</span></div>
+<div class="auth-value"><strong>笔记沉淀</strong><span>支持 Markdown 与 Obsidian 链接。</span></div>
+</div>
+</div>
 <form class="auth-card" id="login-form">
-<h1>伯俊周会</h1>
-<p>登录后查看自己的周会数据，管理员可查看全部内容。</p>
+<h1>登录工作台</h1>
+<p>使用管理员分配的账号进入系统。</p>
 <label for="login-user">账号</label>
 <input id="login-user" autocomplete="username" required>
 <label for="login-pass">密码</label>
@@ -938,13 +1002,14 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 <div class="auth-error" id="login-error"></div>
 </form>
 </div>
+</div>
 <div class="app">
 <div class="sidebar">
-<div class="s-hd"><div><h2><span class="hd-i">📋</span> 伯俊周会</h2><div class="sub">伯俊周会</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
+<div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">伯俊周会空间</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
 <div class="s-s"><input id="sw" placeholder="搜索..." oninput="fw()"></div>
 <div class="wl" id="wl"></div>
 <div class="s-ft">
-<button class="sbn" onclick="nw()">➕ 新建</button>
+<button class="sbn edit-only" onclick="nw()">➕ 新建</button>
 <button class="sba" onclick="oa()">📦 存档</button>
 </div>
 </div>
@@ -952,21 +1017,42 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 <div class="top">
 <div class="tl">
 <div class="ti">
-<span class="td" id="cd" style="cursor:pointer;border-bottom:1px dashed #ccc;" onclick="openDatePicker()" title="点击修改日期"></span>
-<span class="td" id="mtg" style="font-weight:600;color:#e67e22;">伯俊周会</span>
+<div class="product-title"><strong>一周有数</strong><span>伯俊周会空间</span></div>
+<label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
 </div>
 <div class="tr">
 <button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">🌙 深色</button>
 <span class="user-pill" id="user-pill">未登录</span>
 <button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button>
 <button class="tbb tbp" type="button" onclick="logout()">退出</button>
-<button class="tbb tbi" onclick="document.getElementById('mi').click()">📂 导入</button>
-<button class="tbb tbp" onclick="dlmd()">⬇️ 下载MD</button>
-<button class="tbb tbg" onclick="st()">💾 保存</button>
 <input type="file" id="mi" accept=".md" style="display:none">
 </div>
 </div>
 
+</div>
+<div class="meeting-context">
+<div class="meeting-context-top">
+<div>
+<h2 id="mtg">未选择周会</h2>
+<div class="meeting-meta">
+<span>日期：<span id="cd" style="cursor:pointer;border-bottom:1px dashed #ccc;" onclick="openDatePicker()" title="点击修改日期"></span></span>
+<span>所属用户：<span id="current-owner">-</span></span>
+<span class="mode-pill" id="mode-pill">可编辑</span>
+</div>
+</div>
+<div class="meeting-actions">
+<button class="tbb tbi edit-only" onclick="document.getElementById('mi').click()">📂 导入</button>
+<button class="tbb tbp" onclick="dlmd()">⬇️ 下载MD</button>
+<button class="tbb tbg edit-only" onclick="st()">💾 保存</button>
+</div>
+</div>
+<div class="readonly-note" id="readonly-note">查看模式：你正在查看其他用户的周会，仅支持查看和导出。</div>
+</div>
+<div class="metric-row">
+<div class="metric-card"><span>当前事项</span><strong id="metric-issues">0</strong></div>
+<div class="metric-card"><span>项目进展</span><strong id="metric-projects">0</strong></div>
+<div class="metric-card"><span>讨论事项</span><strong id="metric-discusses">0</strong></div>
+<div class="metric-card"><span>风险提醒</span><strong id="metric-risks">0</strong></div>
 </div>
 <div class="nv">
 <div class="nt" data-t="0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项 <span class="nm" id="n0"></span></div>
@@ -1099,7 +1185,7 @@ let SaveHandle=null,SaveHandleName='';
 let SaveDirHandle=null,SaveDirName='';
 let sidebarCollapsed=false;
 let darkMode=false;
-let CurrentUser=null,ReportCache={},CurrentReportId=null;
+let CurrentUser=null,ReportCache={},CurrentReportId=null,OwnerFilter='all';
 const SaveDirDbName='bj-weekly-dir-db';
 const SaveDirStoreName='handles';
 const SaveDirKey='weekly-report-dir';
@@ -1160,11 +1246,44 @@ function applyUserState(){
   if(pill&&CurrentUser)pill.innerHTML='账号 <strong>'+E(CurrentUser.username)+'</strong>'+(CurrentUser.role==='admin'?' · 管理员':'');
   var btn=document.getElementById('user-admin-btn');
   if(btn)btn.style.display=CurrentUser&&CurrentUser.role==='admin'?'':'none';
+  var viewer=document.getElementById('viewer-control');
+  if(viewer)viewer.classList.toggle('show',CurrentUser&&CurrentUser.role==='admin');
 }
 async function logout(){await api('/api/logout',{method:'POST'}).catch(function(){});location.reload();}
 function reportLabel(f){
   var name=(f.name||'').replace('.md','');
   return CurrentUser&&CurrentUser.role==='admin'&&f.owner?('['+f.owner+'] '+name):name;
+}
+function currentReport(){return WF.find(function(f){return f.id===CurrentReportId})||null;}
+function canEditCurrent(){
+  var r=currentReport();
+  if(!CurrentUser)return false;
+  if(!r)return true;
+  return r.ownerId===CurrentUser.id;
+}
+function isReadOnly(){return !canEditCurrent();}
+function setOwnerFilter(v){OwnerFilter=v||'all';RW();renderCLD();}
+function refreshOwnerFilter(){
+  var sel=document.getElementById('owner-filter');
+  if(!sel||!CurrentUser||CurrentUser.role!=='admin')return;
+  var owners=[];
+  WF.forEach(function(f){if(f.ownerId&&!owners.find(function(o){return o.id===f.ownerId;}))owners.push({id:f.ownerId,name:f.owner||'unknown'});});
+  if(!owners.find(function(o){return o.id===CurrentUser.id;}))owners.unshift({id:CurrentUser.id,name:CurrentUser.username});
+  sel.innerHTML='<option value="all">全部用户</option>'+owners.map(function(o){return '<option value="'+E(o.id)+'">'+E(o.name)+'</option>';}).join('');
+  if(!owners.find(function(o){return o.id===OwnerFilter;})&&OwnerFilter!=='all')OwnerFilter='all';
+  sel.value=OwnerFilter;
+}
+function updateReadOnlyState(){
+  var app=document.querySelector('.app');
+  var ro=isReadOnly();
+  if(app)app.classList.toggle('readonly-mode',ro);
+  var note=document.getElementById('readonly-note');
+  if(note)note.classList.toggle('show',ro);
+  var mode=document.getElementById('mode-pill');
+  if(mode){mode.textContent=ro?'查看模式':'可编辑';mode.classList.toggle('readonly',ro);}
+  var owner=document.getElementById('current-owner');
+  var r=currentReport();
+  if(owner)owner.textContent=r?(r.owner||CurrentUser.username):(CurrentUser?CurrentUser.username:'-');
 }
 function updateNavAddAction(tab){
   document.querySelectorAll('.nv-action').forEach(function(el){el.classList.remove('show');});
@@ -1205,6 +1324,7 @@ function toggleSidebar(){
 }
 
 function oem(type,idx){
+  if(isReadOnly()){T('查看模式下不能编辑',1);return;}
   eT=type;eI=idx;
   const h=document.getElementById('em');const f=document.getElementById('eff');
   let html='';
@@ -1295,6 +1415,7 @@ html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="ep
 }
 /* core */
 function esv(){
+  if(isReadOnly()){T('查看模式下不能保存修改',1);return;}
   var newType=document.getElementById('etypes')?document.getElementById('etypes').value:null;
   var typeMap={i:'issue',p:'proj',d:'disc'};
   var oldKey=eT;
@@ -1320,13 +1441,18 @@ function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI
 (function(){document.querySelectorAll('.nt').forEach(function(e){e.addEventListener('click',function(){document.querySelectorAll('.nt').forEach(function(n){n.classList.remove('on')});document.querySelectorAll('.tc').forEach(function(c){c.classList.remove('on')});this.classList.add('on');document.getElementById('c'+this.dataset.t).classList.add('on');if(this.dataset.t==='3')renderCLD();});});
 document.getElementById('mi').addEventListener('change',function(e){var f0=e.target.files[0];if(!f0||!f0.name.endsWith('.md'))return;var r=new FileReader();r.onload=function(ev){LF(ev.target.result,f0.name);};r.readAsText(f0);e.value='';});
 document.addEventListener('drop',function(e){e.preventDefault();Array.from(e.dataTransfer.files).forEach(function(f){if(f.name.endsWith('.md')){var r2=new FileReader();r2.onload=function(ev){LF(ev.target.result,f.name)};r2.readAsText(f);}});});document.addEventListener('dragover',function(e){e.preventDefault()});})();
-async function WL(){var data=await api('/api/reports');WF=data.reports||[];ReportCache={};WF.forEach(function(f){ReportCache[f.id]=f.data;});RW();}
+async function WL(){var data=await api('/api/reports');WF=data.reports||[];ReportCache={};WF.forEach(function(f){ReportCache[f.id]=f.data;});refreshOwnerFilter();RW();}
 function RW(){var l=document.getElementById('wl');if(!WF.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">暂无日报<br>拖入 .md 或新建</div>';return;}
-var st2=[...WF].sort(function(a,b){return(parseInt(b.name.match(/\d+/)?.[0]||0)-parseInt(a.name.match(/\d+/)?.[0]||0));});
-var h2='';st2.forEach(function(f){var a=f.id===CurrentReportId?' active':'';var wn=reportLabel(f);var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><button class="wi-del" title="删除">✕</button></div>';});l.innerHTML=h2;
-document.querySelectorAll('.wi').forEach(function(el){el.addEventListener('click',function(){OW(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-n').addEventListener('dblclick',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-del').addEventListener('click',async function(e){e.stopPropagation();var fn=el.dataset.fn;if(!confirm('删除 "'+fn.replace('.md','')+'"？'))return;try{await api('/api/reports/'+el.dataset.id,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==el.dataset.id});delete ReportCache[el.dataset.id];if(CurrentReportId===el.dataset.id){CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();}RW();T('已删除 "'+fn.replace('.md','')+'"');}catch(ex){T(ex.message,1);}});});}
+var st2=[...WF].filter(function(f){return !CurrentUser||CurrentUser.role!=='admin'||OwnerFilter==='all'||f.ownerId===OwnerFilter;}).sort(function(a,b){return String(b.date||b.name).localeCompare(String(a.date||a.name));});
+if(!st2.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">该用户暂无周会</div>';return;}
+var h2='';
+var lastOwner=null;
+st2.forEach(function(f){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter==='all'&&f.owner!==lastOwner){lastOwner=f.owner;h2+='<div style="padding:12px 10px 5px;font-size:11px;font-weight:900;color:#64748b;">'+E(lastOwner||'unknown')+'</div>';}var a=f.id===CurrentReportId?' active':'';var wn=(f.name||'').replace('.md','');var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><button class="wi-del edit-only" title="删除">✕</button></div>';});l.innerHTML=h2;
+document.querySelectorAll('.wi').forEach(function(el){el.addEventListener('click',function(){OW(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-n').addEventListener('dblclick',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-del').addEventListener('click',async function(e){e.stopPropagation();var fn=el.dataset.fn;var targetReport=WF.find(function(f){return f.id===el.dataset.id;});if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能删除自己的周会',1);return;}if(!confirm('删除 "'+fn.replace('.md','')+'"？'))return;try{await api('/api/reports/'+el.dataset.id,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==el.dataset.id});delete ReportCache[el.dataset.id];if(CurrentReportId===el.dataset.id){CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();}RW();T('已删除 "'+fn.replace('.md','')+'"');}catch(ex){T(ex.message,1);}});});}
 function fw(){var q=document.getElementById('sw').value.toLowerCase();document.querySelectorAll('.wi').forEach(function(e){e.style.display=e.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
 async function renameFile(oldName,reportId){
+  var targetReport=WF.find(function(f){return f.id===reportId;});
+  if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能重命名自己的周会',1);return;}
   var oldBase=oldName.replace('.md','');
   var newName=prompt('请输入新文件名（双击文件名触发）：',oldBase);
   if(!newName||newName.trim()===oldBase)return;
@@ -1341,7 +1467,7 @@ async function renameFile(oldName,reportId){
   T('已重命名为 "'+newName.replace('.md','')+'"');
 }
 function normalizeLoadedData(d){d=d||{};d.projects=d.projects||[];d.issues=d.issues||[];d.discusses=d.discusses||[];d.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});d.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});return d;}
-function OW(n,reportId){CF=n;CurrentReportId=reportId||null;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent='伯俊周会';var d=normalizeLoadedData(ReportCache[reportId]);S=d;SH=d.shots||[];RA();RW();T('已加载');}
+function OW(n,reportId){CF=n;CurrentReportId=reportId||null;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=(n||'未选择周会').replace(/\.md$/,'');var d=normalizeLoadedData(ReportCache[reportId]);S=d;SH=d.shots||[];RA();RW();T('已加载');}
 function OWN(n){var f=WF.find(function(x){return x.name===n});if(f){OW(f.name,f.id);return;}var now=new Date();CurrentReportId=null;CF=n;S={week:n.replace('.md','').replace('周会-','').replace('第','周')||'第?周',date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];RA();}
 async function LF(t,f){var d=PM(t);if(!d){T('解析失败',1);return;}
 S=d;SH=d.shots||[];S.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});S.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});CF=f||'周会-第X周.md';SaveHandle=null;SaveHandleName='';
@@ -1403,7 +1529,7 @@ if(sec==='ps'){
 if(sec==='ds'){var dm4=l.match(/^-\s*(🔴|🟡|🔵|🟢|🟣|🟠)\s*(.+)/);if(dm4)ds.push({ic:dm4[1],tx:dm4[2]});}}
 if(rowBuf){var p3=parseProjectRow(rowBuf);if(p3)ps.push(p3);}
 if(cu&&cu.t)is.push(cu);return {week:w,date:dt,issues:is,projects:ps,discusses:ds,shots:[]};}catch(e){return null}}
-function RA(){document.getElementById('cd').textContent=S.date;RI();RP();RD();document.getElementById('n0').textContent=S.issues.length;document.getElementById('n1').textContent=S.projects.length;document.getElementById('n2').textContent=S.discusses.length;}
+function RA(){document.getElementById('cd').textContent=S.date||'-';RI();RP();RD();document.getElementById('n0').textContent=S.issues.length;document.getElementById('n1').textContent=S.projects.length;document.getElementById('n2').textContent=S.discusses.length;var mi=document.getElementById('metric-issues'),mp=document.getElementById('metric-projects'),md=document.getElementById('metric-discusses'),mr=document.getElementById('metric-risks');if(mi)mi.textContent=S.issues.length;if(mp)mp.textContent=S.projects.length;if(md)md.textContent=S.discusses.length;if(mr){var risks=S.issues.filter(function(i){return /暂停|取消|超期|风险|阻塞/.test((i.g||'')+' '+(i.d||''));}).length+S.projects.filter(function(p){return /暂停|取消|超期|风险|阻塞/.test((p.st||'')+' '+(p.note||'')+' '+(p.dl||''));}).length;mr.textContent=risks;}updateReadOnlyState();}
 function RI(){var is=S.issues;document.getElementById('ic2').textContent=is.length+'项';
 var ss=['全部',...new Set(is.map(function(i){return i.g}))];var fh='';
 ss.forEach(function(s){var c=s==='全部'?is.length:is.filter(function(i){return i.g===s}).length;fh+='<button class="fbb'+(s===IF?' on':'')+'" data-f="'+s+'">'+(SvgIc[s]||'')+' '+s+' ('+c+')</button>';});
@@ -1434,11 +1560,13 @@ function statusSelectStyle(val){
   return '--sct:'+c+';--scb:'+hexToRgba(c,.24)+';--sc1:'+hexToRgba(c,.16)+';--sc2:rgba(255,255,255,.84);';
 }
 function updateInlineStatus(kind,idx,val){
+  if(isReadOnly()){T('查看模式下不能修改状态',1);RA();return;}
   if(kind==='issue'&&S.issues[idx])S.issues[idx].g=val;
   if(kind==='proj'&&S.projects[idx])S.projects[idx].st=val;
   RA();SC();T('状态已更新');
 }
 function moveEntry(kind,idx,dir){
+  if(isReadOnly()){T('查看模式下不能调整顺序',1);return;}
   var map={issue:S.issues,proj:S.projects,disc:S.discusses};
   var arr=map[kind];
   if(!arr)return;
@@ -1449,16 +1577,16 @@ function moveEntry(kind,idx,dir){
   RA();SC();
   T(dir<0?'已上移':'已下移');
 }
-function addIssue(){S.issues.push({t:'新事项',sd:'',ed:'',d:'填写描述',g:'处理中'});RA();SC();T('已新增');}function addProject(){S.projects.push({c:'新需求',note:'',sdt:'',dl:'-',st:'进行中'});RA();SC();T('已新增');}
-function addDiscuss(){S.discusses.push({ic:'🔵',tx:'新讨论项'});RA();SC();T('已新增');}
-async function nw(){var wn=prompt('请输入日报名称（如：第10周、10月第2周、2025Q3等）：');if(!wn)return;var fn=wn.trim()+'.md';
+function addIssue(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.issues.push({t:'新事项',sd:'',ed:'',d:'填写描述',g:'处理中'});RA();SC();T('已新增');}function addProject(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.projects.push({c:'新需求',note:'',sdt:'',dl:'-',st:'进行中'});RA();SC();T('已新增');}
+function addDiscuss(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.discusses.push({ic:'🔵',tx:'新讨论项'});RA();SC();T('已新增');}
+async function nw(){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter!=='all'&&OwnerFilter!==CurrentUser.id){T('只能为自己新建周会',1);return;}var wn=prompt('请输入日报名称（如：第10周、10月第2周、2025Q3等）：');if(!wn)return;var fn=wn.trim()+'.md';
 var exist=WF.find(function(f){return f.name===fn&&(!CurrentUser||f.ownerId===CurrentUser.id)});if(exist){if(!confirm(wn+' 已存在，打开？'))return;OW(exist.name,exist.id);return;}
-var now=new Date();S={week:wn,date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];CF=fn;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent='伯俊周会';
+var now=new Date();S={week:wn,date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];CF=fn;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=fn.replace(/\.md$/,'');
 CurrentReportId=null;await SC();RA();RW();T('已创建 '+wn);}
-async function SC(){if(!CF)return;try{var data=await api('/api/reports',{method:'POST',body:JSON.stringify({id:CurrentReportId,name:CF,date:S.date||'',data:Object.assign({},S,{shots:SH})})});var r=data.report;CurrentReportId=r.id;ReportCache[r.id]=r.data;var idx=WF.findIndex(function(f){return f.id===r.id;});if(idx>=0)WF[idx]=r;else WF.push(r);}catch(ex){T(ex.message||'保存失败',1);}}
+async function SC(){if(!CF)return;if(isReadOnly()){T('查看模式下不能保存',1);return;}try{var data=await api('/api/reports',{method:'POST',body:JSON.stringify({id:CurrentReportId,name:CF,date:S.date||'',data:Object.assign({},S,{shots:SH})})});var r=data.report;CurrentReportId=r.id;ReportCache[r.id]=r.data;var idx=WF.findIndex(function(f){return f.id===r.id;});if(idx>=0)WF[idx]=r;else WF.push(r);refreshOwnerFilter();}catch(ex){T(ex.message||'保存失败',1);}}
 function buildMarkdown(){
 S.date=normalizeDateValue(S.date);
-var d=S;var m='---\ntags: ["日报"]\n日期: '+d.date+'\n周次: '+d.week+'\n---\n\n# 伯俊周会 — '+d.week+'日报\n\n> 📅 '+d.date+'\n\n---\n\n## 一、📌 当前事项\n\n';
+var d=S;var m='---\ntags: ["日报"]\n日期: '+d.date+'\n周次: '+d.week+'\n---\n\n# 一周有数 — '+d.week+'日报\n\n> 📅 '+d.date+'\n\n---\n\n## 一、📌 当前事项\n\n';
 d.issues.forEach(function(it,i){it.sd=normalizeDateValue(it.sd);it.ed=normalizeDateValue(it.ed);m+='### '+(i+1)+'. '+it.t+'\n- **状态：** '+it.g+'\n- **开始：** '+(it.sd||'-')+'\n- **截止：** '+(it.ed||'-')+'\n- **描述：** '+it.d+'\n\n---\n\n';});
 m+='## 二、📊 项目进展\n\n| # | 内容 | 开始 | 截止 | 备注 | 状态 |\n|:-:|:----|:---:|:---:|:----|:----:|\n';
 d.projects.forEach(function(p,i){p.sdt=normalizeDateValue(p.sdt);p.dl=normalizeDateValue(p.dl);m+='| '+(i+1)+' | '+p.c+' | '+(p.sdt||'-')+' | '+p.dl+' | '+(p.note||'-')+' | '+(TI[p.st]||'⏳')+' '+p.st+' |\n';});
@@ -1587,7 +1715,7 @@ async function saveToBoundFile(name,text){
 }
 function getDownloadFileName(){
   if(CF)return CF;
-  var base=(S.week||'伯俊周会').trim()||'伯俊周会';
+var base=(S.week||'一周有数').trim()||'一周有数';
   return base.replace(/[\\/:*?"<>|]/g,'-')+'.md';
 }
 function dlmd(){
@@ -1608,10 +1736,10 @@ function downloadMarkdown(name,text){
   URL.revokeObjectURL(u);
 }
 
-async function st(){if(!CF){T('请先打开日报（存档查看状态无法保存）',1);return;}await SC();T('已保存到服务器 '+CF);}
+async function st(){if(!CF){T('请先打开日报（存档查看状态无法保存）',1);return;}if(isReadOnly()){T('查看模式下不能保存',1);return;}await SC();T('已保存到服务器 '+CF);}
 async function LA(){var data=await api('/api/archives');AR=data.archives||[];}
 async function SA(){await LA();}
-async function ST(){await SC();var n=prompt('存档名称：',(CF?CF.replace('.md',''):'')+'-备份');if(!n)return;
+async function ST(){if(isReadOnly()){T('查看模式下不能存档',1);return;}await SC();var n=prompt('存档名称：',(CF?CF.replace('.md',''):'')+'-备份');if(!n)return;
   var originalFile=CF||'';
   var saved=await api('/api/archives',{method:'POST',body:JSON.stringify({name:n,data:JSON.stringify({...S,shots:SH,savedAt:new Date().toISOString(),originalFile:originalFile}),time:new Date().toLocaleString(),originalFile:originalFile})});
   AR.push(saved.archive);
@@ -1625,7 +1753,7 @@ else{var h7=hb;AR.forEach(function(a,i){var s=a.originalFile||'未知';var owner
 l.innerHTML=h7;
 document.querySelectorAll('.ar[data-ar]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.ar);loadArchiveView(idx);});});
 document.querySelectorAll('[data-view]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var idx=parseInt(this.dataset.view);loadArchiveView(idx);});});
-document.querySelectorAll('[data-rst]').forEach(function(el){el.addEventListener('click',async function(e){e.stopPropagation();var idx=parseInt(this.dataset.rst);try{var d=JSON.parse(AR[idx].data);S=d;SH=d.shots||[];var origFile=d.originalFile||AR[idx].name+'.md';CF=origFile;CurrentReportId=null;document.getElementById('mtg').textContent='伯俊周会';await SC();RA();RW();cm();T('已恢复："'+AR[idx].name+'"');}catch(e){T('恢复失败',1);}});});
+document.querySelectorAll('[data-rst]').forEach(function(el){el.addEventListener('click',async function(e){e.stopPropagation();var idx=parseInt(this.dataset.rst);try{var d=JSON.parse(AR[idx].data);S=d;SH=d.shots||[];var origFile=d.originalFile||AR[idx].name+'.md';CF=origFile;CurrentReportId=null;document.getElementById('mtg').textContent=origFile.replace(/\.md$/,'');await SC();RA();RW();cm();T('已恢复："'+AR[idx].name+'"');}catch(e){T('恢复失败',1);}});});
 document.querySelectorAll('[data-ad]').forEach(function(el){el.addEventListener('click',async function(e){e.stopPropagation();var idx=parseInt(this.dataset.ad);if(!confirm('删除 "'+AR[idx].name+'"？'))return;await api('/api/archives/'+AR[idx].id,{method:'DELETE'});AR.splice(idx,1);oa();T('已删除');});});}document.getElementById('am').classList.add('show');}
 function cm(){document.getElementById('am').classList.remove('show');}
 function loadArchiveView(idx){
@@ -1635,7 +1763,7 @@ function loadArchiveView(idx){
     CF=null;
     RA();
     cm();
-    document.getElementById('mtg').textContent='伯俊周会 · 存档：'+E(AR[idx].name);
+document.getElementById('mtg').textContent='存档：'+E(AR[idx].name);
     T('已查看存档："'+AR[idx].name+'"');
   }catch(e){T('加载失败',1);}
 }
