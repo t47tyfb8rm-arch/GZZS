@@ -2,13 +2,17 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const Database = require("better-sqlite3");
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, "data");
-const DB_FILE = path.join(DATA_DIR, "db.json");
+const DB_FILE = path.join(DATA_DIR, "app.sqlite");
+const LEGACY_JSON_FILE = path.join(DATA_DIR, "db.json");
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
 const COOKIE_NAME = "bj_session";
+
+let db;
 
 function now() {
   return new Date().toISOString();
@@ -20,15 +24,115 @@ function id(prefix) {
 
 function ensureDb() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
-  if (!fs.existsSync(DB_FILE)) {
-    fs.writeFileSync(DB_FILE, JSON.stringify({ users: [], reports: [], archives: [] }, null, 2));
+  db = new Database(DB_FILE);
+  db.pragma("journal_mode = WAL");
+  db.pragma("foreign_keys = ON");
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+      id TEXT PRIMARY KEY,
+      username TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      role TEXT NOT NULL CHECK(role IN ('admin','user')),
+      active INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS reports (
+      id TEXT PRIMARY KEY,
+      owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      date TEXT,
+      data TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_reports_owner ON reports(owner_id);
+    CREATE INDEX IF NOT EXISTS idx_reports_date ON reports(date);
+    CREATE TABLE IF NOT EXISTS archives (
+      id TEXT PRIMARY KEY,
+      owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      data TEXT NOT NULL,
+      time TEXT,
+      original_file TEXT,
+      created_at TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_archives_owner ON archives(owner_id);
+  `);
+  migrateLegacyJson();
+  seedUsers();
+}
+
+function migrateLegacyJson() {
+  if (!fs.existsSync(LEGACY_JSON_FILE)) return;
+  const existingUsers = db.prepare("SELECT COUNT(*) AS count FROM users").get().count;
+  const existingReports = db.prepare("SELECT COUNT(*) AS count FROM reports").get().count;
+  const existingArchives = db.prepare("SELECT COUNT(*) AS count FROM archives").get().count;
+  if (existingUsers || existingReports || existingArchives) return;
+
+  let legacy;
+  try {
+    legacy = JSON.parse(fs.readFileSync(LEGACY_JSON_FILE, "utf8"));
+  } catch {
+    return;
   }
-  const db = readDb();
+
+  const insertUser = db.prepare(`
+    INSERT INTO users (id, username, password_hash, role, active, created_at, updated_at)
+    VALUES (@id, @username, @passwordHash, @role, @active, @createdAt, @updatedAt)
+  `);
+  const insertReport = db.prepare(`
+    INSERT INTO reports (id, owner_id, name, date, data, created_at, updated_at)
+    VALUES (@id, @ownerId, @name, @date, @data, @createdAt, @updatedAt)
+  `);
+  const insertArchive = db.prepare(`
+    INSERT INTO archives (id, owner_id, name, data, time, original_file, created_at)
+    VALUES (@id, @ownerId, @name, @data, @time, @originalFile, @createdAt)
+  `);
+
+  const tx = db.transaction(() => {
+    (legacy.users || []).forEach((user) => {
+      insertUser.run({
+        id: user.id,
+        username: user.username,
+        passwordHash: user.passwordHash,
+        role: user.role === "admin" ? "admin" : "user",
+        active: user.active === false ? 0 : 1,
+        createdAt: user.createdAt || now(),
+        updatedAt: user.updatedAt || now()
+      });
+    });
+    (legacy.reports || []).forEach((report) => {
+      insertReport.run({
+        id: report.id,
+        ownerId: report.ownerId,
+        name: report.name || "未命名.md",
+        date: report.date || "",
+        data: JSON.stringify(report.data || {}),
+        createdAt: report.createdAt || now(),
+        updatedAt: report.updatedAt || now()
+      });
+    });
+    (legacy.archives || []).forEach((archive) => {
+      insertArchive.run({
+        id: archive.id,
+        ownerId: archive.ownerId,
+        name: archive.name || "未命名存档",
+        data: archive.data || "{}",
+        time: archive.time || "",
+        originalFile: archive.originalFile || "",
+        createdAt: archive.createdAt || now()
+      });
+    });
+  });
+  tx();
+}
+
+function seedUsers() {
   const adminUser = process.env.ADMIN_USER || "admin";
   const adminPassword = process.env.ADMIN_PASSWORD || "admin123456";
-  if (!db.users.some((u) => u.username === adminUser)) {
-    db.users.push(createUser(adminUser, adminPassword, "admin"));
-  }
+  if (!getUserByUsername(adminUser)) insertUser(createUser(adminUser, adminPassword, "admin"));
+
   String(process.env.APP_USERS || "")
     .split(",")
     .map((s) => s.trim())
@@ -38,19 +142,10 @@ function ensureDb() {
       if (idx <= 0) return;
       const username = pair.slice(0, idx).trim();
       const password = pair.slice(idx + 1).trim();
-      if (username && password && !db.users.some((u) => u.username === username)) {
-        db.users.push(createUser(username, password, "user"));
+      if (username && password && !getUserByUsername(username)) {
+        insertUser(createUser(username, password, "user"));
       }
     });
-  writeDb(db);
-}
-
-function readDb() {
-  return JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
-}
-
-function writeDb(db) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
 }
 
 function hashPassword(password, salt = crypto.randomBytes(16).toString("hex")) {
@@ -71,10 +166,38 @@ function createUser(username, password, role = "user") {
     username,
     passwordHash: hashPassword(password),
     role,
-    active: true,
+    active: 1,
     createdAt: now(),
     updatedAt: now()
   };
+}
+
+function insertUser(user) {
+  db.prepare(`
+    INSERT INTO users (id, username, password_hash, role, active, created_at, updated_at)
+    VALUES (@id, @username, @passwordHash, @role, @active, @createdAt, @updatedAt)
+  `).run(user);
+}
+
+function rowToUser(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    username: row.username,
+    passwordHash: row.password_hash,
+    role: row.role,
+    active: Boolean(row.active),
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
+  };
+}
+
+function getUserByUsername(username) {
+  return rowToUser(db.prepare("SELECT * FROM users WHERE username = ?").get(username));
+}
+
+function getUserById(idValue) {
+  return rowToUser(db.prepare("SELECT * FROM users WHERE id = ?").get(idValue));
 }
 
 function sign(value) {
@@ -95,7 +218,7 @@ function parseCookies(req) {
   return out;
 }
 
-function getUser(req, db) {
+function getUser(req) {
   const token = parseCookies(req)[COOKIE_NAME];
   if (!token) return null;
   const [payload, sig] = token.split(".");
@@ -104,8 +227,8 @@ function getUser(req, db) {
     const data = JSON.parse(Buffer.from(payload, "base64url").toString("utf8"));
     const maxAgeMs = 7 * 24 * 60 * 60 * 1000;
     if (!data.uid || Date.now() - Number(data.ts || 0) > maxAgeMs) return null;
-    const user = db.users.find((u) => u.id === data.uid && u.active);
-    return user || null;
+    const user = getUserById(data.uid);
+    return user && user.active ? user : null;
   } catch {
     return null;
   }
@@ -151,22 +274,42 @@ function canAccess(user, ownerId) {
   return user.role === "admin" || user.id === ownerId;
 }
 
-function safeReport(report, db) {
-  const owner = db.users.find((u) => u.id === report.ownerId);
+function parseData(value, fallback) {
+  try {
+    return JSON.parse(value || "");
+  } catch {
+    return fallback;
+  }
+}
+
+function safeReport(row) {
   return {
-    id: report.id,
-    name: report.name,
-    date: report.date || "",
-    ownerId: report.ownerId,
-    owner: owner ? owner.username : "unknown",
-    data: report.data || null,
-    updatedAt: report.updatedAt
+    id: row.id,
+    name: row.name,
+    date: row.date || "",
+    ownerId: row.owner_id,
+    owner: row.owner || "unknown",
+    data: parseData(row.data, {}),
+    updatedAt: row.updated_at
+  };
+}
+
+function safeArchive(row) {
+  return {
+    id: row.id,
+    ownerId: row.owner_id,
+    owner: row.owner || "unknown",
+    name: row.name,
+    data: row.data || "{}",
+    time: row.time || "",
+    originalFile: row.original_file || "",
+    createdAt: row.created_at
   };
 }
 
 function serveStatic(req, res) {
   const urlPath = decodeURIComponent(new URL(req.url, `http://${req.headers.host}`).pathname);
-  let filePath = urlPath === "/" ? path.join(ROOT, "伯俊周会.html") : path.join(ROOT, urlPath);
+  const filePath = urlPath === "/" ? path.join(ROOT, "伯俊周会.html") : path.join(ROOT, urlPath);
   if (!filePath.startsWith(ROOT)) {
     res.writeHead(403);
     res.end("Forbidden");
@@ -184,14 +327,15 @@ function serveStatic(req, res) {
 }
 
 async function handleApi(req, res) {
-  const db = readDb();
   const url = new URL(req.url, `http://${req.headers.host}`);
   const parts = url.pathname.split("/").filter(Boolean);
 
   if (req.method === "POST" && url.pathname === "/api/login") {
     const body = await readBody(req);
-    const user = db.users.find((u) => u.username === String(body.username || "").trim() && u.active);
-    if (!user || !verifyPassword(body.password || "", user.passwordHash)) return send(res, 401, { error: "用户名或密码错误" });
+    const user = getUserByUsername(String(body.username || "").trim());
+    if (!user || !user.active || !verifyPassword(body.password || "", user.passwordHash)) {
+      return send(res, 401, { error: "用户名或密码错误" });
+    }
     return send(res, 200, { user: publicUser(user) }, {
       "Set-Cookie": `${COOKIE_NAME}=${encodeURIComponent(makeSession(user))}; HttpOnly; SameSite=Lax; Path=/; Max-Age=604800`
     });
@@ -201,60 +345,86 @@ async function handleApi(req, res) {
     return send(res, 200, { ok: true }, { "Set-Cookie": `${COOKIE_NAME}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0` });
   }
 
-  const user = getUser(req, db);
+  const user = getUser(req);
   if (!user) return send(res, 401, { error: "未登录" });
 
   if (req.method === "GET" && url.pathname === "/api/me") return send(res, 200, { user: publicUser(user) });
 
   if (req.method === "GET" && url.pathname === "/api/reports") {
-    const reports = db.reports.filter((r) => canAccess(user, r.ownerId)).map((r) => safeReport(r, db));
-    return send(res, 200, { reports });
+    const sql = `
+      SELECT reports.*, users.username AS owner
+      FROM reports
+      JOIN users ON users.id = reports.owner_id
+      ${user.role === "admin" ? "" : "WHERE reports.owner_id = ?"}
+      ORDER BY reports.updated_at DESC
+    `;
+    const rows = user.role === "admin" ? db.prepare(sql).all() : db.prepare(sql).all(user.id);
+    return send(res, 200, { reports: rows.map(safeReport) });
   }
 
   if (req.method === "POST" && url.pathname === "/api/reports") {
     const body = await readBody(req);
     const reportId = body.id || null;
-    let report = reportId ? db.reports.find((r) => r.id === reportId && canAccess(user, r.ownerId)) : null;
-    if (!report) {
-      report = {
-        id: id("rpt"),
-        ownerId: user.id,
-        name: String(body.name || "未命名.md"),
-        date: body.date || "",
-        data: {},
-        createdAt: now(),
-        updatedAt: now()
-      };
-      db.reports.push(report);
-    }
-    report.name = String(body.name || report.name);
-    report.date = body.date || "";
-    report.data = body.data || {};
-    report.updatedAt = now();
-    writeDb(db);
-    return send(res, 200, { report: safeReport(report, db) });
+    const report = reportId ? db.prepare("SELECT * FROM reports WHERE id = ?").get(reportId) : null;
+    if (report && !canAccess(user, report.owner_id)) return send(res, 404, { error: "未找到周报" });
+
+    const payload = {
+      id: report ? report.id : id("rpt"),
+      ownerId: report ? report.owner_id : user.id,
+      name: String(body.name || (report && report.name) || "未命名.md"),
+      date: body.date || "",
+      data: JSON.stringify(body.data || {}),
+      createdAt: report ? report.created_at : now(),
+      updatedAt: now()
+    };
+
+    db.prepare(`
+      INSERT INTO reports (id, owner_id, name, date, data, created_at, updated_at)
+      VALUES (@id, @ownerId, @name, @date, @data, @createdAt, @updatedAt)
+      ON CONFLICT(id) DO UPDATE SET
+        name = excluded.name,
+        date = excluded.date,
+        data = excluded.data,
+        updated_at = excluded.updated_at
+    `).run(payload);
+
+    const saved = db.prepare(`
+      SELECT reports.*, users.username AS owner
+      FROM reports JOIN users ON users.id = reports.owner_id
+      WHERE reports.id = ?
+    `).get(payload.id);
+    return send(res, 200, { report: safeReport(saved) });
   }
 
   if (parts[0] === "api" && parts[1] === "reports" && parts[2]) {
-    const report = db.reports.find((r) => r.id === parts[2]);
-    if (!report || !canAccess(user, report.ownerId)) return send(res, 404, { error: "未找到周报" });
+    const report = db.prepare("SELECT * FROM reports WHERE id = ?").get(parts[2]);
+    if (!report || !canAccess(user, report.owner_id)) return send(res, 404, { error: "未找到周报" });
     if (req.method === "DELETE") {
-      db.reports = db.reports.filter((r) => r.id !== report.id);
-      writeDb(db);
+      db.prepare("DELETE FROM reports WHERE id = ?").run(report.id);
       return send(res, 200, { ok: true });
     }
     if (req.method === "POST" && parts[3] === "rename") {
       const body = await readBody(req);
-      report.name = String(body.name || report.name);
-      report.updatedAt = now();
-      writeDb(db);
-      return send(res, 200, { report: safeReport(report, db) });
+      db.prepare("UPDATE reports SET name = ?, updated_at = ? WHERE id = ?").run(String(body.name || report.name), now(), report.id);
+      const renamed = db.prepare(`
+        SELECT reports.*, users.username AS owner
+        FROM reports JOIN users ON users.id = reports.owner_id
+        WHERE reports.id = ?
+      `).get(report.id);
+      return send(res, 200, { report: safeReport(renamed) });
     }
   }
 
   if (req.method === "GET" && url.pathname === "/api/archives") {
-    const archives = db.archives.filter((a) => canAccess(user, a.ownerId));
-    return send(res, 200, { archives });
+    const sql = `
+      SELECT archives.*, users.username AS owner
+      FROM archives
+      JOIN users ON users.id = archives.owner_id
+      ${user.role === "admin" ? "" : "WHERE archives.owner_id = ?"}
+      ORDER BY archives.created_at DESC
+    `;
+    const rows = user.role === "admin" ? db.prepare(sql).all() : db.prepare(sql).all(user.id);
+    return send(res, 200, { archives: rows.map(safeArchive) });
   }
 
   if (req.method === "POST" && url.pathname === "/api/archives") {
@@ -262,55 +432,59 @@ async function handleApi(req, res) {
     const archive = {
       id: id("arc"),
       ownerId: user.id,
-      owner: user.username,
       name: String(body.name || "未命名存档"),
       data: body.data || "{}",
       time: body.time || new Date().toLocaleString("zh-CN"),
       originalFile: body.originalFile || "",
       createdAt: now()
     };
-    db.archives.push(archive);
-    writeDb(db);
-    return send(res, 200, { archive });
+    db.prepare(`
+      INSERT INTO archives (id, owner_id, name, data, time, original_file, created_at)
+      VALUES (@id, @ownerId, @name, @data, @time, @originalFile, @createdAt)
+    `).run(archive);
+    return send(res, 200, { archive: { ...archive, owner: user.username, ownerId: user.id } });
   }
 
   if (parts[0] === "api" && parts[1] === "archives" && parts[2] && req.method === "DELETE") {
-    const archive = db.archives.find((a) => a.id === parts[2]);
-    if (!archive || !canAccess(user, archive.ownerId)) return send(res, 404, { error: "未找到存档" });
-    db.archives = db.archives.filter((a) => a.id !== archive.id);
-    writeDb(db);
+    const archive = db.prepare("SELECT * FROM archives WHERE id = ?").get(parts[2]);
+    if (!archive || !canAccess(user, archive.owner_id)) return send(res, 404, { error: "未找到存档" });
+    db.prepare("DELETE FROM archives WHERE id = ?").run(archive.id);
     return send(res, 200, { ok: true });
   }
 
   if (parts[0] === "api" && parts[1] === "users") {
     if (user.role !== "admin") return send(res, 403, { error: "需要管理员权限" });
-    if (req.method === "GET") return send(res, 200, { users: db.users.map(publicUser) });
+    if (req.method === "GET") {
+      const users = db.prepare("SELECT * FROM users ORDER BY created_at ASC").all().map(rowToUser).map(publicUser);
+      return send(res, 200, { users });
+    }
     if (req.method === "POST") {
       const body = await readBody(req);
       const username = String(body.username || "").trim();
       const password = String(body.password || "");
       if (!username || !password) return send(res, 400, { error: "用户名和密码不能为空" });
-      if (db.users.some((u) => u.username === username)) return send(res, 409, { error: "用户名已存在" });
+      if (getUserByUsername(username)) return send(res, 409, { error: "用户名已存在" });
       const created = createUser(username, password, body.role === "admin" ? "admin" : "user");
-      db.users.push(created);
-      writeDb(db);
+      insertUser(created);
       return send(res, 200, { user: publicUser(created) });
     }
     if (parts[2] && req.method === "PATCH") {
       const body = await readBody(req);
-      const target = db.users.find((u) => u.id === parts[2]);
+      const target = getUserById(parts[2]);
       if (!target) return send(res, 404, { error: "用户不存在" });
-      if (body.password) target.passwordHash = hashPassword(body.password);
-      if (body.role && target.id !== user.id) target.role = body.role === "admin" ? "admin" : "user";
-      if (typeof body.active === "boolean" && target.id !== user.id) target.active = body.active;
-      target.updatedAt = now();
-      writeDb(db);
-      return send(res, 200, { user: publicUser(target) });
+      const nextPasswordHash = body.password ? hashPassword(body.password) : target.passwordHash;
+      const nextRole = body.role && target.id !== user.id ? (body.role === "admin" ? "admin" : "user") : target.role;
+      const nextActive = typeof body.active === "boolean" && target.id !== user.id ? (body.active ? 1 : 0) : (target.active ? 1 : 0);
+      db.prepare(`
+        UPDATE users
+        SET password_hash = ?, role = ?, active = ?, updated_at = ?
+        WHERE id = ?
+      `).run(nextPasswordHash, nextRole, nextActive, now(), target.id);
+      return send(res, 200, { user: publicUser(getUserById(target.id)) });
     }
     if (parts[2] && req.method === "DELETE") {
       if (parts[2] === user.id) return send(res, 400, { error: "不能删除当前登录管理员" });
-      db.users = db.users.filter((u) => u.id !== parts[2]);
-      writeDb(db);
+      db.prepare("DELETE FROM users WHERE id = ?").run(parts[2]);
       return send(res, 200, { ok: true });
     }
   }
@@ -328,4 +502,5 @@ http.createServer((req, res) => {
   }
 }).listen(PORT, () => {
   console.log(`伯俊周会已启动: http://localhost:${PORT}`);
+  console.log(`SQLite 数据库: ${DB_FILE}`);
 });
