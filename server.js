@@ -49,7 +49,6 @@ function ensureDb() {
     );
     CREATE INDEX IF NOT EXISTS idx_reports_owner ON reports(owner_id);
     CREATE INDEX IF NOT EXISTS idx_reports_date ON reports(date);
-    CREATE INDEX IF NOT EXISTS idx_reports_folder ON reports(folder);
     CREATE TABLE IF NOT EXISTS folders (
       id TEXT PRIMARY KEY,
       owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -79,6 +78,7 @@ function ensureSchema() {
   if (!reportColumns.includes("folder")) {
     db.prepare("ALTER TABLE reports ADD COLUMN folder TEXT NOT NULL DEFAULT '默认'").run();
   }
+  db.prepare("CREATE INDEX IF NOT EXISTS idx_reports_folder ON reports(folder)").run();
 }
 
 function migrateLegacyJson() {
