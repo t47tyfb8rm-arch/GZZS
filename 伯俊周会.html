@@ -1003,12 +1003,20 @@ body.dark-mode .content-kpi strong{color:var(--text-main);}
 .file-picker-list{max-height:52vh;overflow:auto;border:1px solid #e5e7eb;border-radius:12px;background:#fff;}
 .file-picker-list .wi{margin:0;border-radius:0;border-bottom:1px solid #eef2f7;}
 .file-picker-list .wi:last-child{border-bottom:0;}
+.folder-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:#f8fafc;border-bottom:1px solid #edf2f7;color:#334155;font-size:12px;font-weight:900;}
+.folder-head button{border:1px solid #dbe3ee;background:#fff;border-radius:7px;padding:4px 9px;color:#52667a;font-size:11px;font-weight:800;cursor:pointer;}
+.folder-head button:hover{background:#edf4fa;color:#2563eb;}
+.wi-tools{display:flex;align-items:center;gap:4px;margin-left:auto;}
+.wi-move{border:0;background:transparent;color:#7a8aa0;font-size:11px;font-weight:800;cursor:pointer;padding:4px 6px;border-radius:6px;}
+.wi-move:hover{background:#edf4fa;color:#2563eb;}
 body.dark-mode .module-item{color:var(--text-sub);}
 body.dark-mode .module-item:hover{background:rgba(255,255,255,.04);color:var(--text-main);}
 body.dark-mode .module-item.on{background:rgba(124,199,190,.1);color:var(--brand-strong);box-shadow:inset 3px 0 0 var(--brand-strong);}
 body.dark-mode .module-item .module-count{background:#252b33;border-color:rgba(70,79,92,.72);color:var(--text-sub);}
 body.dark-mode .file-picker-list{background:#1f242b;border-color:rgba(70,79,92,.72);}
 body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-color:rgba(70,79,92,.72);}
+body.dark-mode .folder-head{background:#252b33;border-color:#313843;color:var(--text-main);}
+body.dark-mode .folder-head button{background:#1f232a;border-color:#46505c;color:var(--text-sub);}
 body.dark-mode .settings-panel{background:#1f232a;border-color:#313843;}
 body.dark-mode .settings-panel h3{color:#eef2f7;}
 body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
@@ -1210,7 +1218,7 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 <div class="mb2 file-picker-box">
 <div class="mh"><h3>选择周会</h3><button class="mc2" onclick="closeFilePicker()">✕</button></div>
 <div class="mc">
-<div class="file-picker-tools"><input id="sw" placeholder="搜索周会、日期或用户..." oninput="fw()"><button class="tbb tbi edit-only" onclick="nw();closeFilePicker()">+ 新建</button></div>
+<div class="file-picker-tools"><input id="sw" placeholder="搜索周会、日期、用户或文件夹..." oninput="fw()"><button class="tbb tbi edit-only" onclick="createFolder()">+ 文件夹</button><button class="tbb tbi edit-only" onclick="nw();closeFilePicker()">+ 新建</button></div>
 <div class="wl file-picker-list" id="wl"></div>
 </div>
 </div></div>
@@ -1264,7 +1272,7 @@ let SaveHandle=null,SaveHandleName='';
 let SaveDirHandle=null,SaveDirName='';
 let sidebarCollapsed=false;
 let darkMode=false;
-let CurrentUser=null,ReportCache={},CurrentReportId=null,OwnerFilter='all';
+let CurrentUser=null,ReportCache={},CurrentReportId=null,OwnerFilter='all',FF=[];
 const SaveDirDbName='bj-weekly-dir-db';
 const SaveDirStoreName='handles';
 const SaveDirKey='weekly-report-dir';
@@ -1564,15 +1572,51 @@ function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI
 (function(){document.querySelectorAll('.nt,.module-item[data-t]').forEach(function(e){e.addEventListener('click',function(){switchModule(this.dataset.t);});});
 document.getElementById('mi').addEventListener('change',function(e){var f0=e.target.files[0];if(!f0||!f0.name.endsWith('.md'))return;var r=new FileReader();r.onload=function(ev){LF(ev.target.result,f0.name);};r.readAsText(f0);e.value='';});
 document.addEventListener('drop',function(e){e.preventDefault();Array.from(e.dataTransfer.files).forEach(function(f){if(f.name.endsWith('.md')){var r2=new FileReader();r2.onload=function(ev){LF(ev.target.result,f.name)};r2.readAsText(f);}});});document.addEventListener('dragover',function(e){e.preventDefault()});})();
-async function WL(){var data=await api('/api/reports');WF=data.reports||[];ReportCache={};WF.forEach(function(f){ReportCache[f.id]=f.data;});refreshOwnerFilter();RW();}
+async function WL(){var data=await api('/api/reports');WF=data.reports||[];FF=data.folders||[];ReportCache={};WF.forEach(function(f){ReportCache[f.id]=f.data;});refreshOwnerFilter();RW();}
+function folderOf(f){return (f&&f.folder?String(f.folder):'默认').trim()||'默认';}
+function availableFolders(list){var seen={};var out=[];(FF||[]).forEach(function(f){var name=(f.name||'默认').trim()||'默认';if(!seen[name]){seen[name]=1;out.push(name);}});(list||WF).forEach(function(f){var name=folderOf(f);if(!seen[name]){seen[name]=1;out.push(name);}});if(!seen['默认'])out.unshift('默认');return out.sort(function(a,b){return a==='默认'?-1:b==='默认'?1:a.localeCompare(b,'zh-Hans-CN');});}
+async function createFolder(){var name=prompt('请输入新文件夹名称：','新文件夹');if(!name)return;name=name.trim();if(!name)return;if(availableFolders().indexOf(name)>=0){T('文件夹已存在',1);return;}try{var data=await api('/api/folders',{method:'POST',body:JSON.stringify({name:name})});FF.push(data.folder);RW();T('文件夹已创建');}catch(ex){T(ex.message,1);}}
 function RW(){var l=document.getElementById('wl');var fileCount=document.getElementById('side-file-count');if(fileCount)fileCount.textContent=WF.length;if(!l)return;if(!WF.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">暂无周会<br>可新建或导入 .md</div>';return;}
 var st2=[...WF].filter(function(f){return !CurrentUser||CurrentUser.role!=='admin'||OwnerFilter==='all'||f.ownerId===OwnerFilter;}).sort(function(a,b){return String(b.date||b.name).localeCompare(String(a.date||a.name));});
 if(!st2.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">该用户暂无周会</div>';return;}
 var h2='';
 var lastOwner=null;
-st2.forEach(function(f){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter==='all'&&f.owner!==lastOwner){lastOwner=f.owner;h2+='<div style="padding:12px 10px 5px;font-size:11px;font-weight:900;color:#64748b;">'+E(lastOwner||'unknown')+'</div>';}var a=f.id===CurrentReportId?' active':'';var wn=(f.name||'').replace('.md','');var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><button class="wi-del edit-only" title="删除">✕</button></div>';});l.innerHTML=h2;
-document.querySelectorAll('.wi').forEach(function(el){el.addEventListener('click',function(){OW(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-n').addEventListener('dblclick',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-del').addEventListener('click',async function(e){e.stopPropagation();var fn=el.dataset.fn;var targetReport=WF.find(function(f){return f.id===el.dataset.id;});if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能删除自己的周会',1);return;}if(!confirm('删除 "'+fn.replace('.md','')+'"？'))return;try{await api('/api/reports/'+el.dataset.id,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==el.dataset.id});delete ReportCache[el.dataset.id];if(CurrentReportId===el.dataset.id){CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();}RW();T('已删除 "'+fn.replace('.md','')+'"');}catch(ex){T(ex.message,1);}});});}
+var grouped={};availableFolders(st2).forEach(function(name){grouped[name]=[];});st2.forEach(function(f){var key=(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter==='all'?(f.owner||'unknown')+' / ':'')+folderOf(f);if(!grouped[key])grouped[key]=[];grouped[key].push(f);});
+Object.keys(grouped).sort(function(a,b){return a.localeCompare(b,'zh-Hans-CN');}).forEach(function(folder){var folderName=folder.replace(/^.* \/ /,'');h2+='<div class="folder-head" data-folder="'+E(folderName)+'"><span>'+E(folder)+' · '+grouped[folder].length+' 个文件</span><button class="edit-only folder-rename" data-folder="'+E(folderName)+'">重命名</button></div>';grouped[folder].forEach(function(f){var a=f.id===CurrentReportId?' active':'';var wn=(f.name||'').replace('.md','');var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><span class="wi-tools edit-only"><button class="wi-move" title="移动文件">移动</button><button class="wi-del" title="删除">✕</button></span></div>';});});l.innerHTML=h2;
+document.querySelectorAll('.folder-rename').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();renameFolder(this.dataset.folder);});});
+document.querySelectorAll('.wi').forEach(function(el){el.addEventListener('click',function(){OW(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-n').addEventListener('dblclick',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});var moveBtn=el.querySelector('.wi-move');if(moveBtn)moveBtn.addEventListener('click',function(e){e.stopPropagation();moveFileToFolder(el.dataset.id);});el.querySelector('.wi-del').addEventListener('click',async function(e){e.stopPropagation();var fn=el.dataset.fn;var targetReport=WF.find(function(f){return f.id===el.dataset.id;});if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能删除自己的周会',1);return;}if(!confirm('删除 "'+fn.replace('.md','')+'"？'))return;try{await api('/api/reports/'+el.dataset.id,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==el.dataset.id});delete ReportCache[el.dataset.id];if(CurrentReportId===el.dataset.id){CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();}RW();T('已删除 "'+fn.replace('.md','')+'"');}catch(ex){T(ex.message,1);}});});}
 function fw(){var sw=document.getElementById('sw');var q=sw?sw.value.toLowerCase():'';document.querySelectorAll('.wi').forEach(function(e){e.style.display=e.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
+async function renameFolder(oldFolder){
+  if(!oldFolder)return;
+  var next=prompt('请输入新的文件夹名称：',oldFolder);
+  if(!next||next.trim()===oldFolder)return;
+  next=next.trim();
+  try{
+    await api('/api/folders/rename',{method:'POST',body:JSON.stringify({oldFolder:oldFolder,newFolder:next})});
+    WF.forEach(function(f){if(folderOf(f)===oldFolder)f.folder=next;});
+    FF.forEach(function(f){if((f.name||'默认')===oldFolder)f.name=next;});
+    RW();
+    T('文件夹已重命名');
+  }catch(ex){T(ex.message,1);}
+}
+async function moveFileToFolder(reportId){
+  var target=WF.find(function(f){return f.id===reportId;});
+  if(!target)return;
+  if(target&&CurrentUser&&target.ownerId!==CurrentUser.id){T('只能移动自己的周会',1);return;}
+  var folders=availableFolders();
+  var next=prompt('移动到文件夹：\n已有：'+folders.join(' / '),folderOf(target));
+  if(!next||next.trim()===folderOf(target))return;
+  next=next.trim();
+  try{
+    var data=await api('/api/reports/'+reportId+'/folder',{method:'POST',body:JSON.stringify({folder:next})});
+    var idx=WF.findIndex(function(f){return f.id===reportId;});
+    if(idx>=0)WF[idx]=data.report;
+    if(availableFolders().indexOf(next)<0)FF.push({name:next,ownerId:data.report.ownerId,owner:data.report.owner});
+    ReportCache[reportId]=data.report.data;
+    RW();
+    T('已移动到 '+next);
+  }catch(ex){T(ex.message,1);}
+}
 async function renameFile(oldName,reportId){
   var targetReport=WF.find(function(f){return f.id===reportId;});
   if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能重命名自己的周会',1);return;}
@@ -1706,7 +1750,7 @@ async function nw(){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter!=='a
 var exist=WF.find(function(f){return f.name===fn&&(!CurrentUser||f.ownerId===CurrentUser.id)});if(exist){if(!confirm(wn+' 已存在，打开？'))return;OW(exist.name,exist.id);return;}
 var now=new Date();S={week:wn,date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];CF=fn;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=fn.replace(/\.md$/,'');
 CurrentReportId=null;await SC();RA();RW();T('已创建 '+wn);}
-async function SC(){if(!CF)return;if(isReadOnly()){T('查看模式下不能保存',1);return;}try{var data=await api('/api/reports',{method:'POST',body:JSON.stringify({id:CurrentReportId,name:CF,date:S.date||'',data:Object.assign({},S,{shots:SH})})});var r=data.report;CurrentReportId=r.id;ReportCache[r.id]=r.data;var idx=WF.findIndex(function(f){return f.id===r.id;});if(idx>=0)WF[idx]=r;else WF.push(r);refreshOwnerFilter();}catch(ex){T(ex.message||'保存失败',1);}}
+async function SC(){if(!CF)return;if(isReadOnly()){T('查看模式下不能保存',1);return;}try{var current=WF.find(function(f){return f.id===CurrentReportId;});var data=await api('/api/reports',{method:'POST',body:JSON.stringify({id:CurrentReportId,name:CF,folder:folderOf(current),date:S.date||'',data:Object.assign({},S,{shots:SH})})});var r=data.report;CurrentReportId=r.id;ReportCache[r.id]=r.data;var idx=WF.findIndex(function(f){return f.id===r.id;});if(idx>=0)WF[idx]=r;else WF.push(r);refreshOwnerFilter();}catch(ex){T(ex.message||'保存失败',1);}}
 function buildMarkdown(){
 S.date=normalizeDateValue(S.date);
 var d=S;var m='---\ntags: ["日报"]\n日期: '+d.date+'\n周次: '+d.week+'\n---\n\n# 一周有数 — '+d.week+'日报\n\n> 📅 '+d.date+'\n\n---\n\n## 一、📌 当前事项\n\n';
