@@ -454,25 +454,14 @@ body.dark-mode .calendar-more,
 body.dark-mode .calendar-detail-empty{color:#a7b0bd;}
 body.dark-mode .calendar-item-status,
 body.dark-mode .calendar-detail-total{background:#252b33;color:#8cd5cd;}
-body.dark-mode .work-card,
-body.dark-mode .work-detail{background:#1f232a;border-color:#313843;}
+body.dark-mode .work-card{background:#1f232a;border-color:#313843;}
 body.dark-mode .work-card:hover,
 body.dark-mode .work-card.on{background:#252b33;border-color:#7cc7be;}
-body.dark-mode .work-title,
-body.dark-mode .work-detail-title,
-body.dark-mode .work-detail-section h4,
-body.dark-mode .work-detail-grid strong,
-body.dark-mode .work-detail-text{color:#eef2f7;}
+body.dark-mode .work-title{color:#eef2f7;}
 body.dark-mode .work-note,
-body.dark-mode .work-date,
-body.dark-mode .work-detail-grid span,
-body.dark-mode .work-detail-empty{color:#a7b0bd;}
-body.dark-mode .work-date,
+body.dark-mode .work-date-inline,
+body.dark-mode .work-thumb-inline{color:#a7b0bd;}
 body.dark-mode .work-check{background:#252b33;border-color:#46505c;}
-body.dark-mode .work-detail-head,
-body.dark-mode .work-detail-section{border-color:#313843;}
-body.dark-mode .work-detail-actions button{background:#252b33;border-color:#46505c;color:#eef2f7;}
-body.dark-mode .work-detail-actions .primary{background:#2f81d7;border-color:#2f81d7;color:#fff;}
 body.dark-mode .work-empty{background:#1f232a;border-color:#46505c;color:#a7b0bd;}
 body.dark-mode .clg .cld{background:#1f232a!important;border-color:#313843!important;color:#eef2f7!important;}
 body.dark-mode .clg .cld:hover,
@@ -1177,63 +1166,24 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 .image-preview-item{margin:0;border:1px solid #d9e2ef;border-radius:8px;background:#fff;overflow:hidden;}
 .image-preview-item img{display:block;width:100%;max-height:70vh;object-fit:contain;background:#f8fafc;}
 .image-preview-item figcaption{padding:8px 10px;font-size:12px;color:#64748b;border-top:1px solid #edf2f7;}
-.work-split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start;}
-.work-list{display:grid;gap:10px;min-width:0;}
-.work-empty{border:1px dashed #cbd5e1;border-radius:10px;background:#f8fafc;color:#94a3b8;text-align:center;padding:28px 12px;font-size:12px;}
-.work-card{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:12px;align-items:start;border:1px solid #e2e8f0;border-radius:10px;background:#fff;padding:12px;box-shadow:0 5px 16px rgba(15,23,42,.035);cursor:pointer;transition:background .12s,border-color .12s,box-shadow .12s;}
-.work-card:hover{background:#fbfdff;border-color:#cfe3f8;box-shadow:0 8px 22px rgba(15,23,42,.055);}
-.work-card.on{border-color:#5d9fd8;box-shadow:0 0 0 2px rgba(93,159,216,.12),0 8px 22px rgba(15,23,42,.055);}
-.work-check{width:14px;height:14px;border-radius:4px;border:1px solid #b8c7d9;background:#fff;margin-top:4px;}
-.work-main{min-width:0;display:grid;gap:7px;}
-.work-title{font-size:14px;line-height:1.45;font-weight:800;color:#111827;word-break:break-word;}
-.work-note{font-size:12px;line-height:1.55;color:#64748b;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.work-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:11px;color:#64748b;}
-.work-date{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;}
-.work-status{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;background:var(--sc1,#eff6ff);color:var(--sct,#2563eb);font-size:11px;font-weight:800;border:1px solid var(--scb,#dbeafe);}
-.work-images{display:flex;align-items:center;gap:4px;}
-.work-images .issue-thumb{width:30px;height:30px;border-radius:6px;}
-.work-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:118px;}
-.work-actions{display:flex;align-items:center;gap:5px;font-size:11px;color:#0b63ff;white-space:nowrap;}
-.work-actions button{border:0;background:transparent;color:#0b63ff;font:inherit;font-weight:700;cursor:pointer;padding:0;}
-.work-actions button.off{opacity:.35;pointer-events:none;}
-.work-detail{position:sticky;top:14px;border:1px solid #e2e8f0;border-radius:10px;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.045);min-height:420px;padding:14px;overflow:hidden;}
-.work-detail-empty{height:100%;min-height:260px;display:flex;align-items:center;justify-content:center;text-align:center;color:#94a3b8;font-size:12px;}
-.work-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid #edf2f7;}
-.work-detail-title{font-size:18px;line-height:1.35;font-weight:900;color:#111827;word-break:break-word;}
-.work-detail-actions{display:flex;gap:6px;flex:0 0 auto;}
-.work-detail-actions button{height:30px;border-radius:7px;border:1px solid #d9e2ef;background:#fff;color:#334155;font-size:12px;font-weight:800;padding:0 10px;cursor:pointer;}
-.work-detail-actions .primary{background:#2563eb;border-color:#2563eb;color:#fff;}
-.work-detail-grid{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px 12px;margin:14px 0;font-size:12px;}
-.work-detail-grid span{color:#94a3b8;font-weight:700;}
-.work-detail-grid strong{color:#334155;font-weight:700;word-break:break-word;}
-.work-detail-section{border-top:1px solid #edf2f7;padding-top:12px;margin-top:12px;}
-.work-detail-section h4{font-size:13px;color:#111827;margin:0 0 8px;font-weight:900;}
-.work-detail-text{font-size:13px;line-height:1.75;color:#334155;word-break:break-word;}
-.work-detail-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
-.work-detail-gallery button{border:0;background:transparent;padding:0;cursor:pointer;}
-.work-detail-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid #d9e2ef;border-radius:7px;background:#f8fafc;}
-.work-detail .status-wrap{display:inline-flex;}
-@media(max-width:1100px){.work-split{grid-template-columns:1fr;}.work-detail{position:static;min-height:auto;}.work-card{grid-template-columns:18px minmax(0,1fr);}.work-side{grid-column:2;align-items:flex-start;min-width:0;}}
-.work-split{display:block!important;}
-.work-list{gap:0!important;border:1px solid #e5edf6;border-radius:10px;background:#fff;overflow:hidden;box-shadow:0 6px 18px rgba(15,23,42,.025);}
-.work-card{grid-template-columns:18px minmax(220px,1fr) 94px 116px 86px 26px!important;gap:12px!important;align-items:center!important;border:0!important;border-bottom:1px solid #edf2f7!important;border-radius:0!important;box-shadow:none!important;padding:10px 12px!important;background:#fff!important;min-height:56px;}
-.work-card:last-child{border-bottom:0!important;}
-.work-card:hover{background:#f8fbff!important;box-shadow:none!important;}
-.work-card.on{background:#fff!important;border-left:3px solid #2563eb!important;box-shadow:none!important;padding-left:9px!important;}
-.work-check{margin-top:0!important;width:13px!important;height:13px!important;border-radius:999px!important;}
-.work-main{gap:2px!important;min-width:0;}
-.work-title{font-size:13px!important;line-height:1.35!important;font-weight:750!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.work-note{font-size:11px!important;line-height:1.35!important;-webkit-line-clamp:1!important;color:#64748b!important;}
-.work-meta{display:none!important;}
-.work-side{display:contents!important;min-width:0!important;}
-.work-status{justify-self:start;height:22px!important;padding:0 8px!important;border-radius:999px!important;font-size:11px!important;background:#f8fafc!important;border:1px solid #e5edf6!important;color:#475569!important;}
-.work-status .ico{display:none!important;}
-.work-card .work-date-inline{font-size:12px;color:#64748b;white-space:nowrap;}
-.work-card .work-thumb-inline{display:flex;justify-content:flex-end;align-items:center;gap:4px;min-width:0;}
-.work-card .work-thumb-inline .issue-thumb{width:34px!important;height:24px!important;border-radius:5px!important;}
-.work-card .work-more{border:0;background:transparent;color:#94a3b8;font-size:18px;line-height:1;cursor:pointer;}
-.work-actions{display:none!important;}
-.work-empty{border:0!important;background:#fff!important;}
+.work-split{display:block;}
+.work-list{border:1px solid #dfe8f3;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 8px 22px rgba(15,23,42,.035);}
+.work-empty{background:#fff;color:#94a3b8;text-align:center;padding:26px 12px;font-size:12px;}
+.work-card{display:grid;grid-template-columns:18px minmax(240px,1fr) 92px 132px 96px 28px;gap:12px;align-items:center;min-height:54px;padding:8px 12px;background:#fff;border-bottom:1px solid #edf2f7;cursor:pointer;transition:background .12s;}
+.work-card:last-child{border-bottom:0;}
+.work-card:hover{background:#f8fbff;}
+.work-card.on{background:#fff;box-shadow:inset 3px 0 0 #2563eb;}
+.work-check{width:13px;height:13px;border-radius:999px;border:1px solid #b8c7d9;background:#fff;}
+.work-main{min-width:0;display:grid;gap:2px;}
+.work-title{font-size:13px;line-height:1.35;font-weight:750;color:#111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-note{font-size:11px;line-height:1.35;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-status{justify-self:start;display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;background:#f8fafc;border:1px solid #e5edf6;color:#475569;font-size:11px;font-weight:750;}
+.work-status .ico{display:none;}
+.work-date-inline{font-size:12px;color:#64748b;white-space:nowrap;}
+.work-thumb-inline{display:flex;justify-content:flex-end;align-items:center;gap:4px;min-width:0;color:#94a3b8;font-size:11px;}
+.work-thumb-inline .issue-thumb{width:34px;height:24px;border-radius:5px;}
+.work-more{border:0;background:transparent;color:#94a3b8;font-size:18px;line-height:1;cursor:pointer;}
+.work-more:hover{color:#2563eb;}
 .detail-modal-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0;}
 .detail-modal-field{border:1px solid #edf2f7;border-radius:8px;background:#f8fafc;padding:9px 10px;}
 .detail-modal-field span{display:block;font-size:11px;color:#94a3b8;font-weight:700;margin-bottom:4px;}
@@ -1254,7 +1204,7 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 #tm .mh{background:#fff!important;border-bottom:1px solid #edf2f7!important;padding:16px 18px!important;}
 #tm .mh h3{font-size:20px!important;font-weight:850!important;color:#111827!important;}
 #tm .mc{padding:18px!important;}
-@media(max-width:1100px){.work-card{grid-template-columns:18px minmax(0,1fr) 82px!important;}.work-card .work-date-inline,.work-card .work-thumb-inline{display:none!important;}}
+@media(max-width:1100px){.work-card{grid-template-columns:18px minmax(0,1fr) 82px;}.work-date-inline,.work-thumb-inline{display:none;}}
 .status-select{min-height:24px!important;min-width:66px!important;padding:2px 16px 2px 8px!important;font-size:11px!important;box-shadow:none!important;border-radius:999px!important;background:var(--sc1,#f7fbff)!important;border-color:transparent!important;}
 .status-wrap::after{right:4px!important;font-size:8px!important;}
 .s-ft{padding:10px 12px!important;gap:8px!important;}
@@ -2072,14 +2022,6 @@ function renderWorkImages(item,title){
   html+='</div>';
   return html;
 }
-function renderWorkDetailGallery(item,title){
-  var imgs=itemImagesOf(item);
-  if(!imgs.length)return '<div class="work-detail-text" style="color:#94a3b8;">暂无图片</div>';
-  var html='<div class="work-detail-gallery">';
-  imgs.slice(0,6).forEach(function(img){html+='<button type="button" onclick="openImagePreview(\''+J(title||'图片')+'\',\''+J(JSON.stringify(imgs))+'\')"><img src="'+E(img.src||img)+'" alt="图片"></button>';});
-  html+='</div>';
-  return html;
-}
 function workDateText(a,b){return (a?E(a):'-')+' → '+(b?E(b):'-');}
 function renderInlineThumbs(item,title){
   var imgs=itemImagesOf(item);
@@ -2102,7 +2044,7 @@ function openWorkDetail(kind,idx){
   var isIssue=kind==='issue';
   var item=isIssue?S.issues[idx]:S.projects[idx];
   if(!item)return;
-  if(isIssue)IssueSel=idx;else ProjectSel=idx;
+  if(isIssue){IssueSel=idx;RI();}else{ProjectSel=idx;RP();}
   var title=isIssue?(item.t||'未命名事项'):(item.c||'未命名项目');
   var status=isIssue?item.g:item.st;
   var start=isIssue?item.sd:item.sdt;
@@ -2124,26 +2066,6 @@ function deleteWorkEntry(kind,idx){
 }
 function selectIssue(idx){openWorkDetail('issue',idx);}
 function selectProject(idx){openWorkDetail('proj',idx);}
-function renderIssueDetail(idx){
-  var box=document.getElementById('issue-detail');
-  if(!box)return;
-  var it=S.issues[idx];
-  if(!it){box.innerHTML='<div class="work-detail-empty">选择左侧事项查看详情</div>';return;}
-  box.innerHTML='<div class="work-detail-head"><div class="work-detail-title">'+F(it.t||'未命名事项')+'</div><div class="work-detail-actions"><button class="primary edit-only" onclick="oem(\'issue\','+idx+')">编辑</button></div></div>'
-    +'<div class="work-detail-grid"><span>状态</span><strong>'+statusSelect('issue',idx,it.g,ISL)+'</strong><span>开始</span><strong>'+(it.sd?E(it.sd):'-')+'</strong><span>截止</span><strong>'+(it.ed?E(it.ed):'-')+'</strong><span>图片</span><strong>'+itemImagesOf(it).length+' 张</strong></div>'
-    +'<div class="work-detail-section"><h4>描述</h4><div class="work-detail-text">'+(it.d?F(it.d):'<span style="color:#94a3b8;">暂无描述</span>')+'</div></div>'
-    +'<div class="work-detail-section"><h4>相关图片</h4>'+renderWorkDetailGallery(it,it.t||'事项图片')+'</div>';
-}
-function renderProjectDetail(idx){
-  var box=document.getElementById('project-detail');
-  if(!box)return;
-  var p=S.projects[idx];
-  if(!p){box.innerHTML='<div class="work-detail-empty">选择左侧项目查看详情</div>';return;}
-  box.innerHTML='<div class="work-detail-head"><div class="work-detail-title">'+F(p.c||'未命名项目')+'</div><div class="work-detail-actions"><button class="primary edit-only" onclick="oem(\'proj\','+idx+')">编辑</button></div></div>'
-    +'<div class="work-detail-grid"><span>状态</span><strong>'+statusSelect('proj',idx,p.st,PSL)+'</strong><span>开始</span><strong>'+(p.sdt?E(p.sdt):'-')+'</strong><span>截止</span><strong>'+(p.dl?E(p.dl):'-')+'</strong><span>图片</span><strong>'+itemImagesOf(p).length+' 张</strong></div>'
-    +'<div class="work-detail-section"><h4>备注</h4><div class="work-detail-text">'+(p.note?F(p.note):'<span style="color:#94a3b8;">暂无备注</span>')+'</div></div>'
-    +'<div class="work-detail-section"><h4>相关图片</h4>'+renderWorkDetailGallery(p,p.c||'项目图片')+'</div>';
-}
 function RI(){var is=S.issues;document.getElementById('ic2').textContent=is.length+'项';
 var ss=['全部',...new Set(is.map(function(i){return i.g}))];var fh='';
 ss.forEach(function(s){var c=s==='全部'?is.length:is.filter(function(i){return i.g===s}).length;fh+='<button class="fbb'+(s===IF?' on':'')+'" data-f="'+s+'">'+(SvgIc[s]||'')+' '+s+' ('+c+')</button>';});
@@ -2152,9 +2074,9 @@ document.getElementById('ifb').querySelectorAll('.fbb').forEach(function(b){b.ad
 var fl=IF==='全部'?is:is.filter(function(i){return i.g===IF});
 if(IssueSel>=is.length)IssueSel=Math.max(0,is.length-1);
 if(!fl.includes(is[IssueSel])&&fl.length)IssueSel=is.indexOf(fl[0]);
-if(!fl.length){document.getElementById('it').innerHTML='<div class="work-empty">无匹配事项</div>';renderIssueDetail(-1);return;}
+if(!fl.length){document.getElementById('it').innerHTML='<div class="work-empty">无匹配事项</div>';return;}
 var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<article class="work-card'+(idx===IssueSel?' on':'')+'" onclick="selectIssue('+idx+')" ondblclick="oem(\'issue\','+idx+')"><span class="work-check"></span><div class="work-main"><div class="work-title">'+F(it.t||'未命名事项')+'</div><div class="work-note">'+(it.d?F(it.d):'<span style="color:#94a3b8;">暂无描述</span>')+'</div></div><span class="work-status" style="'+statusSelectStyle(it.g)+'">'+E(it.g||'-')+'</span><span class="work-date-inline">'+workDateText(it.sd,it.ed)+'</span>'+renderInlineThumbs(it,it.t||'事项图片')+'<button class="work-more" type="button" onclick="event.stopPropagation();openWorkDetail(\'issue\','+idx+')">⋯</button></article>';});
-document.getElementById('it').innerHTML=h3;renderIssueDetail(IssueSel);document.querySelectorAll('[data-del="i"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此事项？'))return;S.issues.splice(idx,1);IssueSel=Math.min(IssueSel,S.issues.length-1);RA();SC();T('已删除');});});}
+document.getElementById('it').innerHTML=h3;}
 function RP(){var ps=S.projects;document.getElementById('pc').textContent=ps.length+'项';
 var ss=['全部',...new Set(ps.map(function(p){return p.st}))];var fh='';
 ss.forEach(function(s){var c=s==='全部'?ps.length:ps.filter(function(p){return p.st===s}).length;fh+='<button class="fbb'+(s===PF?' on':'')+'" data-f="'+s+'">'+(SvgIc[s]||'')+' '+s+' ('+c+')</button>';});
@@ -2162,9 +2084,9 @@ document.getElementById('pfb').innerHTML=fh;document.getElementById('pfb').query
 var fl2=PF==='全部'?ps:ps.filter(function(p){return p.st===PF});
 if(ProjectSel>=ps.length)ProjectSel=Math.max(0,ps.length-1);
 if(!fl2.includes(ps[ProjectSel])&&fl2.length)ProjectSel=ps.indexOf(fl2[0]);
-if(!fl2.length){document.getElementById('pt').innerHTML='<div class="work-empty">无匹配项目</div>';renderProjectDetail(-1);return;}
+if(!fl2.length){document.getElementById('pt').innerHTML='<div class="work-empty">无匹配项目</div>';return;}
 var h4='';fl2.forEach(function(p,i){var idx=ps.indexOf(p);h4+='<article class="work-card'+(idx===ProjectSel?' on':'')+'" onclick="selectProject('+idx+')" ondblclick="oem(\'proj\','+idx+')"><span class="work-check"></span><div class="work-main"><div class="work-title">'+F(p.c||'未命名项目')+'</div><div class="work-note">'+(p.note?F(p.note):'<span style="color:#94a3b8;">暂无备注</span>')+'</div></div><span class="work-status" style="'+statusSelectStyle(p.st)+'">'+E(p.st||'-')+'</span><span class="work-date-inline">'+workDateText(p.sdt,p.dl)+'</span>'+renderInlineThumbs(p,p.c||'项目图片')+'<button class="work-more" type="button" onclick="event.stopPropagation();openWorkDetail(\'proj\','+idx+')">⋯</button></article>';});
-document.getElementById('pt').innerHTML=h4;renderProjectDetail(ProjectSel);document.querySelectorAll('[data-del="p"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此需求？'))return;S.projects.splice(idx,1);ProjectSel=Math.min(ProjectSel,S.projects.length-1);RA();SC();T('已删除');});});}
+document.getElementById('pt').innerHTML=h4;}
 function RD(){var ds=S.discusses;document.getElementById('dc').textContent=ds.length+'项';
 if(!ds.length){document.getElementById('dl').innerHTML='<div style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">暂无</div>';return;}
 var h5='<div class="dl">';ds.forEach(function(d,i){h5+='<div class="di" onclick="oem(\'disc\','+i+')"><span class="di-i">'+d.ic+'</span><span class="di-t" style="line-height:1.5;">'+F(d.tx)+'</span><div class="da" onclick="event.stopPropagation();"><span class="dm '+(i===0?'off':'')+'" onclick="moveEntry(\'disc\','+i+',-1)" title="上移">↑</span><span class="dm '+(i===ds.length-1?'off':'')+'" onclick="moveEntry(\'disc\','+i+',1)" title="下移">↓</span><span class="dd" data-del="d" data-idx="'+i+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div></div>';});h5+='</div>';document.getElementById('dl').innerHTML=h5;
