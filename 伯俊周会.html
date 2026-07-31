@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -949,15 +949,18 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .viewer-control{display:none;align-items:center;gap:8px;font-size:12px;color:#6b7280;font-weight:800;}
 .viewer-control.show{display:inline-flex;}
 .viewer-control select{height:34px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;color:#111827;padding:0 28px 0 10px;outline:none;}
-.workspace-head{margin:12px 16px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.05);display:grid;grid-template-columns:minmax(300px,1fr) auto;gap:12px 18px;align-items:center;}
-.workspace-left{display:flex;align-items:center;gap:18px;min-width:0;}
-.workspace-brand{min-width:120px;border-right:1px solid #edf2f7;padding-right:18px;}
-.workspace-brand strong{display:block;font-size:18px;color:#111827;line-height:1.15;}
-.workspace-brand span{display:block;font-size:12px;color:#6b7280;margin-top:3px;}
+.workspace-head{margin:8px 16px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;box-shadow:0 10px 30px rgba(15,23,42,.05);display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:12px 18px;align-items:center;}
+.workspace-left{display:flex;align-items:center;gap:12px;min-width:0;}
 .workspace-title{min-width:0;}
 .workspace-title h2{font-size:20px;line-height:1.25;color:#111827;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .workspace-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:0;}
-.workspace-tools{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;}
+.settings-panel{display:none;position:fixed;left:300px;top:82px;width:320px;max-width:calc(100vw - 32px);background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 20px 50px rgba(15,23,42,.16);z-index:9990;padding:14px;}
+.settings-panel.show{display:block;}
+.settings-panel h3{font-size:15px;color:#111827;margin:0 0 12px;}
+.settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #eef2f7;font-size:13px;color:#52667a;font-weight:800;}
+.settings-row:first-of-type{border-top:0;}
+.settings-row .viewer-control{display:flex;}
+.settings-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
 .meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin:12px 16px 8px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.05);}
 .meeting-context-top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
 .meeting-context h2{font-size:19px;line-height:1.25;color:#111827;margin:0 0 6px;}
@@ -1006,6 +1009,9 @@ body.dark-mode .module-item.on{background:rgba(124,199,190,.1);color:var(--brand
 body.dark-mode .module-item .module-count{background:#252b33;border-color:rgba(70,79,92,.72);color:var(--text-sub);}
 body.dark-mode .file-picker-list{background:#1f242b;border-color:rgba(70,79,92,.72);}
 body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-color:rgba(70,79,92,.72);}
+body.dark-mode .settings-panel{background:#1f232a;border-color:#313843;}
+body.dark-mode .settings-panel h3{color:#eef2f7;}
+body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 .nv{display:none!important;}
 .app.sidebar-collapsed .sidebar{width:76px!important;min-width:76px!important;}
 .app.sidebar-collapsed .s-hd{padding:16px 12px!important;align-items:center!important;justify-content:center!important;}
@@ -1037,7 +1043,6 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
   .auth-values,.metric-row{grid-template-columns:1fr;}
   .workspace-head{grid-template-columns:1fr;}
   .workspace-left{align-items:flex-start;flex-direction:column;gap:8px;}
-  .workspace-brand{border-right:0;padding-right:0;}
   .workspace-right{align-items:flex-start;}
   .meeting-context-top{flex-direction:column;}
   .meeting-actions{justify-content:flex-start;}
@@ -1081,6 +1086,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <div class="module-label">管理</div>
 <button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M4 6h6l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></span><span class="module-text">周会文件</span></span><span class="module-count" id="side-file-count">0</span></button>
 <button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M21 8v12H3V8"/><path d="M1 4h22v4H1z"/><path d="M10 12h4"/></svg></span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
+<button class="module-item" type="button" onclick="toggleSettingsPanel()"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.36.15.7.36 1 .6.3.26.7.4 1.1.4H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg></span><span class="module-text">设置</span></span><span class="module-count"> </span></button>
 <button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg></span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
 </div>
 <div class="s-ft">
@@ -1091,7 +1097,6 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <div class="main">
 <div class="workspace-head">
 <div class="workspace-left">
-<div class="workspace-brand"><strong>一周有数</strong><span>伯俊周会空间</span></div>
 <div class="workspace-title">
 <h2 id="mtg">未选择周会</h2>
 <div class="meeting-meta">
@@ -1102,14 +1107,6 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div>
 </div>
 <div class="workspace-right">
-<div class="workspace-tools">
-<label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
-<button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">深色</button>
-<span class="user-pill" id="user-pill">未登录</span>
-<button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button>
-<button class="tbb tbp" type="button" onclick="logout()">退出</button>
-<input type="file" id="mi" accept=".md" style="display:none">
-</div>
 <div class="meeting-actions">
 <button class="tbb tbp" onclick="openFilePicker()"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M4 6h6l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></span>切换周会</button>
 <button class="tbb tbi edit-only" id="module-add-btn" type="button" onclick="addIssue()">+ 新增事项</button>
@@ -1177,6 +1174,14 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div>
 <div id="user-list"></div>
 </div>
+<div class="settings-panel" id="settings-panel">
+<h3>设置</h3>
+<div class="settings-row"><span>查看用户</span><label class="viewer-control" id="viewer-control"><select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label></div>
+<div class="settings-row"><span>外观</span><button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">深色</button></div>
+<div class="settings-row"><span>当前账号</span><span class="user-pill" id="user-pill">未登录</span></div>
+<div class="settings-row"><span>操作</span><div class="settings-actions"><button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button><button class="tbb tbp" type="button" onclick="logout()">退出</button></div></div>
+</div>
+<input type="file" id="mi" accept=".md" style="display:none">
 <div class="dp" id="dp">
 <div class="dp-bd">
 <div class="dp-hd">
@@ -1435,6 +1440,10 @@ function toggleSidebar(){
   sidebarCollapsed=!sidebarCollapsed;
   localStorage.setItem('bj_sidebar_collapsed',sidebarCollapsed?'1':'0');
   applySidebarState();
+}
+function toggleSettingsPanel(){
+  var panel=document.getElementById('settings-panel');
+  if(panel)panel.classList.toggle('show');
 }
 
 function oem(type,idx){
