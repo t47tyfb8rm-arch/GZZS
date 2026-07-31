@@ -1011,6 +1011,9 @@ body.dark-mode .content-kpi strong{color:var(--text-main);}
 .folder-head span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .folder-head button{border:1px solid #dbe3ee;background:#fff;border-radius:7px;padding:2px 7px;color:#52667a;font-size:11px;font-weight:800;cursor:pointer;}
 .folder-head button:hover{background:#edf4fa;color:#2563eb;}
+.folder-actions{display:flex;align-items:center;gap:5px;flex:0 0 auto;}
+.folder-delete{color:#ef4444!important;border-color:#fee2e2!important;background:#fff7f7!important;}
+.folder-delete:hover{background:#fee2e2!important;color:#dc2626!important;}
 .wi-tools{display:flex;align-items:center;gap:4px;margin-left:auto;}
 .wi-rename,.wi-move,.wi-del{position:static!important;display:inline-flex!important;align-items:center;justify-content:center;width:auto!important;height:28px!important;transform:none!important;border:1px solid #dbe3ee;background:#fff;color:#52667a;font-size:11px;font-weight:800;cursor:pointer;padding:0 8px;border-radius:7px;opacity:1!important;}
 .wi-del{color:#ef4444;border-color:#fee2e2;background:#fff7f7;}
@@ -1065,6 +1068,16 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 .pt .p-act{gap:0!important;}
 .pt .p-move,.pt .p-del,.pt .ix{font-size:12px!important;color:#0b63ff!important;padding:0!important;background:transparent!important;}
 .pt .p-del,.pt .ix{color:#0b63ff!important;}
+.issue-images{display:flex;align-items:center;gap:4px;min-width:54px;}
+.issue-thumb{width:28px;height:28px;border-radius:4px;border:1px solid #d9e2ef;object-fit:cover;background:#f8fafc;display:block;}
+.issue-img-count{font-size:11px;color:#64748b;}
+.image-uploader{display:grid;gap:8px;}
+.image-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.image-list{display:flex;gap:8px;flex-wrap:wrap;}
+.image-item{position:relative;width:64px;height:64px;border:1px solid #d9e2ef;border-radius:6px;overflow:hidden;background:#f8fafc;}
+.image-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.image-remove{position:absolute;right:3px;top:3px;width:18px;height:18px;border:0;border-radius:4px;background:rgba(15,23,42,.72);color:#fff;cursor:pointer;font-size:12px;line-height:18px;}
+.image-upload-btn{height:30px;border:1px solid #d9e2ef;border-radius:6px;background:#fff;color:#0b63ff;font-size:12px;font-weight:700;padding:0 10px;cursor:pointer;}
 .status-select{min-height:24px!important;min-width:66px!important;padding:2px 16px 2px 8px!important;font-size:11px!important;box-shadow:none!important;border-radius:999px!important;background:var(--sc1,#f7fbff)!important;border-color:transparent!important;}
 .status-wrap::after{right:4px!important;font-size:8px!important;}
 .s-ft{padding:10px 12px!important;gap:8px!important;}
@@ -1202,7 +1215,7 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 <div class="cb">
 <div class="fb" id="ifb"></div>
 <div style="overflow-x:auto;">
-<table class="pt"><thead><tr><th class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></th><th style="width:46px;">序号</th><th style="width:150px;">事项内容</th><th style="width:86px;">开始</th><th style="width:86px;">截止</th><th style="width:260px;">描述</th><th style="width:86px;text-align:center;">状态</th><th style="width:70px;text-align:center;">操作</th></tr></thead>
+<table class="pt"><thead><tr><th class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></th><th style="width:46px;">序号</th><th style="width:150px;">事项内容</th><th style="width:86px;">开始</th><th style="width:86px;">截止</th><th style="width:240px;">描述</th><th style="width:80px;">图片</th><th style="width:86px;text-align:center;">状态</th><th style="width:70px;text-align:center;">操作</th></tr></thead>
 <tbody id="it"></tbody></table>
 </div></div></div></div>
 <div class="tc" id="c1">
@@ -1337,7 +1350,7 @@ function refreshStatusButtonGroup(group){
 }
 let S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};
 let SH=[],CF=null,WF=[],SF='全部',AR=[],FI=0,FT=null,IF='全部',PF='全部';
-let eT=null,eI=null;
+let eT=null,eI=null,EImgs=[];
 let SaveHandle=null,SaveHandleName='';
 let SaveDirHandle=null,SaveDirName='';
 let sidebarCollapsed=false;
@@ -1524,6 +1537,56 @@ function toggleSettingsPanel(){
   switchModule('5');
 }
 
+function issueImagesOf(item){return Array.isArray(item&&item.imgs)?item.imgs:[];}
+function renderIssueImageCell(item){
+  var imgs=issueImagesOf(item);
+  if(!imgs.length)return '<span style="color:#94a3b8;">-</span>';
+  return '<div class="issue-images"><img class="issue-thumb" src="'+E(imgs[0].src||imgs[0])+'" alt="图片"><span class="issue-img-count">'+imgs.length+'张</span></div>';
+}
+function renderIssueImagesEditor(){
+  var list=EImgs.map(function(img,i){return '<div class="image-item"><img src="'+E(img.src||img)+'" alt="图片 '+(i+1)+'"><button class="image-remove" type="button" onclick="removeIssueImage('+i+')">×</button></div>';}).join('');
+  return '<div class="image-uploader"><div class="image-actions"><button class="image-upload-btn" type="button" onclick="document.getElementById(\'issue-img-input\').click()">上传图片</button><span class="eg-tip">建议单张小于 2MB，保存时会压缩</span><input id="issue-img-input" type="file" accept="image/*" multiple style="display:none" onchange="handleIssueImages(this.files)"></div><div class="image-list" id="issue-img-list">'+(list||'<span class="eg-tip">暂无图片</span>')+'</div></div>';
+}
+function refreshIssueImagesEditor(){
+  var box=document.getElementById('issue-img-list');
+  if(box)box.innerHTML=EImgs.map(function(img,i){return '<div class="image-item"><img src="'+E(img.src||img)+'" alt="图片 '+(i+1)+'"><button class="image-remove" type="button" onclick="removeIssueImage('+i+')">×</button></div>';}).join('')||'<span class="eg-tip">暂无图片</span>';
+}
+function removeIssueImage(i){
+  EImgs.splice(i,1);
+  refreshIssueImagesEditor();
+}
+function resizeImageFile(file){
+  return new Promise(function(resolve,reject){
+    var reader=new FileReader();
+    reader.onload=function(){
+      var img=new Image();
+      img.onload=function(){
+        var max=1000;
+        var w=img.width,h=img.height;
+        var scale=Math.min(1,max/Math.max(w,h));
+        var canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(w*scale));
+        canvas.height=Math.max(1,Math.round(h*scale));
+        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+        resolve({name:file.name,src:canvas.toDataURL('image/jpeg',0.78)});
+      };
+      img.onerror=reject;
+      img.src=reader.result;
+    };
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
+  });
+}
+async function handleIssueImages(files){
+  var arr=Array.from(files||[]).filter(function(f){return /^image\//.test(f.type);});
+  if(!arr.length)return;
+  try{
+    for(var i=0;i<arr.length;i++)EImgs.push(await resizeImageFile(arr[i]));
+    refreshIssueImagesEditor();
+    T('图片已添加，保存后生效');
+  }catch(ex){T('图片处理失败',1);}
+}
+
 function oem(type,idx){
   if(isReadOnly()){T('查看模式下不能编辑',1);return;}
   eT=type;eI=idx;
@@ -1531,14 +1594,17 @@ function oem(type,idx){
   let html='';
   if(type==='issue'){
     const it=S.issues[idx];
+    EImgs=issueImagesOf(it).map(function(img){return typeof img==='string'?{name:'图片',src:img}:img;});
 document.getElementById('emt').textContent='编辑事项 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="i">当前事项</option><option value="p">项目</option><option value="d">讨论</option></select></div>';
     html+='<div class="eg"><label>事项内容</label><input id="eit" value="'+E(it.t)+'"></div>';
 html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(it.sd||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)" title="选择日期">选择</button></div></div>';
 html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(it.ed||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)" title="选择日期">选择</button></div></div>';
     html+='<div class="eg"><label>描述</label><div id="eid" class="rich-editor" contenteditable="true" data-placeholder="请输入描述">'+H(it.d)+'</div>'+fmtBar("eid")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
+    html+='<div class="eg"><label>图片</label>'+renderIssueImagesEditor()+'</div>';
     html+='<div class="eg" id="esg"><label>状态</label><div class="sg-c">'+ISL.map(function(s){return '<button class="'+(s===it.g?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===it.g)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(type==='proj'){
+    EImgs=[];
     const p=S.projects[idx];
     document.getElementById('emt').textContent='编辑需求 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="p">项目</option><option value="i">当前事项</option><option value="d">讨论</option></select></div>';
@@ -1548,6 +1614,7 @@ html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="ep
     html+='<div class="eg"><label>备注</label><div id="epn" class="rich-editor" contenteditable="true" data-placeholder="可选备注">'+H(p.note||'')+'</div>'+fmtBar("epn")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
     html+='<div class="eg" id="esg"><label>状态</label><div class="sg-c">'+PSL.map(function(s){return '<button class="'+(s===p.st?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===p.st)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(type==='disc'){
+    EImgs=[];
     const d=S.discusses[idx];
 document.getElementById('emt').textContent='编辑讨论 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="d">讨论</option><option value="i">当前事项</option><option value="p">项目</option></select></div>';
@@ -1570,6 +1637,7 @@ function ecs(){
   f.querySelectorAll('input,textarea,[contenteditable="true"]').forEach(function(el){vals[el.id]=GV(el.id);});
   const sel=f.querySelector('.sg-c .s-on');
   const selVal=sel?sel.dataset.s||sel.dataset.ic:'';
+  if(v!=='i')EImgs=[];
   let item;
   if(oldType==='issue')item=S.issues[eI];
   else if(oldType==='proj')item=S.projects[eI];
@@ -1589,6 +1657,7 @@ document.getElementById('emt').textContent='编辑事项 #'+(eI+1);
 html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(sd2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)">选择</button></div></div>';
 html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(ed2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)">选择</button></div></div>';
     html+='<div class="eg"><label>描述</label><div id="eid" class="rich-editor" contenteditable="true" data-placeholder="请输入描述">'+H(d2)+'</div>'+fmtBar("eid")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
+    html+='<div class="eg"><label>图片</label>'+renderIssueImagesEditor()+'</div>';
     html+='<div class="eg"><label>状态</label><div class="sg-c">'+ISL.map(function(s){return '<button class="'+(s===g?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===g)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(v==='p'){
     document.getElementById('emt').textContent='编辑需求 #'+(eI+1);
@@ -1628,17 +1697,17 @@ function esv(){
     else if(oldKey==='proj')item=S.projects.splice(eI,1)[0];
     else if(oldKey==='disc')item=S.discusses.splice(eI,1)[0];
     if(!item){T('错误',1);return;}
-    if(newKey==='issue'){var t2=GV('eit').trim()||item.t||item.c||'';var sd2=GV('eisd').trim()||item.sd||'';var ed2=GV('eied').trim()||item.ed||'';var d3=GV('eid').trim()||item.d||item.note||'';var sel2=document.querySelector('#eff .sg-c .s-on');var g2=sel2?sel2.dataset.s||sel2.dataset.ic||'处理中':'处理中';S.issues.push({t:t2,sd:sd2,ed:ed2,d:d3,g:g2});}
+    if(newKey==='issue'){var t2=GV('eit').trim()||item.t||item.c||'';var sd2=GV('eisd').trim()||item.sd||'';var ed2=GV('eied').trim()||item.ed||'';var d3=GV('eid').trim()||item.d||item.note||'';var sel2=document.querySelector('#eff .sg-c .s-on');var g2=sel2?sel2.dataset.s||sel2.dataset.ic||'处理中':'处理中';S.issues.push({t:t2,sd:sd2,ed:ed2,d:d3,g:g2,imgs:EImgs.slice()});}
     else if(newKey==='proj'){var c2=GV('epc').trim()||item.c||item.t||'';var note2=GV('epn').trim()||item.note||item.d||'';var sdt2=GV('epsdt').trim()||item.sdt||'';var dl2=GV('epdl').trim()||item.dl||'-';var sel2=document.querySelector('#eff .sg-c .s-on');var st3=sel2?sel2.dataset.s||sel2.dataset.ic||'进行中':'开发中';S.projects.push({c:c2,note:note2,sdt:sdt2,dl:dl2,st:st3});}
     else if(newKey==='disc'){var tx2=GV('edt').trim()||item.tx||item.t||item.c||'';var sel2=document.querySelector('#eff .sg-c .s-on');var ic2=sel2?sel2.dataset.ic||sel2.dataset.s||'蓝':'蓝';S.discusses.push({tx:tx2,ic:ic2});}
   }else{
-    if(eT==='issue'){var it2=S.issues[eI];var t2=GV('eit').trim();if(!t2){T('空',1);return;}it2.t=t2;it2.sd=GV('eisd').trim();it2.ed=GV('eied').trim();it2.d=GV('eid').trim();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)it2.g=sel2.dataset.s;}
+    if(eT==='issue'){var it2=S.issues[eI];var t2=GV('eit').trim();if(!t2){T('空',1);return;}it2.t=t2;it2.sd=GV('eisd').trim();it2.ed=GV('eied').trim();it2.d=GV('eid').trim();it2.imgs=EImgs.slice();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)it2.g=sel2.dataset.s;}
     else if(eT==='proj'){var p2=S.projects[eI];var c2=GV('epc').trim();if(!c2){T('空',1);return;}p2.c=c2;p2.note=GV('epn').trim();p2.sdt=GV('epsdt').trim();p2.dl=GV('epdl').trim();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)p2.st=sel2.dataset.s;}
     else if(eT==='disc'){var d2=S.discusses[eI];var tx2=GV('edt').trim();if(!tx2){T('空',1);return;}d2.tx=tx2;var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)d2.ic=sel2.dataset.ic;}
   }
   ecm();RA();SC();T('已保存');
 }
-function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI=null;}
+function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI=null;EImgs=[];}
 (function(){document.querySelectorAll('.nt,.module-item[data-t]').forEach(function(e){e.addEventListener('click',function(){switchModule(this.dataset.t);});});
 document.getElementById('mi').addEventListener('change',function(e){var f0=e.target.files[0];if(!f0||!f0.name.endsWith('.md'))return;var r=new FileReader();r.onload=function(ev){LF(ev.target.result,f0.name);};r.readAsText(f0);e.value='';});
 document.addEventListener('drop',function(e){e.preventDefault();Array.from(e.dataTransfer.files).forEach(function(f){if(f.name.endsWith('.md')){var r2=new FileReader();r2.onload=function(ev){LF(ev.target.result,f.name)};r2.readAsText(f);}});});document.addEventListener('dragover',function(e){e.preventDefault()});})();
@@ -1663,8 +1732,9 @@ var allOwners=CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter==='all';
 if(!allOwners)availableFoldersForOwner(CurrentUser&&CurrentUser.role==='admin'?OwnerFilter:(CurrentUser&&CurrentUser.id)).forEach(function(name){if(!grouped[name])grouped[name]=[];});
 st2.forEach(function(f){var key=(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter==='all'?(f.owner||'unknown')+' / ':'')+folderOf(f);if(!grouped[key])grouped[key]=[];grouped[key].push(f);});
 if(!Object.keys(grouped).length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">暂无文件<br>可新建文件夹、新建或导入 .md</div>';return;}
-Object.keys(grouped).sort(function(a,b){return a.localeCompare(b,'zh-Hans-CN');}).forEach(function(folder){var folderName=folder.replace(/^.* \/ /,'');h2+='<div class="folder-head" data-folder="'+E(folderName)+'"><span>'+E(folder)+' · '+grouped[folder].length+' 个文件</span><button class="edit-only folder-rename" data-folder="'+E(folderName)+'">改名</button></div>';grouped[folder].forEach(function(f){var a=f.id===CurrentReportId?' active':'';var wn=(f.name||'').replace('.md','');var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><span class="wi-tools edit-only"><button class="wi-rename" title="重命名文件">改名</button><button class="wi-move" title="移动文件">移动</button><button class="wi-del" title="删除文件">删除</button></span></div>';});});l.innerHTML=h2;
+Object.keys(grouped).sort(function(a,b){return a.localeCompare(b,'zh-Hans-CN');}).forEach(function(folder){var folderName=folder.replace(/^.* \/ /,'');var meta=(FF||[]).find(function(f){var key=(allOwners?(f.owner||'unknown')+' / ':'')+((f.name||'默认').trim()||'默认');return key===folder;});var canDelete=folderName!=='默认'&&grouped[folder].length===0&&(!meta||!CurrentUser||CurrentUser.role==='admin'||meta.ownerId===CurrentUser.id);h2+='<div class="folder-head" data-folder="'+E(folderName)+'"><span>'+E(folder)+' · '+grouped[folder].length+' 个文件</span><span class="folder-actions"><button class="edit-only folder-rename" data-folder="'+E(folderName)+'">改名</button>'+(canDelete?'<button class="edit-only folder-delete" data-folder="'+E(folderName)+'" data-folder-id="'+E(meta&&meta.id||'')+'" data-owner-id="'+E(meta&&meta.ownerId||'')+'">删除</button>':'')+'</span></div>';grouped[folder].forEach(function(f){var a=f.id===CurrentReportId?' active':'';var wn=(f.name||'').replace('.md','');var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><span class="wi-tools edit-only"><button class="wi-rename" title="重命名文件">改名</button><button class="wi-move" title="移动文件">移动</button><button class="wi-del" title="删除文件">删除</button></span></div>';});});l.innerHTML=h2;
 document.querySelectorAll('.folder-rename').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();renameFolder(this.dataset.folder);});});
+document.querySelectorAll('.folder-delete').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();deleteFolder(this.dataset.folder,this.dataset.folderId,this.dataset.ownerId);});});
 document.querySelectorAll('.wi').forEach(function(el){var tools=el.querySelector('.wi-tools');if(tools){tools.addEventListener('click',function(e){e.stopPropagation();});tools.addEventListener('mousedown',function(e){e.stopPropagation();});}el.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.wi-tools'))return;OW(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-n').addEventListener('dblclick',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});var renameBtn=el.querySelector('.wi-rename');if(renameBtn)renameBtn.addEventListener('click',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});var moveBtn=el.querySelector('.wi-move');if(moveBtn)moveBtn.addEventListener('click',function(e){e.stopPropagation();moveFileToFolder(el.dataset.id);});el.querySelector('.wi-del').addEventListener('click',async function(e){e.stopPropagation();var fn=el.dataset.fn;var targetReport=WF.find(function(f){return f.id===el.dataset.id;});if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能删除自己的周会',1);return;}if(!confirm('删除 "'+fn.replace('.md','')+'"？'))return;try{await api('/api/reports/'+el.dataset.id,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==el.dataset.id});delete ReportCache[el.dataset.id];if(CurrentReportId===el.dataset.id){CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();}RW();T('已删除 "'+fn.replace('.md','')+'"');}catch(ex){T(ex.message,1);}});});}
 function fw(){var sw=document.getElementById('sw');var q=sw?sw.value.toLowerCase():'';document.querySelectorAll('.wi').forEach(function(e){e.style.display=e.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
 async function renameFolder(oldFolder){
@@ -1678,6 +1748,16 @@ async function renameFolder(oldFolder){
     FF.forEach(function(f){if((f.name||'默认')===oldFolder)f.name=next;});
     RW();
     T('文件夹已重命名');
+  }catch(ex){T(ex.message,1);}
+}
+async function deleteFolder(name,id,ownerId){
+  if(!name||name==='默认'){T('默认文件夹不能删除',1);return;}
+  if(!confirm('删除空文件夹 "'+name+'"？'))return;
+  try{
+    await api('/api/folders/delete',{method:'POST',body:JSON.stringify({id:id,name:name,ownerId:ownerId})});
+    FF=FF.filter(function(f){return id?f.id!==id:!((f.name||'默认')===name&&(!ownerId||f.ownerId===ownerId));});
+    RW();
+    T('文件夹已删除');
   }catch(ex){T(ex.message,1);}
 }
 async function moveFileToFolder(reportId){
@@ -1726,11 +1806,11 @@ async function renameFile(oldName,reportId){
   if(CF===newName)RA();
   T('已重命名为 "'+newName.replace('.md','')+'"');
 }
-function normalizeLoadedData(d){d=d||{};d.projects=d.projects||[];d.issues=d.issues||[];d.discusses=d.discusses||[];d.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});d.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});return d;}
+function normalizeLoadedData(d){d=d||{};d.projects=d.projects||[];d.issues=d.issues||[];d.discusses=d.discusses||[];d.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});d.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';if(!Array.isArray(it.imgs))it.imgs=[];});return d;}
 function OW(n,reportId){CF=n;CurrentReportId=reportId||null;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=(n||'未选择文件').replace(/\.md$/,'');var d=normalizeLoadedData(ReportCache[reportId]);S=d;SH=d.shots||[];RA();RW();closeFilePicker();T('已加载');}
 function OWN(n){var f=WF.find(function(x){return x.name===n});if(f){OW(f.name,f.id);return;}var now=new Date();CurrentReportId=null;CF=n;S={week:n.replace('.md','').replace('周会-','').replace('第','周')||'第?周',date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];RA();}
 async function LF(t,f){var d=PM(t);if(!d){T('解析失败',1);return;}
-S=d;SH=d.shots||[];S.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});S.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});CF=f||'周会-第X周.md';SaveHandle=null;SaveHandleName='';
+S=d;SH=d.shots||[];S.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});S.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';if(!Array.isArray(it.imgs))it.imgs=[];});CF=f||'周会-第X周.md';SaveHandle=null;SaveHandleName='';
 CurrentReportId=null;await SC();RA();RW();T(CF);}
 function PM(t){try{
 var w='第?周',dt='',is=[],ps=[],ds=[];
@@ -1796,8 +1876,8 @@ ss.forEach(function(s){var c=s==='全部'?is.length:is.filter(function(i){return
 document.getElementById('ifb').innerHTML=fh;
 document.getElementById('ifb').querySelectorAll('.fbb').forEach(function(b){b.addEventListener('click',function(){IF=this.dataset.f;RI();});});
 var fl=IF==='全部'?is:is.filter(function(i){return i.g===IF});
-if(!fl.length){document.getElementById('it').innerHTML='<tr><td colspan="8" style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">无匹配</td></tr>';return;}
-var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<tr onclick="oem(\'issue\','+idx+')"><td class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></td><td>'+(i+1)+'</td><td class="main-link">'+F(it.t)+'</td><td>'+(it.sd?E(it.sd):'-')+'</td><td>'+(it.ed?E(it.ed):'-')+'</td><td>'+(it.d?renderFoldText(it.d,'事项详情',buildIssueDetailHtml(it)): '-')+'</td><td class="status-cell">'+statusSelect('issue',idx,it.g,ISL)+'</td><td class="detail-ops"><div class="p-act" onclick="event.stopPropagation();"><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',-1)" title="上移">上移</span><b>/</b><span class="p-move '+(idx===is.length-1?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',1)" title="下移">下移</span><b>/</b><span class="ix" data-del="i" data-idx="'+idx+'">删除</span></div></td></tr>';});
+if(!fl.length){document.getElementById('it').innerHTML='<tr><td colspan="9" style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">无匹配</td></tr>';return;}
+var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<tr onclick="oem(\'issue\','+idx+')"><td class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></td><td>'+(i+1)+'</td><td class="main-link">'+F(it.t)+'</td><td>'+(it.sd?E(it.sd):'-')+'</td><td>'+(it.ed?E(it.ed):'-')+'</td><td>'+(it.d?renderFoldText(it.d,'事项详情',buildIssueDetailHtml(it)): '-')+'</td><td>'+renderIssueImageCell(it)+'</td><td class="status-cell">'+statusSelect('issue',idx,it.g,ISL)+'</td><td class="detail-ops"><div class="p-act" onclick="event.stopPropagation();"><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',-1)" title="上移">上移</span><b>/</b><span class="p-move '+(idx===is.length-1?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',1)" title="下移">下移</span><b>/</b><span class="ix" data-del="i" data-idx="'+idx+'">删除</span></div></td></tr>';});
 document.getElementById('it').innerHTML=h3;document.querySelectorAll('[data-del="i"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此事项？'))return;S.issues.splice(idx,1);RA();SC();T('已删除');});});}
 function RP(){var ps=S.projects;document.getElementById('pc').textContent=ps.length+'项';
 var ss=['全部',...new Set(ps.map(function(p){return p.st}))];var fh='';
@@ -1837,7 +1917,7 @@ function moveEntry(kind,idx,dir){
   RA();SC();
   T(dir<0?'已上移':'已下移');
 }
-function addIssue(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.issues.push({t:'新事项',sd:'',ed:'',d:'填写描述',g:'处理中'});RA();SC();T('已新增');}function addProject(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.projects.push({c:'新需求',note:'',sdt:'',dl:'-',st:'进行中'});RA();SC();T('已新增');}
+function addIssue(){if(isReadOnly()){T('查看模式下不能新增',1);return;}var idx=S.issues.length;S.issues.push({t:'新事项',sd:'',ed:'',d:'填写描述',g:'处理中',imgs:[]});RA();SC();T('已新增');oem('issue',idx);}function addProject(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.projects.push({c:'新需求',note:'',sdt:'',dl:'-',st:'进行中'});RA();SC();T('已新增');}
 function addDiscuss(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.discusses.push({ic:'🔵',tx:'新讨论项'});RA();SC();T('已新增');}
 async function nw(){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter!=='all'&&OwnerFilter!==CurrentUser.id){T('只能为自己新建文件',1);return;}var wn=prompt('请输入日报名称（如：第10周、10月第2周、2025Q3等）：');if(!wn)return;var fn=wn.trim()+'.md';
 var exist=WF.find(function(f){return f.name===fn&&(!CurrentUser||f.ownerId===CurrentUser.id)});if(exist){if(!confirm(wn+' 已存在，打开？'))return;OW(exist.name,exist.id);return;}
