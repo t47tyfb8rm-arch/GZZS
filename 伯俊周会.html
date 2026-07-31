@@ -949,16 +949,22 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .viewer-control{display:none;align-items:center;gap:8px;font-size:12px;color:#6b7280;font-weight:800;}
 .viewer-control.show{display:inline-flex;}
 .viewer-control select{height:34px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;color:#111827;padding:0 28px 0 10px;outline:none;}
-.meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin:14px 20px 10px;padding:14px 16px;box-shadow:0 10px 30px rgba(15,23,42,.05);}
+.meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin:12px 16px 8px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.05);}
 .meeting-context-top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
-.meeting-context h2{font-size:20px;line-height:1.25;color:#111827;margin:0 0 6px;}
+.meeting-context h2{font-size:19px;line-height:1.25;color:#111827;margin:0 0 6px;}
 .meeting-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:#6b7280;}
+.content-kpis{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-left:2px;}
+.content-kpi{height:24px;display:inline-flex;align-items:center;gap:5px;padding:0 9px;border:1px solid #e2e8f0;border-radius:999px;background:#f8fafc;color:#52667a;font-size:12px;font-weight:800;}
+.content-kpi strong{color:#111827;font-size:13px;}
+body.dark-mode .content-kpi{background:#252b33;border-color:rgba(70,79,92,.72);color:var(--text-sub);}
+body.dark-mode .content-kpi strong{color:var(--text-main);}
 .mode-pill{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:800;background:#eff6ff;color:#1e40af;}
 .mode-pill.readonly{background:#fffbeb;color:#92400e;}
 .meeting-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.meeting-actions .tbb,.tr .tbb{display:inline-flex;align-items:center;gap:7px;}
 .readonly-note{display:none;margin-top:12px;border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:800;}
 .readonly-note.show{display:block;}
-.metric-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 20px 10px;}
+.metric-row{display:none!important;}
 .metric-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(15,23,42,.035);display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .metric-card span{display:block;font-size:12px;color:#6b7280;font-weight:800;}
 .metric-card strong{display:block;font-size:22px;color:#111827;line-height:1;}
@@ -968,7 +974,9 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .module-item:hover{background:#f1f7ff;color:#2563eb;}
 .module-item.on{background:#eaf4ff;color:#2b78c2;box-shadow:inset 3px 0 0 #5b9bd5;}
 .module-item .module-main{display:flex;align-items:center;gap:10px;min-width:0;}
-.module-icon{width:22px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;}
+.module-icon,.btn-icon{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;color:currentColor;}
+.module-icon svg,.btn-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.module-icon{width:22px;height:22px;flex-basis:22px;}
 .module-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .module-item .module-count{font-size:12px;color:#7a8aa0;background:#fff;border:1px solid #dbeafe;border-radius:999px;padding:2px 8px;min-width:28px;text-align:center;}
 .module-action{margin:2px 14px 0;}
@@ -995,7 +1003,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 .app.sidebar-collapsed .module-nav{padding:18px 10px!important;align-items:center;}
 .app.sidebar-collapsed .module-item{width:48px;height:48px;padding:0!important;justify-content:center;border-radius:12px;}
 .app.sidebar-collapsed .module-main{gap:0;justify-content:center;}
-.tc{margin:0 20px 20px!important;border:1px solid #e5e7eb!important;border-radius:10px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
+.tc{margin:0 16px 16px!important;border:1px solid #e5e7eb!important;border-radius:10px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
 .tc>.ca{background:transparent!important;}
 .tc .ca{padding:16px 18px!important;}
 .fb{margin-bottom:10px!important;gap:8px!important;}
@@ -1050,17 +1058,17 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">伯俊周会空间</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
 <div class="module-nav">
 <div class="module-label">功能模块</div>
-<button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">📌</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
-<button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon">▦</span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
-<button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">💬</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
-<button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">📅</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
+<button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M12 4v6"/><path d="M8 7h8"/><path d="m7 11 5 9 5-9"/><path d="M5 11h14"/></svg></span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
+<button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="2"/><rect x="14" y="4" width="6" height="6" rx="2"/><rect x="4" y="14" width="6" height="6" rx="2"/><rect x="14" y="14" width="6" height="6" rx="2"/></svg></span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
+<button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
+<button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/></svg></span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
 <div class="module-label">管理</div>
-<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">🗂</span><span class="module-text">周会文件</span></span><span class="module-count" id="side-file-count">0</span></button>
-<button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">📦</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
-<button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">👤</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
+<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M4 6h6l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></span><span class="module-text">周会文件</span></span><span class="module-count" id="side-file-count">0</span></button>
+<button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M21 8v12H3V8"/><path d="M1 4h22v4H1z"/><path d="M10 12h4"/></svg></span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
+<button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg></span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
 </div>
 <div class="s-ft">
-<button class="sbn edit-only" onclick="nw()">➕ 新建周会</button>
+<button class="sbn edit-only" onclick="nw()">新建周会</button>
 <button class="sba" onclick="openFilePicker()">切换周会</button>
 </div>
 </div>
@@ -1072,7 +1080,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
 </div>
 <div class="tr">
-<button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">🌙 深色</button>
+<button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">深色</button>
 <span class="user-pill" id="user-pill">未登录</span>
 <button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button>
 <button class="tbb tbp" type="button" onclick="logout()">退出</button>
@@ -1089,29 +1097,35 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <span>日期：<span id="cd" style="cursor:pointer;border-bottom:1px dashed #ccc;" onclick="openDatePicker()" title="点击修改日期"></span></span>
 <span>所属用户：<span id="current-owner">-</span></span>
 <span class="mode-pill" id="mode-pill">可编辑</span>
+<span class="content-kpis">
+<span class="content-kpi">事项 <strong id="metric-issues">0</strong></span>
+<span class="content-kpi">项目 <strong id="metric-projects">0</strong></span>
+<span class="content-kpi">讨论 <strong id="metric-discusses">0</strong></span>
+<span class="content-kpi">风险 <strong id="metric-risks">0</strong></span>
+</span>
 </div>
 </div>
 <div class="meeting-actions">
-<button class="tbb tbp" onclick="openFilePicker()">🗂 切换周会</button>
+<button class="tbb tbp" onclick="openFilePicker()"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M4 6h6l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></span>切换周会</button>
 <button class="tbb tbi edit-only" id="module-add-btn" type="button" onclick="addIssue()">+ 新增事项</button>
-<button class="tbb tbi edit-only" onclick="document.getElementById('mi').click()">📂 导入</button>
-<button class="tbb tbp" onclick="dlmd()">⬇️ 下载MD</button>
-<button class="tbb tbg edit-only" onclick="st()">💾 保存</button>
+<button class="tbb tbi edit-only" onclick="document.getElementById('mi').click()"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 21h14"/></svg></span>导入</button>
+<button class="tbb tbp" onclick="dlmd()"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>下载MD</button>
+<button class="tbb tbg edit-only" onclick="st()"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg></span>保存</button>
 </div>
 </div>
 <div class="readonly-note" id="readonly-note">查看模式：你正在查看其他用户的周会，仅支持查看和导出。</div>
 </div>
 <div class="metric-row">
-<div class="metric-card"><span>当前事项</span><strong id="metric-issues">0</strong></div>
-<div class="metric-card"><span>项目进展</span><strong id="metric-projects">0</strong></div>
-<div class="metric-card"><span>讨论事项</span><strong id="metric-discusses">0</strong></div>
-<div class="metric-card"><span>风险提醒</span><strong id="metric-risks">0</strong></div>
+<div class="metric-card"><span>当前事项</span><strong>0</strong></div>
+<div class="metric-card"><span>项目进展</span><strong>0</strong></div>
+<div class="metric-card"><span>讨论事项</span><strong>0</strong></div>
+<div class="metric-card"><span>风险提醒</span><strong>0</strong></div>
 </div>
 <div class="nv">
 <div class="nt" data-t="0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项 <span class="nm" id="n0"></span></div>
 <div class="nt" data-t="1"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="4" rx="2"/><rect x="14" y="11" width="7" height="9" rx="2"/><rect x="3" y="14" width="7" height="6" rx="2"/></svg></span>项目 <span class="nm" id="n1"></span></div>
-<div class="nt" data-t="2">💬 讨论 <span class="nm" id="n2"></span></div>
-<div class="nt on" data-t="3">📅 日历</div>
+<div class="nt" data-t="2">讨论 <span class="nm" id="n2"></span></div>
+<div class="nt on" data-t="3">日历</div>
 <div class="nv-spacer"></div>
 <div class="nv-action" id="nv-add-0"><button class="section-add" onclick="addIssue()">+ 新增事项</button></div>
 <div class="nv-action" id="nv-add-1"><button class="section-add" onclick="addProject()">+ 新增项目</button></div>
@@ -1137,11 +1151,11 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div></div></div></div>
 <div class="tc" id="c2">
 <div class="ca">
-<div class="ch ch-disc"><h3>💬 讨论</h3><span class="cr" id="dc">0项</span></div>
+<div class="ch ch-disc"><h3>讨论</h3><span class="cr" id="dc">0项</span></div>
 <div class="cb"><div class="dl" id="dl"></div></div></div></div>
 <div class="tc on" id="c3">
 <div class="ca">
-<div class="ch ch-link"><h3>📅 日历视图</h3><span class="cr" id="cld-info"></span></div>
+<div class="ch ch-link"><h3>日历视图</h3><span class="cr" id="cld-info"></span></div>
 <div class="cb">
 <div class="cld-hd">
 <button class="tbb tbp" id="cld-prev">‹</button>
@@ -1149,7 +1163,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <button class="tbb tbp" id="cld-next">›</button>
 <div style="flex:1;"></div>
 <button class="tbb tbi" id="cld-today">今天</button>
-<button class="tbb tbp" id="cld-mode">📆 月</button>
+<button class="tbb tbp" id="cld-mode">月</button>
 </div>
 <div id="cld-body"></div>
 <div id="cld-detail" style="margin-top:14px;display:none;border-top:1px solid #eef0f4;padding-top:14px;"></div>
@@ -1190,7 +1204,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div></div>
 <div class="mod" id="file-picker" onclick="if(event.target===this)closeFilePicker()">
 <div class="mb2 file-picker-box">
-<div class="mh"><h3>🗂 选择周会</h3><button class="mc2" onclick="closeFilePicker()">✕</button></div>
+<div class="mh"><h3>选择周会</h3><button class="mc2" onclick="closeFilePicker()">✕</button></div>
 <div class="mc">
 <div class="file-picker-tools"><input id="sw" placeholder="搜索周会、日期或用户..." oninput="fw()"><button class="tbb tbi edit-only" onclick="nw();closeFilePicker()">+ 新建</button></div>
 <div class="wl file-picker-list" id="wl"></div>
@@ -1198,7 +1212,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div></div>
 <div class="mod" id="am">
 <div class="mb2">
-<div class="mh"><h3>📦 存档管理</h3><button class="mc2" onclick="cm()">✕</button></div>
+<div class="mh"><h3>存档管理</h3><button class="mc2" onclick="cm()">✕</button></div>
 <div class="mc" id="al"></div>
 </div></div>
 <div class="mod" id="tm" onclick="if(event.target===this)closeTextPreview()">
@@ -1355,14 +1369,15 @@ function updateNavAddAction(tab){
 function updateModuleAddAction(tab){
   var btn=document.getElementById('module-add-btn');
   if(!btn)return;
+  var plus='<span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span>';
   var map={
-    '0':{text:'+ 新增事项',fn:addIssue},
-    '1':{text:'+ 新增项目',fn:addProject},
-    '2':{text:'+ 新增讨论',fn:addDiscuss}
+    '0':{text:plus+'新增事项',fn:addIssue},
+    '1':{text:plus+'新增项目',fn:addProject},
+    '2':{text:plus+'新增讨论',fn:addDiscuss}
   };
   var cfg=map[String(tab)];
   btn.style.display=cfg?'':'none';
-  if(cfg){btn.textContent=cfg.text;btn.onclick=cfg.fn;}
+  if(cfg){btn.innerHTML=cfg.text;btn.onclick=cfg.fn;}
 }
 function switchModule(tab){
   tab=String(tab||'0');
@@ -1389,7 +1404,11 @@ function closeFilePicker(){
 function applyTheme(){
   document.body.classList.toggle('dark-mode',darkMode);
   var btn=document.getElementById('theme-toggle');
-  if(btn)btn.textContent=darkMode?'☀️ 浅色':'🌙 深色';
+  if(btn){
+    btn.innerHTML=darkMode
+      ? '<span class="btn-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>浅色'
+      : '<span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 6.8 6.8 0 0 0 21 12.8z"/></svg></span>深色';
+  }
 }
 function initTheme(){
   darkMode=localStorage.getItem(DarkModeKey)==='1';
@@ -1426,25 +1445,25 @@ function oem(type,idx){
   let html='';
   if(type==='issue'){
     const it=S.issues[idx];
-    document.getElementById('emt').textContent='📌 编辑事项 #'+(idx+1);
+document.getElementById('emt').textContent='编辑事项 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="i">当前事项</option><option value="p">项目</option><option value="d">讨论</option></select></div>';
     html+='<div class="eg"><label>事项内容</label><input id="eit" value="'+E(it.t)+'"></div>';
-html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(it.sd||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)" title="选择日期">📅</button></div></div>';
-html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(it.ed||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)" title="选择日期">📅</button></div></div>';
+html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(it.sd||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)" title="选择日期">选择</button></div></div>';
+html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(it.ed||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)" title="选择日期">选择</button></div></div>';
     html+='<div class="eg"><label>描述</label><div id="eid" class="rich-editor" contenteditable="true" data-placeholder="请输入描述">'+H(it.d)+'</div>'+fmtBar("eid")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
     html+='<div class="eg" id="esg"><label>状态</label><div class="sg-c">'+ISL.map(function(s){return '<button class="'+(s===it.g?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===it.g)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(type==='proj'){
     const p=S.projects[idx];
-    document.getElementById('emt').textContent='📊 编辑需求 #'+(idx+1);
+    document.getElementById('emt').textContent='编辑需求 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="p">项目</option><option value="i">当前事项</option><option value="d">讨论</option></select></div>';
     html+='<div class="eg"><label>需求内容</label><input id="epc" value="'+E(p.c)+'"></div>';
-html+='<div class="eg"><label>开始时间</label><div class="inl"><input id="epsdt" class="date-trigger" value="'+E(p.sdt||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epsdt\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epsdt\',document.getElementById(\'epsdt\').value)">📅</button></div></div>';
-html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="epdl" class="date-trigger" value="'+E(p.dl||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epdl\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epdl\',document.getElementById(\'epdl\').value)">📅</button></div></div>';
+html+='<div class="eg"><label>开始时间</label><div class="inl"><input id="epsdt" class="date-trigger" value="'+E(p.sdt||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epsdt\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epsdt\',document.getElementById(\'epsdt\').value)">选择</button></div></div>';
+html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="epdl" class="date-trigger" value="'+E(p.dl||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epdl\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epdl\',document.getElementById(\'epdl\').value)">选择</button></div></div>';
     html+='<div class="eg"><label>备注</label><div id="epn" class="rich-editor" contenteditable="true" data-placeholder="可选备注">'+H(p.note||'')+'</div>'+fmtBar("epn")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
     html+='<div class="eg" id="esg"><label>状态</label><div class="sg-c">'+PSL.map(function(s){return '<button class="'+(s===p.st?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===p.st)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(type==='disc'){
     const d=S.discusses[idx];
-    document.getElementById('emt').textContent='💬 编辑讨论 #'+(idx+1);
+document.getElementById('emt').textContent='编辑讨论 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="d">讨论</option><option value="i">当前事项</option><option value="p">项目</option></select></div>';
     const ics=['🔴','🟡','🔵','🟢','🟣','🟠'];
     html+='<div class="eg" id="esg"><label>颜色标记</label><div class="sg-c">'+ics.map(function(ic){return '<button class="'+(ic===d.ic?'s-on':'')+'" data-ic="'+ic+'" style="font-size:14px;">'+ic+'</button>';}).join('')+'</div></div>';
@@ -1474,31 +1493,31 @@ function ecs(){
   [['i','当前事项'],['p','项目'],['d','讨论']].forEach(function(o){html+='<option value="'+o[0]+'"'+(o[0]===v?' selected':'')+'>'+o[1]+'</option>';});
   html+='</select></div>';
   if(v==='i'){
-    document.getElementById('emt').textContent='📌 编辑事项 #'+(eI+1);
+document.getElementById('emt').textContent='编辑事项 #'+(eI+1);
     const t=vals.eit||item.t||'';
     const sd2=vals.eisd||item.sd||'';
     const ed2=vals.eied||item.ed||'';
     const d2=vals.eid||item.d||item.note||'';
     const g=selVal||item.g||'处理中';
     html+='<div class="eg"><label>事项内容</label><input id="eit" value="'+E(t)+'"></div>';
-html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(sd2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)">📅</button></div></div>';
-html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(ed2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)">📅</button></div></div>';
+html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(sd2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)">选择</button></div></div>';
+html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(ed2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)">选择</button></div></div>';
     html+='<div class="eg"><label>描述</label><div id="eid" class="rich-editor" contenteditable="true" data-placeholder="请输入描述">'+H(d2)+'</div>'+fmtBar("eid")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
     html+='<div class="eg"><label>状态</label><div class="sg-c">'+ISL.map(function(s){return '<button class="'+(s===g?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===g)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(v==='p'){
-    document.getElementById('emt').textContent='📊 编辑需求 #'+(eI+1);
+    document.getElementById('emt').textContent='编辑需求 #'+(eI+1);
     const c=vals.epc||item.c||item.t||'';
     const note=vals.epn||item.note||item.d||'';
     const sdt=vals.epsdt||item.sdt||'';
     const dl=vals.epdl||item.dl||'-';
     const st2=selVal||item.st||item.g||'进行中';
     html+='<div class="eg"><label>需求内容</label><input id="epc" value="'+E(c)+'"></div>';
-html+='<div class="eg"><label>开始时间</label><div class="inl"><input id="epsdt" class="date-trigger" value="'+E(sdt)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epsdt\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epsdt\',document.getElementById(\'epsdt\').value)">📅</button></div></div>';
-html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="epdl" class="date-trigger" value="'+E(dl)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epdl\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epdl\',document.getElementById(\'epdl\').value)">📅</button></div></div>';
+html+='<div class="eg"><label>开始时间</label><div class="inl"><input id="epsdt" class="date-trigger" value="'+E(sdt)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epsdt\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epsdt\',document.getElementById(\'epsdt\').value)">选择</button></div></div>';
+html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="epdl" class="date-trigger" value="'+E(dl)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epdl\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epdl\',document.getElementById(\'epdl\').value)">选择</button></div></div>';
     html+='<div class="eg"><label>备注</label><div id="epn" class="rich-editor" contenteditable="true" data-placeholder="可选备注">'+H(note)+'</div>'+fmtBar("epn")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
     html+='<div class="eg"><label>状态</label><div class="sg-c">'+PSL.map(function(s){return '<button class="'+(s===st2?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===st2)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(v==='d'){
-    document.getElementById('emt').textContent='💬 编辑讨论 #'+(eI+1);
+document.getElementById('emt').textContent='编辑讨论 #'+(eI+1);
     const tx=vals.edt||item.tx||item.t||item.c||'';
     const ic=selVal||item.ic||'🔵';
     const ics=['🔴','🟡','🔵','🟢','🟣','🟠'];
@@ -1843,9 +1862,9 @@ async function ST(){if(isReadOnly()){T('查看模式下不能存档',1);return;}
   if(CurrentReportId){var rid=CurrentReportId;await api('/api/reports/'+rid,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==rid});delete ReportCache[rid];CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();RW();}
   T('已归档 "'+n+'"');}
 async function oa(){await LA();var l=document.getElementById('al');
-var hb='<div style="padding:0 0 8px;border-bottom:1px solid #edf0f5;margin-bottom:10px;"><button onclick="(async function(){await ST();await oa();})()" style="padding:7px 16px;border-radius:7px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit;background:#6366f1;color:#fff;width:100%;transition:all .12s;">📌 立即存档</button></div>';
+var hb='<div style="padding:0 0 8px;border-bottom:1px solid #edf0f5;margin-bottom:10px;"><button onclick="(async function(){await ST();await oa();})()" style="padding:7px 16px;border-radius:7px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit;background:#6366f1;color:#fff;width:100%;transition:all .12s;">立即存档</button></div>';
 if(!AR.length){l.innerHTML=hb+'<div style="text-align:center;padding:20px;color:#94a3b8;font-size:12px;">暂无存档</div>';}
-else{var h7=hb;AR.forEach(function(a,i){var s=a.originalFile||'未知';var owner=CurrentUser&&CurrentUser.role==='admin'&&a.owner?'['+a.owner+'] ':'';h7+='<div class="ar" data-ar="'+i+'"><div class="al"><div><div style="font-weight:600;font-size:12px;color:#1e293b;">'+E(owner+a.name)+'</div><div class="ad">'+E(a.time)+' · '+E(s)+'</div></div></div><div class="aa"><button class="al2" data-view="'+i+'">📂 查看</button><button class="al2" data-rst="'+i+'">♻ 恢复</button><button class="ax" data-ad="'+i+'">✕</button></div></div>';});
+else{var h7=hb;AR.forEach(function(a,i){var s=a.originalFile||'未知';var owner=CurrentUser&&CurrentUser.role==='admin'&&a.owner?'['+a.owner+'] ':'';h7+='<div class="ar" data-ar="'+i+'"><div class="al"><div><div style="font-weight:600;font-size:12px;color:#1e293b;">'+E(owner+a.name)+'</div><div class="ad">'+E(a.time)+' · '+E(s)+'</div></div></div><div class="aa"><button class="al2" data-view="'+i+'">查看</button><button class="al2" data-rst="'+i+'">恢复</button><button class="ax" data-ad="'+i+'">✕</button></div></div>';});
 l.innerHTML=h7;
 document.querySelectorAll('.ar[data-ar]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.ar);loadArchiveView(idx);});});
 document.querySelectorAll('[data-view]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var idx=parseInt(this.dataset.view);loadArchiveView(idx);});});
@@ -2269,7 +2288,7 @@ function renderCLD(){
   var hd=document.getElementById('cld-title');
   var body=document.getElementById('cld-body');
   var mode=document.getElementById('cld-mode');
-  mode.textContent=CLD.mode==='month'?'📆 月':'📅 周';
+mode.textContent=CLD.mode==='month'?'月':'周';
   if(CLD.mode==='month'){
     hd.textContent=CLD.year+'年'+CLD.month+'月';
     renderMonth(body);
@@ -2386,7 +2405,7 @@ function renderDetail(dateKey){
   var html='';
   var maxShow=5;
   info.files.forEach(function(f){
-    html+='<div class="cli" onclick="OW(\''+E(f.fileName)+'\',\''+E(f.id)+'\')"><div class="cli-fn">📄 '+E(f.name)+'</div><div class="cli-c">'+f.date+' · 📌'+f.issues.length+' 📊'+f.projects.length+' 💬'+f.discusses.length+'</div></div>';
+html+='<div class="cli" onclick="OW(\''+E(f.fileName)+'\',\''+E(f.id)+'\')"><div class="cli-fn">'+E(f.name)+'</div><div class="cli-c">'+f.date+' · 事项 '+f.issues.length+' · 项目 '+f.projects.length+' · 讨论 '+f.discusses.length+'</div></div>';
     // 事项
     if(f.issues.length){
       html+='<div class="cld-sec"><div class="cld-sec-title">'+iconIssue('sec-ico')+'<strong style="color:#e67e22;">事项</strong></div><div class="cld-chip-list">';
@@ -2405,7 +2424,7 @@ function renderDetail(dateKey){
     }
     // 讨论
     if(f.discusses.length){
-      html+='<div class="cld-sec"><div class="cld-sec-title"><strong style="color:#27ae60;">💬 讨论</strong></div><div class="cld-chip-list">';
+html+='<div class="cld-sec"><div class="cld-sec-title"><strong style="color:#27ae60;">讨论</strong></div><div class="cld-chip-list">';
       var show3=f.discusses.slice(0,maxShow);
       show3.forEach(function(d){html+='<span class="cld-chip cld-chip-disc"><span class="cld-chip-sub">'+d.ic+'</span><span class="cld-chip-text">'+F(d.tx)+'</span></span>';});
       if(f.discusses.length>maxShow)html+='<span class="cld-more">+'+(f.discusses.length-maxShow)+'项</span>';
