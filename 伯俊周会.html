@@ -941,7 +941,7 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .sidebar{width:282px!important;min-width:282px!important;border-radius:0!important;border:0!important;border-right:1px solid #e5e7eb!important;box-shadow:none!important;background:#fff!important;backdrop-filter:none!important;}
 .s-hd h2 .hd-i{background:#2563eb!important;box-shadow:none!important;}
 .main{background:#f6f8fb!important;}
-.top{border-radius:0!important;border:0!important;border-bottom:1px solid #e5e7eb!important;background:#fff!important;box-shadow:none!important;padding:16px 24px!important;overflow:visible!important;}
+.top{border-radius:0!important;border:0!important;border-bottom:1px solid #e5e7eb!important;background:rgba(255,255,255,.92)!important;box-shadow:none!important;padding:12px 24px!important;overflow:visible!important;backdrop-filter:saturate(160%) blur(14px);}
 .top::after{display:none!important;}
 .product-title{display:flex;flex-direction:column;gap:2px;}
 .product-title strong{font-size:18px;color:#111827;}
@@ -949,25 +949,27 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .viewer-control{display:none;align-items:center;gap:8px;font-size:12px;color:#6b7280;font-weight:800;}
 .viewer-control.show{display:inline-flex;}
 .viewer-control select{height:34px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;color:#111827;padding:0 28px 0 10px;outline:none;}
-.meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:12px;margin:16px 24px 12px;padding:16px 18px;box-shadow:0 8px 24px rgba(15,23,42,.04);}
-.meeting-context-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
-.meeting-context h2{font-size:22px;line-height:1.25;color:#111827;margin:0 0 8px;}
+.meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin:14px 20px 10px;padding:14px 16px;box-shadow:0 10px 30px rgba(15,23,42,.05);}
+.meeting-context-top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.meeting-context h2{font-size:20px;line-height:1.25;color:#111827;margin:0 0 6px;}
 .meeting-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:#6b7280;}
 .mode-pill{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:800;background:#eff6ff;color:#1e40af;}
 .mode-pill.readonly{background:#fffbeb;color:#92400e;}
 .meeting-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
 .readonly-note{display:none;margin-top:12px;border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:800;}
 .readonly-note.show{display:block;}
-.metric-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 24px 12px;}
-.metric-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px rgba(15,23,42,.04);}
+.metric-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 20px 10px;}
+.metric-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(15,23,42,.035);display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .metric-card span{display:block;font-size:12px;color:#6b7280;font-weight:800;}
-.metric-card strong{display:block;font-size:26px;color:#111827;margin-top:6px;line-height:1;}
+.metric-card strong{display:block;font-size:22px;color:#111827;line-height:1;}
 .module-nav{padding:18px 14px;display:flex;flex-direction:column;gap:8px;}
 .module-label{padding:10px 10px 4px;font-size:11px;font-weight:900;color:#94a3b8;letter-spacing:.08em;}
 .module-item{width:100%;border:0;background:transparent;color:#475569;border-radius:10px;padding:12px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:900;cursor:pointer;text-align:left;}
 .module-item:hover{background:#f1f7ff;color:#2563eb;}
 .module-item.on{background:#eaf4ff;color:#2b78c2;box-shadow:inset 3px 0 0 #5b9bd5;}
 .module-item .module-main{display:flex;align-items:center;gap:10px;min-width:0;}
+.module-icon{width:22px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;}
+.module-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .module-item .module-count{font-size:12px;color:#7a8aa0;background:#fff;border:1px solid #dbeafe;border-radius:999px;padding:2px 8px;min-width:28px;text-align:center;}
 .module-action{margin:2px 14px 0;}
 .module-action button{width:100%;border:1px solid #dbeafe;background:#fff;color:#2b6cb0;border-radius:10px;padding:11px;font-weight:900;cursor:pointer;}
@@ -985,8 +987,26 @@ body.dark-mode .module-item .module-count{background:#252b33;border-color:rgba(7
 body.dark-mode .file-picker-list{background:#1f242b;border-color:rgba(70,79,92,.72);}
 body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-color:rgba(70,79,92,.72);}
 .nv{display:none!important;}
-.tc{margin:0 24px 24px!important;border:1px solid #e5e7eb!important;border-radius:12px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
+.app.sidebar-collapsed .sidebar{width:76px!important;min-width:76px!important;}
+.app.sidebar-collapsed .s-hd{padding:16px 12px!important;align-items:center!important;justify-content:center!important;}
+.app.sidebar-collapsed .s-hd h2{font-size:0!important;gap:0!important;}
+.app.sidebar-collapsed .s-hd .sub,.app.sidebar-collapsed .module-label,.app.sidebar-collapsed .module-text,.app.sidebar-collapsed .module-count,.app.sidebar-collapsed .s-ft{display:none!important;}
+.app.sidebar-collapsed .sidebar-toggle{position:absolute;left:52px;top:18px;width:28px;height:28px;box-shadow:0 8px 20px rgba(15,23,42,.12);}
+.app.sidebar-collapsed .module-nav{padding:18px 10px!important;align-items:center;}
+.app.sidebar-collapsed .module-item{width:48px;height:48px;padding:0!important;justify-content:center;border-radius:12px;}
+.app.sidebar-collapsed .module-main{gap:0;justify-content:center;}
+.tc{margin:0 20px 20px!important;border:1px solid #e5e7eb!important;border-radius:10px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
 .tc>.ca{background:transparent!important;}
+.tc .ca{padding:16px 18px!important;}
+.fb{margin-bottom:10px!important;gap:8px!important;}
+.fbb{height:32px;border-radius:7px!important;padding:0 12px!important;font-size:12px!important;background:#fff!important;border-color:#dbe3ee!important;color:#52667a!important;}
+.fbb.on{background:#4f95d1!important;color:#fff!important;border-color:#4f95d1!important;}
+.pt{font-size:13px!important;border-collapse:separate!important;border-spacing:0!important;}
+.pt th{padding:9px 12px!important;background:#f1f7fc!important;color:#5e7188!important;font-size:12px!important;font-weight:900!important;}
+.pt td{padding:9px 12px!important;line-height:1.45!important;border-bottom-color:#edf2f7!important;color:#152238!important;}
+.pt tr:nth-child(even) td{background:#fbfaf8!important;}
+.pt tr:hover td{background:#f5faff!important;}
+.status-select{min-height:34px!important;}
 .app.readonly-mode .edit-only{display:none!important;}
 .app.readonly-mode .status-select{pointer-events:none;opacity:.72;}
 .app.readonly-mode .p-del,.app.readonly-mode .p-move,.app.readonly-mode .dd,.app.readonly-mode .dm,.app.readonly-mode .ix{display:none!important;}
@@ -1030,14 +1050,14 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">伯俊周会空间</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
 <div class="module-nav">
 <div class="module-label">功能模块</div>
-<button class="module-item on" type="button" data-t="0"><span class="module-main">📌 当前事项</span><span class="module-count" id="side-n0">0</span></button>
-<button class="module-item" type="button" data-t="1"><span class="module-main">▦ 项目</span><span class="module-count" id="side-n1">0</span></button>
-<button class="module-item" type="button" data-t="2"><span class="module-main">💬 讨论</span><span class="module-count" id="side-n2">0</span></button>
-<button class="module-item" type="button" data-t="3"><span class="module-main">📅 日历</span><span class="module-count"> </span></button>
+<button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">📌</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
+<button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon">▦</span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
+<button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">💬</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
+<button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">📅</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
 <div class="module-label">管理</div>
-<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main">🗂 周会文件</span><span class="module-count" id="side-file-count">0</span></button>
-<button class="module-item" type="button" onclick="oa()"><span class="module-main">📦 存档</span><span class="module-count"> </span></button>
-<button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main">👤 账号管理</span><span class="module-count"> </span></button>
+<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">🗂</span><span class="module-text">周会文件</span></span><span class="module-count" id="side-file-count">0</span></button>
+<button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">📦</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
+<button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">👤</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
 </div>
 <div class="s-ft">
 <button class="sbn edit-only" onclick="nw()">➕ 新建周会</button>
