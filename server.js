@@ -41,6 +41,7 @@ function ensureDb() {
       id TEXT PRIMARY KEY,
       owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       name TEXT NOT NULL,
+      folder TEXT NOT NULL DEFAULT '默认',
       date TEXT,
       data TEXT NOT NULL,
       created_at TEXT NOT NULL,
@@ -48,6 +49,15 @@ function ensureDb() {
     );
     CREATE INDEX IF NOT EXISTS idx_reports_owner ON reports(owner_id);
     CREATE INDEX IF NOT EXISTS idx_reports_date ON reports(date);
+    CREATE INDEX IF NOT EXISTS idx_reports_folder ON reports(folder);
+    CREATE TABLE IF NOT EXISTS folders (
+      id TEXT PRIMARY KEY,
+      owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_folders_owner ON folders(owner_id);
     CREATE TABLE IF NOT EXISTS archives (
       id TEXT PRIMARY KEY,
       owner_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -59,8 +69,16 @@ function ensureDb() {
     );
     CREATE INDEX IF NOT EXISTS idx_archives_owner ON archives(owner_id);
   `);
+  ensureSchema();
   migrateLegacyJson();
   seedUsers();
+}
+
+function ensureSchema() {
+  const reportColumns = db.prepare("PRAGMA table_info(reports)").all().map((col) => col.name);
+  if (!reportColumns.includes("folder")) {
+    db.prepare("ALTER TABLE reports ADD COLUMN folder TEXT NOT NULL DEFAULT '默认'").run();
+  }
 }
 
 function migrateLegacyJson() {
@@ -82,8 +100,8 @@ function migrateLegacyJson() {
     VALUES (@id, @username, @passwordHash, @role, @active, @createdAt, @updatedAt)
   `);
   const insertReport = db.prepare(`
-    INSERT INTO reports (id, owner_id, name, date, data, created_at, updated_at)
-    VALUES (@id, @ownerId, @name, @date, @data, @createdAt, @updatedAt)
+    INSERT INTO reports (id, owner_id, name, folder, date, data, created_at, updated_at)
+    VALUES (@id, @ownerId, @name, @folder, @date, @data, @createdAt, @updatedAt)
   `);
   const insertArchive = db.prepare(`
     INSERT INTO archives (id, owner_id, name, data, time, original_file, created_at)
@@ -107,6 +125,7 @@ function migrateLegacyJson() {
         id: report.id,
         ownerId: report.ownerId,
         name: report.name || "未命名.md",
+        folder: report.folder || "默认",
         date: report.date || "",
         data: JSON.stringify(report.data || {}),
         createdAt: report.createdAt || now(),
@@ -286,10 +305,21 @@ function safeReport(row) {
   return {
     id: row.id,
     name: row.name,
+    folder: row.folder || "默认",
     date: row.date || "",
     ownerId: row.owner_id,
     owner: row.owner || "unknown",
     data: parseData(row.data, {}),
+    updatedAt: row.updated_at
+  };
+}
+
+function safeFolder(row) {
+  return {
+    id: row.id,
+    name: row.name || "默认",
+    ownerId: row.owner_id,
+    owner: row.owner || "unknown",
     updatedAt: row.updated_at
   };
 }
@@ -359,7 +389,33 @@ async function handleApi(req, res) {
       ORDER BY reports.updated_at DESC
     `;
     const rows = user.role === "admin" ? db.prepare(sql).all() : db.prepare(sql).all(user.id);
-    return send(res, 200, { reports: rows.map(safeReport) });
+    const folderSql = `
+      SELECT folders.*, users.username AS owner
+      FROM folders
+      JOIN users ON users.id = folders.owner_id
+      ${user.role === "admin" ? "" : "WHERE folders.owner_id = ?"}
+      ORDER BY folders.updated_at DESC
+    `;
+    const folderRows = user.role === "admin" ? db.prepare(folderSql).all() : db.prepare(folderSql).all(user.id);
+    return send(res, 200, { reports: rows.map(safeReport), folders: folderRows.map(safeFolder) });
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/folders") {
+    const body = await readBody(req);
+    const name = String(body.name || "默认").trim() || "默认";
+    const existing = db.prepare("SELECT * FROM folders WHERE owner_id = ? AND name = ?").get(user.id, name);
+    if (existing) return send(res, 200, { folder: safeFolder({ ...existing, owner: user.username }) });
+    const payload = { id: id("fld"), ownerId: user.id, name, createdAt: now(), updatedAt: now() };
+    db.prepare(`
+      INSERT INTO folders (id, owner_id, name, created_at, updated_at)
+      VALUES (@id, @ownerId, @name, @createdAt, @updatedAt)
+    `).run(payload);
+    const saved = db.prepare(`
+      SELECT folders.*, users.username AS owner
+      FROM folders JOIN users ON users.id = folders.owner_id
+      WHERE folders.id = ?
+    `).get(payload.id);
+    return send(res, 200, { folder: safeFolder(saved) });
   }
 
   if (req.method === "POST" && url.pathname === "/api/reports") {
@@ -372,6 +428,7 @@ async function handleApi(req, res) {
       id: report ? report.id : id("rpt"),
       ownerId: report ? report.owner_id : user.id,
       name: String(body.name || (report && report.name) || "未命名.md"),
+      folder: String(body.folder || (report && report.folder) || "默认").trim() || "默认",
       date: body.date || "",
       data: JSON.stringify(body.data || {}),
       createdAt: report ? report.created_at : now(),
@@ -379,10 +436,11 @@ async function handleApi(req, res) {
     };
 
     db.prepare(`
-      INSERT INTO reports (id, owner_id, name, date, data, created_at, updated_at)
-      VALUES (@id, @ownerId, @name, @date, @data, @createdAt, @updatedAt)
+      INSERT INTO reports (id, owner_id, name, folder, date, data, created_at, updated_at)
+      VALUES (@id, @ownerId, @name, @folder, @date, @data, @createdAt, @updatedAt)
       ON CONFLICT(id) DO UPDATE SET
         name = excluded.name,
+        folder = excluded.folder,
         date = excluded.date,
         data = excluded.data,
         updated_at = excluded.updated_at
@@ -413,6 +471,43 @@ async function handleApi(req, res) {
       `).get(report.id);
       return send(res, 200, { report: safeReport(renamed) });
     }
+    if (req.method === "POST" && parts[3] === "folder") {
+      const body = await readBody(req);
+      const folder = String(body.folder || "默认").trim() || "默认";
+      const exists = db.prepare("SELECT * FROM folders WHERE owner_id = ? AND name = ?").get(report.owner_id, folder);
+      if (!exists) {
+        db.prepare(`
+          INSERT INTO folders (id, owner_id, name, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?)
+        `).run(id("fld"), report.owner_id, folder, now(), now());
+      }
+      db.prepare("UPDATE reports SET folder = ?, updated_at = ? WHERE id = ?").run(folder, now(), report.id);
+      const moved = db.prepare(`
+        SELECT reports.*, users.username AS owner
+        FROM reports JOIN users ON users.id = reports.owner_id
+        WHERE reports.id = ?
+      `).get(report.id);
+      return send(res, 200, { report: safeReport(moved) });
+    }
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/folders/rename") {
+    const body = await readBody(req);
+    const oldFolder = String(body.oldFolder || "默认").trim() || "默认";
+    const newFolder = String(body.newFolder || "默认").trim() || "默认";
+    if (!newFolder) return send(res, 400, { error: "文件夹名称不能为空" });
+    const sql = user.role === "admin"
+      ? "UPDATE reports SET folder = ?, updated_at = ? WHERE folder = ?"
+      : "UPDATE reports SET folder = ?, updated_at = ? WHERE folder = ? AND owner_id = ?";
+    const result = user.role === "admin"
+      ? db.prepare(sql).run(newFolder, now(), oldFolder)
+      : db.prepare(sql).run(newFolder, now(), oldFolder, user.id);
+    if (user.role === "admin") {
+      db.prepare("UPDATE folders SET name = ?, updated_at = ? WHERE name = ?").run(newFolder, now(), oldFolder);
+    } else {
+      db.prepare("UPDATE folders SET name = ?, updated_at = ? WHERE name = ? AND owner_id = ?").run(newFolder, now(), oldFolder, user.id);
+    }
+    return send(res, 200, { ok: true, changed: result.changes });
   }
 
   if (req.method === "GET" && url.pathname === "/api/archives") {
