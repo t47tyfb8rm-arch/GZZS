@@ -962,8 +962,30 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .metric-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px rgba(15,23,42,.04);}
 .metric-card span{display:block;font-size:12px;color:#6b7280;font-weight:800;}
 .metric-card strong{display:block;font-size:26px;color:#111827;margin-top:6px;line-height:1;}
-.nv{margin:0 24px!important;border:1px solid #e5e7eb!important;border-bottom:none!important;border-radius:12px 12px 0 0!important;background:#fff!important;padding:0 12px!important;}
-.tc{margin:0 24px 24px!important;border:1px solid #e5e7eb!important;border-top:none!important;border-radius:0 0 12px 12px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
+.module-nav{padding:18px 14px;display:flex;flex-direction:column;gap:8px;}
+.module-label{padding:10px 10px 4px;font-size:11px;font-weight:900;color:#94a3b8;letter-spacing:.08em;}
+.module-item{width:100%;border:0;background:transparent;color:#475569;border-radius:10px;padding:12px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:900;cursor:pointer;text-align:left;}
+.module-item:hover{background:#f1f7ff;color:#2563eb;}
+.module-item.on{background:#eaf4ff;color:#2b78c2;box-shadow:inset 3px 0 0 #5b9bd5;}
+.module-item .module-main{display:flex;align-items:center;gap:10px;min-width:0;}
+.module-item .module-count{font-size:12px;color:#7a8aa0;background:#fff;border:1px solid #dbeafe;border-radius:999px;padding:2px 8px;min-width:28px;text-align:center;}
+.module-action{margin:2px 14px 0;}
+.module-action button{width:100%;border:1px solid #dbeafe;background:#fff;color:#2b6cb0;border-radius:10px;padding:11px;font-weight:900;cursor:pointer;}
+.module-action button:hover{background:#f1f7ff;}
+.file-picker-box{max-width:760px;width:min(760px,calc(100vw - 32px));}
+.file-picker-tools{display:flex;gap:10px;margin-bottom:12px;}
+.file-picker-tools input{flex:1;border:1px solid #dbe3ee;border-radius:10px;padding:12px 14px;font-size:14px;}
+.file-picker-list{max-height:52vh;overflow:auto;border:1px solid #e5e7eb;border-radius:12px;background:#fff;}
+.file-picker-list .wi{margin:0;border-radius:0;border-bottom:1px solid #eef2f7;}
+.file-picker-list .wi:last-child{border-bottom:0;}
+body.dark-mode .module-item{color:var(--text-sub);}
+body.dark-mode .module-item:hover{background:rgba(255,255,255,.04);color:var(--text-main);}
+body.dark-mode .module-item.on{background:rgba(124,199,190,.1);color:var(--brand-strong);box-shadow:inset 3px 0 0 var(--brand-strong);}
+body.dark-mode .module-item .module-count{background:#252b33;border-color:rgba(70,79,92,.72);color:var(--text-sub);}
+body.dark-mode .file-picker-list{background:#1f242b;border-color:rgba(70,79,92,.72);}
+body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-color:rgba(70,79,92,.72);}
+.nv{display:none!important;}
+.tc{margin:0 24px 24px!important;border:1px solid #e5e7eb!important;border-radius:12px!important;background:#fff!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;}
 .tc>.ca{background:transparent!important;}
 .app.readonly-mode .edit-only{display:none!important;}
 .app.readonly-mode .status-select{pointer-events:none;opacity:.72;}
@@ -1006,11 +1028,20 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 <div class="app">
 <div class="sidebar">
 <div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">伯俊周会空间</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
-<div class="s-s"><input id="sw" placeholder="搜索..." oninput="fw()"></div>
-<div class="wl" id="wl"></div>
+<div class="module-nav">
+<div class="module-label">功能模块</div>
+<button class="module-item on" type="button" data-t="0"><span class="module-main">📌 当前事项</span><span class="module-count" id="side-n0">0</span></button>
+<button class="module-item" type="button" data-t="1"><span class="module-main">▦ 项目</span><span class="module-count" id="side-n1">0</span></button>
+<button class="module-item" type="button" data-t="2"><span class="module-main">💬 讨论</span><span class="module-count" id="side-n2">0</span></button>
+<button class="module-item" type="button" data-t="3"><span class="module-main">📅 日历</span><span class="module-count"> </span></button>
+<div class="module-label">管理</div>
+<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main">🗂 周会文件</span><span class="module-count" id="side-file-count">0</span></button>
+<button class="module-item" type="button" onclick="oa()"><span class="module-main">📦 存档</span><span class="module-count"> </span></button>
+<button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main">👤 账号管理</span><span class="module-count"> </span></button>
+</div>
 <div class="s-ft">
-<button class="sbn edit-only" onclick="nw()">➕ 新建</button>
-<button class="sba" onclick="oa()">📦 存档</button>
+<button class="sbn edit-only" onclick="nw()">➕ 新建周会</button>
+<button class="sba" onclick="openFilePicker()">切换周会</button>
 </div>
 </div>
 <div class="main">
@@ -1041,6 +1072,8 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 </div>
 </div>
 <div class="meeting-actions">
+<button class="tbb tbp" onclick="openFilePicker()">🗂 切换周会</button>
+<button class="tbb tbi edit-only" id="module-add-btn" type="button" onclick="addIssue()">+ 新增事项</button>
 <button class="tbb tbi edit-only" onclick="document.getElementById('mi').click()">📂 导入</button>
 <button class="tbb tbp" onclick="dlmd()">⬇️ 下载MD</button>
 <button class="tbb tbg edit-only" onclick="st()">💾 保存</button>
@@ -1135,6 +1168,14 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 <button class="eab e-save" onclick="esv()">保存修改</button>
 </div>
 </div></div>
+<div class="mod" id="file-picker" onclick="if(event.target===this)closeFilePicker()">
+<div class="mb2 file-picker-box">
+<div class="mh"><h3>🗂 选择周会</h3><button class="mc2" onclick="closeFilePicker()">✕</button></div>
+<div class="mc">
+<div class="file-picker-tools"><input id="sw" placeholder="搜索周会、日期或用户..." oninput="fw()"><button class="tbb tbi edit-only" onclick="nw();closeFilePicker()">+ 新建</button></div>
+<div class="wl file-picker-list" id="wl"></div>
+</div>
+</div></div>
 <div class="mod" id="am">
 <div class="mb2">
 <div class="mh"><h3>📦 存档管理</h3><button class="mc2" onclick="cm()">✕</button></div>
@@ -1198,8 +1239,7 @@ document.addEventListener('DOMContentLoaded',async function(){
   await WL();
   await LA();
   RA();
-  updateNavAddAction('3');
-  renderCLD();
+  switchModule('0');
   initSidebarState();
 });
 async function api(path,opt){
@@ -1246,6 +1286,8 @@ function applyUserState(){
   if(pill&&CurrentUser)pill.innerHTML='账号 <strong>'+E(CurrentUser.username)+'</strong>'+(CurrentUser.role==='admin'?' · 管理员':'');
   var btn=document.getElementById('user-admin-btn');
   if(btn)btn.style.display=CurrentUser&&CurrentUser.role==='admin'?'':'none';
+  var sideBtn=document.getElementById('side-admin-btn');
+  if(sideBtn)sideBtn.style.display=CurrentUser&&CurrentUser.role==='admin'?'':'none';
   var viewer=document.getElementById('viewer-control');
   if(viewer)viewer.classList.toggle('show',CurrentUser&&CurrentUser.role==='admin');
 }
@@ -1289,6 +1331,40 @@ function updateNavAddAction(tab){
   document.querySelectorAll('.nv-action').forEach(function(el){el.classList.remove('show');});
   var target=document.getElementById('nv-add-'+tab);
   if(target)target.classList.add('show');
+}
+function updateModuleAddAction(tab){
+  var btn=document.getElementById('module-add-btn');
+  if(!btn)return;
+  var map={
+    '0':{text:'+ 新增事项',fn:addIssue},
+    '1':{text:'+ 新增项目',fn:addProject},
+    '2':{text:'+ 新增讨论',fn:addDiscuss}
+  };
+  var cfg=map[String(tab)];
+  btn.style.display=cfg?'':'none';
+  if(cfg){btn.textContent=cfg.text;btn.onclick=cfg.fn;}
+}
+function switchModule(tab){
+  tab=String(tab||'0');
+  document.querySelectorAll('.module-item[data-t],.nt').forEach(function(n){n.classList.toggle('on',n.dataset.t===tab);});
+  document.querySelectorAll('.tc').forEach(function(c){c.classList.remove('on');});
+  var panel=document.getElementById('c'+tab);
+  if(panel)panel.classList.add('on');
+  updateNavAddAction(tab);
+  updateModuleAddAction(tab);
+  if(tab==='3')renderCLD();
+}
+function openFilePicker(){
+  RW();
+  var input=document.getElementById('sw');
+  if(input)input.value='';
+  var picker=document.getElementById('file-picker');
+  if(picker)picker.classList.add('show');
+  setTimeout(function(){var sw=document.getElementById('sw');if(sw)sw.focus();},30);
+}
+function closeFilePicker(){
+  var picker=document.getElementById('file-picker');
+  if(picker)picker.classList.remove('show');
 }
 function applyTheme(){
   document.body.classList.toggle('dark-mode',darkMode);
@@ -1438,18 +1514,18 @@ function esv(){
   ecm();RA();SC();T('已保存');
 }
 function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI=null;}
-(function(){document.querySelectorAll('.nt').forEach(function(e){e.addEventListener('click',function(){document.querySelectorAll('.nt').forEach(function(n){n.classList.remove('on')});document.querySelectorAll('.tc').forEach(function(c){c.classList.remove('on')});this.classList.add('on');document.getElementById('c'+this.dataset.t).classList.add('on');if(this.dataset.t==='3')renderCLD();});});
+(function(){document.querySelectorAll('.nt,.module-item[data-t]').forEach(function(e){e.addEventListener('click',function(){switchModule(this.dataset.t);});});
 document.getElementById('mi').addEventListener('change',function(e){var f0=e.target.files[0];if(!f0||!f0.name.endsWith('.md'))return;var r=new FileReader();r.onload=function(ev){LF(ev.target.result,f0.name);};r.readAsText(f0);e.value='';});
 document.addEventListener('drop',function(e){e.preventDefault();Array.from(e.dataTransfer.files).forEach(function(f){if(f.name.endsWith('.md')){var r2=new FileReader();r2.onload=function(ev){LF(ev.target.result,f.name)};r2.readAsText(f);}});});document.addEventListener('dragover',function(e){e.preventDefault()});})();
 async function WL(){var data=await api('/api/reports');WF=data.reports||[];ReportCache={};WF.forEach(function(f){ReportCache[f.id]=f.data;});refreshOwnerFilter();RW();}
-function RW(){var l=document.getElementById('wl');if(!WF.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">暂无日报<br>拖入 .md 或新建</div>';return;}
+function RW(){var l=document.getElementById('wl');var fileCount=document.getElementById('side-file-count');if(fileCount)fileCount.textContent=WF.length;if(!l)return;if(!WF.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">暂无周会<br>可新建或导入 .md</div>';return;}
 var st2=[...WF].filter(function(f){return !CurrentUser||CurrentUser.role!=='admin'||OwnerFilter==='all'||f.ownerId===OwnerFilter;}).sort(function(a,b){return String(b.date||b.name).localeCompare(String(a.date||a.name));});
 if(!st2.length){l.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:11px;">该用户暂无周会</div>';return;}
 var h2='';
 var lastOwner=null;
 st2.forEach(function(f){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter==='all'&&f.owner!==lastOwner){lastOwner=f.owner;h2+='<div style="padding:12px 10px 5px;font-size:11px;font-weight:900;color:#64748b;">'+E(lastOwner||'unknown')+'</div>';}var a=f.id===CurrentReportId?' active':'';var wn=(f.name||'').replace('.md','');var compact=(f.name||'').replace('.md','').replace(/^周会-/,'').trim();var lead='周';var range=compact.match(/(\d+\s*\/\s*\d+)/);if(range)lead=range[1].replace(/\s+/g,'');else{var nums=compact.match(/\d+/g);if(nums&&nums.length>=2&&/[\/-]/.test(compact))lead=nums[0]+'/'+nums[1];else if(nums&&nums.length)lead=nums[0];else lead=(compact.charAt(0)||'周');}h2+='<div class="wi'+a+'" data-id="'+E(f.id||'')+'" data-fn="'+E(f.name||'')+'"><span class="wi-i">'+E(lead)+'</span><span class="wi-n">'+E(wn)+'</span><span class="wi-d">'+E(f.date||'')+'</span><button class="wi-del edit-only" title="删除">✕</button></div>';});l.innerHTML=h2;
 document.querySelectorAll('.wi').forEach(function(el){el.addEventListener('click',function(){OW(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-n').addEventListener('dblclick',function(e){e.stopPropagation();renameFile(el.dataset.fn,el.dataset.id);});el.querySelector('.wi-del').addEventListener('click',async function(e){e.stopPropagation();var fn=el.dataset.fn;var targetReport=WF.find(function(f){return f.id===el.dataset.id;});if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能删除自己的周会',1);return;}if(!confirm('删除 "'+fn.replace('.md','')+'"？'))return;try{await api('/api/reports/'+el.dataset.id,{method:'DELETE'});WF=WF.filter(function(f){return f.id!==el.dataset.id});delete ReportCache[el.dataset.id];if(CurrentReportId===el.dataset.id){CurrentReportId=null;CF=null;S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};SH=[];RA();}RW();T('已删除 "'+fn.replace('.md','')+'"');}catch(ex){T(ex.message,1);}});});}
-function fw(){var q=document.getElementById('sw').value.toLowerCase();document.querySelectorAll('.wi').forEach(function(e){e.style.display=e.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
+function fw(){var sw=document.getElementById('sw');var q=sw?sw.value.toLowerCase():'';document.querySelectorAll('.wi').forEach(function(e){e.style.display=e.textContent.toLowerCase().indexOf(q)>=0?'':'none';});}
 async function renameFile(oldName,reportId){
   var targetReport=WF.find(function(f){return f.id===reportId;});
   if(targetReport&&CurrentUser&&targetReport.ownerId!==CurrentUser.id){T('只能重命名自己的周会',1);return;}
@@ -1467,7 +1543,7 @@ async function renameFile(oldName,reportId){
   T('已重命名为 "'+newName.replace('.md','')+'"');
 }
 function normalizeLoadedData(d){d=d||{};d.projects=d.projects||[];d.issues=d.issues||[];d.discusses=d.discusses||[];d.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});d.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});return d;}
-function OW(n,reportId){CF=n;CurrentReportId=reportId||null;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=(n||'未选择周会').replace(/\.md$/,'');var d=normalizeLoadedData(ReportCache[reportId]);S=d;SH=d.shots||[];RA();RW();T('已加载');}
+function OW(n,reportId){CF=n;CurrentReportId=reportId||null;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=(n||'未选择周会').replace(/\.md$/,'');var d=normalizeLoadedData(ReportCache[reportId]);S=d;SH=d.shots||[];RA();RW();closeFilePicker();T('已加载');}
 function OWN(n){var f=WF.find(function(x){return x.name===n});if(f){OW(f.name,f.id);return;}var now=new Date();CurrentReportId=null;CF=n;S={week:n.replace('.md','').replace('周会-','').replace('第','周')||'第?周',date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];RA();}
 async function LF(t,f){var d=PM(t);if(!d){T('解析失败',1);return;}
 S=d;SH=d.shots||[];S.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});S.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});CF=f||'周会-第X周.md';SaveHandle=null;SaveHandleName='';
@@ -1529,7 +1605,7 @@ if(sec==='ps'){
 if(sec==='ds'){var dm4=l.match(/^-\s*(🔴|🟡|🔵|🟢|🟣|🟠)\s*(.+)/);if(dm4)ds.push({ic:dm4[1],tx:dm4[2]});}}
 if(rowBuf){var p3=parseProjectRow(rowBuf);if(p3)ps.push(p3);}
 if(cu&&cu.t)is.push(cu);return {week:w,date:dt,issues:is,projects:ps,discusses:ds,shots:[]};}catch(e){return null}}
-function RA(){document.getElementById('cd').textContent=S.date||'-';RI();RP();RD();document.getElementById('n0').textContent=S.issues.length;document.getElementById('n1').textContent=S.projects.length;document.getElementById('n2').textContent=S.discusses.length;var mi=document.getElementById('metric-issues'),mp=document.getElementById('metric-projects'),md=document.getElementById('metric-discusses'),mr=document.getElementById('metric-risks');if(mi)mi.textContent=S.issues.length;if(mp)mp.textContent=S.projects.length;if(md)md.textContent=S.discusses.length;if(mr){var risks=S.issues.filter(function(i){return /暂停|取消|超期|风险|阻塞/.test((i.g||'')+' '+(i.d||''));}).length+S.projects.filter(function(p){return /暂停|取消|超期|风险|阻塞/.test((p.st||'')+' '+(p.note||'')+' '+(p.dl||''));}).length;mr.textContent=risks;}updateReadOnlyState();}
+function RA(){document.getElementById('cd').textContent=S.date||'-';RI();RP();RD();document.getElementById('n0').textContent=S.issues.length;document.getElementById('n1').textContent=S.projects.length;document.getElementById('n2').textContent=S.discusses.length;var sn0=document.getElementById('side-n0'),sn1=document.getElementById('side-n1'),sn2=document.getElementById('side-n2');if(sn0)sn0.textContent=S.issues.length;if(sn1)sn1.textContent=S.projects.length;if(sn2)sn2.textContent=S.discusses.length;var mi=document.getElementById('metric-issues'),mp=document.getElementById('metric-projects'),md=document.getElementById('metric-discusses'),mr=document.getElementById('metric-risks');if(mi)mi.textContent=S.issues.length;if(mp)mp.textContent=S.projects.length;if(md)md.textContent=S.discusses.length;if(mr){var risks=S.issues.filter(function(i){return /暂停|取消|超期|风险|阻塞/.test((i.g||'')+' '+(i.d||''));}).length+S.projects.filter(function(p){return /暂停|取消|超期|风险|阻塞/.test((p.st||'')+' '+(p.note||'')+' '+(p.dl||''));}).length;mr.textContent=risks;}updateReadOnlyState();}
 function RI(){var is=S.issues;document.getElementById('ic2').textContent=is.length+'项';
 var ss=['全部',...new Set(is.map(function(i){return i.g}))];var fh='';
 ss.forEach(function(s){var c=s==='全部'?is.length:is.filter(function(i){return i.g===s}).length;fh+='<button class="fbb'+(s===IF?' on':'')+'" data-f="'+s+'">'+(SvgIc[s]||'')+' '+s+' ('+c+')</button>';});
@@ -2372,12 +2448,7 @@ async function createDailyFromDate(dateKey){
   S={week:wn,date:dt,issues:[],projects:[],discusses:[]};SH=[];CF=fn;
   CurrentReportId=null;
   await SC();RA();RW();
-  // Switch to tab 0
-  document.querySelectorAll('.nt').forEach(function(n){n.classList.remove('on')});
-  document.querySelectorAll('.tc').forEach(function(c){c.classList.remove('on')});
-  document.querySelector('.nt[data-t="0"]').classList.add('on');
-  document.getElementById('c0').classList.add('on');
-  updateNavAddAction('0');
+  switchModule('0');
   T('已创建 '+wn);
 }
 async function toggleAdminPanel(){
@@ -2409,7 +2480,6 @@ async function toggleAccountActive(uid,active){
   try{await api('/api/users/'+uid,{method:'PATCH',body:JSON.stringify({active:active})});await loadUsers();T(active?'账号已启用':'账号已停用');}catch(e){T(e.message,1);}
 }
 (function(){
-  document.querySelectorAll('.nt').forEach(function(e){e.addEventListener('click',function(){document.querySelectorAll('.nt').forEach(function(n){n.classList.remove('on')});document.querySelectorAll('.tc').forEach(function(c){c.classList.remove('on')});this.classList.add('on');document.getElementById('c'+this.dataset.t).classList.add('on');updateNavAddAction(this.dataset.t);if(this.dataset.t==='3')renderCLD();});});
   document.getElementById('cld-prev').addEventListener('click',onCLDPrev);
   document.getElementById('cld-next').addEventListener('click',onCLDNext);
   document.getElementById('cld-today').addEventListener('click',onCLDToday);
