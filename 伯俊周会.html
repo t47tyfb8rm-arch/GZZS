@@ -1069,6 +1069,29 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 .status-wrap::after{right:4px!important;font-size:8px!important;}
 .s-ft{padding:10px 12px!important;gap:8px!important;}
 .s-ft button{font-size:12px!important;padding:8px 0!important;border-radius:9px!important;}
+.em{background:rgba(15,23,42,.22)!important;backdrop-filter:blur(3px)!important;}
+.eb{max-width:640px!important;border-radius:8px!important;border:1px solid #d9e2ef!important;box-shadow:0 18px 42px rgba(15,23,42,.16)!important;background:#fff!important;}
+.eh{padding:12px 16px!important;background:#f7f9fc!important;border-bottom:1px solid #d9e2ef!important;}
+.eh h3{font-size:16px!important;font-weight:700!important;color:#111827!important;}
+.eh .ec{width:28px!important;height:28px!important;border-radius:6px!important;background:#eef2f7!important;color:#64748b!important;}
+.ef{padding:14px 16px 8px!important;background:#fff!important;}
+.ef .eg{margin-bottom:12px!important;}
+.ef .eg label{font-size:12px!important;font-weight:600!important;color:#475569!important;margin-bottom:6px!important;letter-spacing:0!important;}
+.ef .eg input,.ef .eg textarea,.ef .eg select,.rich-editor{border-radius:6px!important;border:1px solid #d9e2ef!important;background:#fff!important;color:#111827!important;font-size:13px!important;box-shadow:none!important;}
+.ef .eg input,.ef .eg select{height:34px!important;padding:0 10px!important;}
+.ef .eg textarea,.rich-editor{min-height:86px!important;padding:8px 10px!important;line-height:1.55!important;}
+.ef .eg input:focus,.ef .eg textarea:focus,.ef .eg select:focus,.rich-editor:focus{border-color:#94b8e5!important;box-shadow:0 0 0 2px rgba(37,99,235,.08)!important;}
+.date-pick-btn{height:34px!important;border-radius:6px!important;background:#fff!important;border:1px solid #d9e2ef!important;color:#334155!important;}
+.fmt-bar{gap:6px!important;margin-top:7px!important;}
+.fmt-btn{height:26px!important;padding:0 9px!important;border-radius:999px!important;background:#fff!important;border-color:#d9e2ef!important;font-size:11px!important;}
+.eg-tip{font-size:11px!important;color:#94a3b8!important;}
+.ef .eg .sg-c{gap:8px!important;}
+.ef .eg .sg-c button{height:26px!important;padding:0 10px!important;border-radius:999px!important;font-size:11px!important;font-weight:700!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;}
+.ef .eg .sg-c button:hover,.ef .eg .sg-c button.s-on{transform:none!important;box-shadow:none!important;}
+.ea{padding:10px 16px 14px!important;border-top:1px solid #e2e8f0!important;background:#fff!important;}
+.ea .eab{height:32px!important;padding:0 16px!important;border-radius:6px!important;font-size:13px!important;font-weight:600!important;}
+.ea .eab.e-cancel{background:#f1f5f9!important;color:#475569!important;}
+.ea .eab.e-save{background:#4f95d1!important;color:#fff!important;}
 .app.readonly-mode .edit-only{display:none!important;}
 .app.readonly-mode .status-select{pointer-events:none;opacity:.72;}
 .app.readonly-mode .p-del,.app.readonly-mode .p-move,.app.readonly-mode .dd,.app.readonly-mode .dm,.app.readonly-mode .ix{display:none!important;}
@@ -1293,8 +1316,8 @@ function statusTagStyle(s){
 function statusBtnStyle(s,on){
   var c=TBg[s]||'#94a3b8';
   if(on){
-    if(darkMode)return 'color:'+c+';border-color:'+hexToRgba(c,.34)+';background:linear-gradient(135deg,'+hexToRgba(c,.26)+',rgba(38,50,56,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 26px '+hexToRgba(c,.18)+';';
-    return 'color:'+c+';border-color:'+hexToRgba(c,.26)+';background:linear-gradient(135deg,'+hexToRgba(c,.18)+',rgba(255,255,255,.62));box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 14px 26px '+hexToRgba(c,.14)+';';
+    if(darkMode)return 'color:'+c+';border-color:'+hexToRgba(c,.28)+';background:'+hexToRgba(c,.18)+';';
+    return 'color:'+c+';border-color:'+hexToRgba(c,.2)+';background:'+hexToRgba(c,.12)+';';
   }
   return 'color:'+c+';';
 }
@@ -1764,7 +1787,7 @@ document.getElementById('ifb').innerHTML=fh;
 document.getElementById('ifb').querySelectorAll('.fbb').forEach(function(b){b.addEventListener('click',function(){IF=this.dataset.f;RI();});});
 var fl=IF==='全部'?is:is.filter(function(i){return i.g===IF});
 if(!fl.length){document.getElementById('it').innerHTML='<tr><td colspan="8" style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">无匹配</td></tr>';return;}
-var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<tr onclick="oem(\'issue\','+idx+')"><td class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></td><td>'+(i+1)+'</td><td class="main-link">'+F(it.t)+'</td><td>'+(it.sd?E(it.sd):'-')+'</td><td>'+(it.ed?E(it.ed):'-')+'</td><td>'+(it.d?renderFoldText(it.d,'事项详情',buildIssueDetailHtml(it)): '-')+'</td><td class="status-cell">'+statusSelect('issue',idx,it.g,ISL)+'</td><td class="detail-ops"><div class="p-act" onclick="event.stopPropagation();"><span onclick="oem(\'issue\','+idx+')">查看</span><b>/</b><span onclick="oem(\'issue\','+idx+')">编辑</span><b>/</b><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',-1)" title="上移">上移</span><b>/</b><span class="p-move '+(idx===is.length-1?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',1)" title="下移">下移</span><b>/</b><span class="ix" data-del="i" data-idx="'+idx+'">删除</span></div></td></tr>';});
+var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<tr onclick="oem(\'issue\','+idx+')"><td class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></td><td>'+(i+1)+'</td><td class="main-link">'+F(it.t)+'</td><td>'+(it.sd?E(it.sd):'-')+'</td><td>'+(it.ed?E(it.ed):'-')+'</td><td>'+(it.d?renderFoldText(it.d,'事项详情',buildIssueDetailHtml(it)): '-')+'</td><td class="status-cell">'+statusSelect('issue',idx,it.g,ISL)+'</td><td class="detail-ops"><div class="p-act" onclick="event.stopPropagation();"><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',-1)" title="上移">上移</span><b>/</b><span class="p-move '+(idx===is.length-1?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',1)" title="下移">下移</span><b>/</b><span class="ix" data-del="i" data-idx="'+idx+'">删除</span></div></td></tr>';});
 document.getElementById('it').innerHTML=h3;document.querySelectorAll('[data-del="i"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此事项？'))return;S.issues.splice(idx,1);RA();SC();T('已删除');});});}
 function RP(){var ps=S.projects;document.getElementById('pc').textContent=ps.length+'项';
 var ss=['全部',...new Set(ps.map(function(p){return p.st}))];var fh='';
@@ -1772,7 +1795,7 @@ ss.forEach(function(s){var c=s==='全部'?ps.length:ps.filter(function(p){return
 document.getElementById('pfb').innerHTML=fh;document.getElementById('pfb').querySelectorAll('.fbb').forEach(function(b){b.addEventListener('click',function(){PF=this.dataset.f;RP();});});
 var fl2=PF==='全部'?ps:ps.filter(function(p){return p.st===PF});
 if(!fl2.length){document.getElementById('pt').innerHTML='<tr><td colspan="8" style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">无匹配</td></tr>';return;}
-var h4='';fl2.forEach(function(p,i){var idx=ps.indexOf(p);var od=p.dl&&(p.dl.includes('超期')||p.dl.includes('已超'));h4+='<tr onclick="oem(\'proj\','+idx+')"><td class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></td><td>'+(i+1)+'</td><td class="main-link">'+F(p.c)+'</td><td>'+(p.sdt||'-')+'</td><td'+(od?' class="dr"':'')+'>'+E(p.dl||'-')+'</td><td>'+(p.note?renderFoldText(p.note,'项目详情',buildProjectDetailHtml(p)): '-')+'</td><td class="status-cell">'+statusSelect('proj',idx,p.st,PSL)+'</td><td class="detail-ops"><div class="p-act" onclick="event.stopPropagation();"><span onclick="oem(\'proj\','+idx+')">查看</span><b>/</b><span onclick="oem(\'proj\','+idx+')">编辑</span><b>/</b><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'proj\','+idx+',-1)" title="上移">上移</span><b>/</b><span class="p-move '+(idx===ps.length-1?'off':'')+'" onclick="moveEntry(\'proj\','+idx+',1)" title="下移">下移</span><b>/</b><span class="p-del" data-del="p" data-idx="'+idx+'">删除</span></div></td></tr>';});
+var h4='';fl2.forEach(function(p,i){var idx=ps.indexOf(p);var od=p.dl&&(p.dl.includes('超期')||p.dl.includes('已超'));h4+='<tr onclick="oem(\'proj\','+idx+')"><td class="select-cell"><input class="row-check" type="checkbox" onclick="event.stopPropagation()"></td><td>'+(i+1)+'</td><td class="main-link">'+F(p.c)+'</td><td>'+(p.sdt||'-')+'</td><td'+(od?' class="dr"':'')+'>'+E(p.dl||'-')+'</td><td>'+(p.note?renderFoldText(p.note,'项目详情',buildProjectDetailHtml(p)): '-')+'</td><td class="status-cell">'+statusSelect('proj',idx,p.st,PSL)+'</td><td class="detail-ops"><div class="p-act" onclick="event.stopPropagation();"><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'proj\','+idx+',-1)" title="上移">上移</span><b>/</b><span class="p-move '+(idx===ps.length-1?'off':'')+'" onclick="moveEntry(\'proj\','+idx+',1)" title="下移">下移</span><b>/</b><span class="p-del" data-del="p" data-idx="'+idx+'">删除</span></div></td></tr>';});
 document.getElementById('pt').innerHTML=h4;document.querySelectorAll('[data-del="p"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此需求？'))return;S.projects.splice(idx,1);RA();SC();T('已删除');});});}
 function RD(){var ds=S.discusses;document.getElementById('dc').textContent=ds.length+'项';
 if(!ds.length){document.getElementById('dl').innerHTML='<div style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">暂无</div>';return;}
