@@ -510,6 +510,26 @@ async function handleApi(req, res) {
     return send(res, 200, { ok: true, changed: result.changes });
   }
 
+  if (req.method === "POST" && url.pathname === "/api/folders/delete") {
+    const body = await readBody(req);
+    const folderId = String(body.id || "").trim();
+    const folderName = String(body.name || "").trim();
+    const ownerId = String(body.ownerId || "").trim();
+    const folder = folderId
+      ? db.prepare("SELECT * FROM folders WHERE id = ?").get(folderId)
+      : db.prepare(
+          user.role === "admin" && ownerId
+            ? "SELECT * FROM folders WHERE owner_id = ? AND name = ?"
+            : "SELECT * FROM folders WHERE owner_id = ? AND name = ?"
+        ).get(user.role === "admin" && ownerId ? ownerId : user.id, folderName || "默认");
+    if (!folder || !canAccess(user, folder.owner_id)) return send(res, 404, { error: "文件夹不存在" });
+    if ((folder.name || "默认") === "默认") return send(res, 400, { error: "默认文件夹不能删除" });
+    const count = db.prepare("SELECT COUNT(*) AS count FROM reports WHERE owner_id = ? AND folder = ?").get(folder.owner_id, folder.name).count;
+    if (count > 0) return send(res, 400, { error: "文件夹内还有文件，请先移动文件" });
+    db.prepare("DELETE FROM folders WHERE id = ?").run(folder.id);
+    return send(res, 200, { ok: true });
+  }
+
   if (req.method === "GET" && url.pathname === "/api/archives") {
     const sql = `
       SELECT archives.*, users.username AS owner
