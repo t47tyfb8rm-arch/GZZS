@@ -454,12 +454,14 @@ body.dark-mode .calendar-more,
 body.dark-mode .calendar-detail-empty{color:#a7b0bd;}
 body.dark-mode .calendar-item-status,
 body.dark-mode .calendar-detail-total{background:#252b33;color:#8cd5cd;}
-body.dark-mode .work-card{background:#1f232a;border-color:#313843;}
-body.dark-mode .work-card:hover,
-body.dark-mode .work-card.on{background:#252b33;border-color:#7cc7be;}
-body.dark-mode .work-title{color:#eef2f7;}
-body.dark-mode .work-note,
-body.dark-mode .work-date-inline,
+body.dark-mode .work-list,
+body.dark-mode .work-table,
+body.dark-mode .work-table td{background:#1f232a;border-color:#313843;color:#eef2f7;}
+body.dark-mode .work-table th{background:#252b33;border-color:#313843;color:#a7b0bd;}
+body.dark-mode .work-table tbody tr:hover td,
+body.dark-mode .work-table tbody tr.on td{background:#252b33;}
+body.dark-mode .work-link{color:#8ab4ff;}
+body.dark-mode .work-note-line,
 body.dark-mode .work-thumb-inline{color:#a7b0bd;}
 body.dark-mode .work-check{background:#252b33;border-color:#46505c;}
 body.dark-mode .work-empty{background:#1f232a;border-color:#46505c;color:#a7b0bd;}
@@ -1167,23 +1169,33 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 .image-preview-item img{display:block;width:100%;max-height:70vh;object-fit:contain;background:#f8fafc;}
 .image-preview-item figcaption{padding:8px 10px;font-size:12px;color:#64748b;border-top:1px solid #edf2f7;}
 .work-split{display:block;}
-.work-list{border:1px solid #dfe8f3;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 8px 22px rgba(15,23,42,.035);}
+.work-list{background:#fff;overflow:auto;border:1px solid #d9e2ef;border-radius:0;box-shadow:none;}
 .work-empty{background:#fff;color:#94a3b8;text-align:center;padding:26px 12px;font-size:12px;}
-.work-card{display:grid;grid-template-columns:18px minmax(240px,1fr) 92px 132px 96px 28px;gap:12px;align-items:center;min-height:54px;padding:8px 12px;background:#fff;border-bottom:1px solid #edf2f7;cursor:pointer;transition:background .12s;}
-.work-card:last-child{border-bottom:0;}
-.work-card:hover{background:#f8fbff;}
-.work-card.on{background:#fff;box-shadow:inset 3px 0 0 #2563eb;}
-.work-check{width:13px;height:13px;border-radius:999px;border:1px solid #b8c7d9;background:#fff;}
-.work-main{min-width:0;display:grid;gap:2px;}
-.work-title{font-size:13px;line-height:1.35;font-weight:750;color:#111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.work-note{font-size:11px;line-height:1.35;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.work-status{justify-self:start;display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;background:#f8fafc;border:1px solid #e5edf6;color:#475569;font-size:11px;font-weight:750;}
+.work-table{width:100%;border-collapse:collapse;table-layout:fixed;background:#fff;font-size:12px;color:#1f2937;}
+.work-table th{height:34px;background:#f3f7fb;border-right:1px solid #d9e2ef;border-bottom:1px solid #cbd8e6;color:#334155;font-size:12px;font-weight:500;text-align:left;padding:0 10px;white-space:nowrap;}
+.work-table th:last-child,.work-table td:last-child{border-right:0;}
+.work-table td{height:42px;border-right:1px solid #d9e2ef;border-bottom:1px solid #d9e2ef;padding:6px 10px;vertical-align:middle;background:#fff;}
+.work-table tr:last-child td{border-bottom:0;}
+.work-table tbody tr{cursor:pointer;}
+.work-table tbody tr:hover td{background:#f8fbff;}
+.work-table tbody tr.on td{background:#eef6ff;}
+.work-check-cell{width:34px;text-align:center!important;padding:0!important;}
+.work-index{width:52px;text-align:center!important;color:#111827;}
+.work-title-cell{min-width:0;}
+.work-link{display:block;color:#0052d9;font-size:12px;line-height:1.35;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none;}
+.work-link:hover{text-decoration:underline;}
+.work-note-line{display:block;margin-top:2px;color:#64748b;font-size:11px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-date-cell{width:104px;color:#111827;white-space:nowrap;}
+.work-status-cell{width:88px;}
+.work-image-cell{width:86px;}
+.work-op-cell{width:58px;text-align:center!important;}
+.work-check{display:inline-block;width:13px;height:13px;border-radius:3px;border:1px solid #9fb2c8;background:#fff;vertical-align:middle;}
+.work-status{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;background:var(--sc1,#f8fafc);border:1px solid var(--scb,#e5edf6);color:var(--sct,#475569);font-size:11px;font-weight:500;white-space:nowrap;}
 .work-status .ico{display:none;}
-.work-date-inline{font-size:12px;color:#64748b;white-space:nowrap;}
-.work-thumb-inline{display:flex;justify-content:flex-end;align-items:center;gap:4px;min-width:0;color:#94a3b8;font-size:11px;}
-.work-thumb-inline .issue-thumb{width:34px;height:24px;border-radius:5px;}
-.work-more{border:0;background:transparent;color:#94a3b8;font-size:18px;line-height:1;cursor:pointer;}
-.work-more:hover{color:#2563eb;}
+.work-thumb-inline{display:flex;align-items:center;gap:4px;min-width:0;color:#94a3b8;font-size:11px;}
+.work-thumb-inline .issue-thumb{width:30px;height:22px;border-radius:3px;border-color:#cbd8e6;}
+.work-more{width:24px;height:24px;border:0;background:transparent;color:#64748b;font-size:18px;line-height:20px;cursor:pointer;border-radius:4px;}
+.work-more:hover{background:#eaf4ff;color:#0052d9;}
 .detail-modal-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0;}
 .detail-modal-field{border:1px solid #edf2f7;border-radius:8px;background:#f8fafc;padding:9px 10px;}
 .detail-modal-field span{display:block;font-size:11px;color:#94a3b8;font-weight:700;margin-bottom:4px;}
@@ -1204,7 +1216,7 @@ body.dark-mode .settings-row{border-color:#313843;color:var(--text-sub);}
 #tm .mh{background:#fff!important;border-bottom:1px solid #edf2f7!important;padding:16px 18px!important;}
 #tm .mh h3{font-size:20px!important;font-weight:850!important;color:#111827!important;}
 #tm .mc{padding:18px!important;}
-@media(max-width:1100px){.work-card{grid-template-columns:18px minmax(0,1fr) 82px;}.work-date-inline,.work-thumb-inline{display:none;}}
+@media(max-width:1100px){.work-table{min-width:760px;}}
 .status-select{min-height:24px!important;min-width:66px!important;padding:2px 16px 2px 8px!important;font-size:11px!important;box-shadow:none!important;border-radius:999px!important;background:var(--sc1,#f7fbff)!important;border-color:transparent!important;}
 .status-wrap::after{right:4px!important;font-size:8px!important;}
 .s-ft{padding:10px 12px!important;gap:8px!important;}
@@ -2025,7 +2037,7 @@ function renderWorkImages(item,title){
 function workDateText(a,b){return (a?E(a):'-')+' → '+(b?E(b):'-');}
 function renderInlineThumbs(item,title){
   var imgs=itemImagesOf(item);
-  if(!imgs.length)return '<span class="work-thumb-inline" style="color:#94a3b8;font-size:11px;">无图</span>';
+  if(!imgs.length)return '<span class="work-thumb-inline">-</span>';
   var html='<span class="work-thumb-inline">';
   imgs.slice(0,2).forEach(function(img){html+='<button class="image-cell-btn" type="button" onclick="event.stopPropagation();openImagePreview(\''+J(title||'图片')+'\',\''+J(JSON.stringify(imgs))+'\')"><img class="issue-thumb" src="'+E(img.src||img)+'" alt="图片"></button>';});
   if(imgs.length>2)html+='<span class="issue-img-count">+'+(imgs.length-2)+'</span>';
@@ -2075,7 +2087,9 @@ var fl=IF==='全部'?is:is.filter(function(i){return i.g===IF});
 if(IssueSel>=is.length)IssueSel=Math.max(0,is.length-1);
 if(!fl.includes(is[IssueSel])&&fl.length)IssueSel=is.indexOf(fl[0]);
 if(!fl.length){document.getElementById('it').innerHTML='<div class="work-empty">无匹配事项</div>';return;}
-var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<article class="work-card'+(idx===IssueSel?' on':'')+'" onclick="selectIssue('+idx+')" ondblclick="oem(\'issue\','+idx+')"><span class="work-check"></span><div class="work-main"><div class="work-title">'+F(it.t||'未命名事项')+'</div><div class="work-note">'+(it.d?F(it.d):'<span style="color:#94a3b8;">暂无描述</span>')+'</div></div><span class="work-status" style="'+statusSelectStyle(it.g)+'">'+E(it.g||'-')+'</span><span class="work-date-inline">'+workDateText(it.sd,it.ed)+'</span>'+renderInlineThumbs(it,it.t||'事项图片')+'<button class="work-more" type="button" onclick="event.stopPropagation();openWorkDetail(\'issue\','+idx+')">⋯</button></article>';});
+var h3='<table class="work-table"><colgroup><col style="width:34px"><col style="width:52px"><col><col style="width:96px"><col style="width:108px"><col style="width:108px"><col style="width:94px"><col style="width:58px"></colgroup><thead><tr><th class="work-check-cell"><span class="work-check"></span></th><th class="work-index">序号</th><th>事项内容</th><th>状态</th><th>开始</th><th>截止</th><th>图片</th><th>操作</th></tr></thead><tbody>';
+fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<tr class="'+(idx===IssueSel?'on':'')+'" onclick="selectIssue('+idx+')" ondblclick="oem(\'issue\','+idx+')"><td class="work-check-cell"><span class="work-check"></span></td><td class="work-index">'+(i+1)+'</td><td class="work-title-cell"><span class="work-link">'+F(it.t||'未命名事项')+'</span>'+(it.d?'<span class="work-note-line">'+F(it.d)+'</span>':'')+'</td><td class="work-status-cell"><span class="work-status" style="'+statusSelectStyle(it.g)+'">'+E(it.g||'-')+'</span></td><td class="work-date-cell">'+(it.sd?E(it.sd):'-')+'</td><td class="work-date-cell">'+(it.ed?E(it.ed):'-')+'</td><td class="work-image-cell">'+renderInlineThumbs(it,it.t||'事项图片')+'</td><td class="work-op-cell"><button class="work-more" type="button" onclick="event.stopPropagation();openWorkDetail(\'issue\','+idx+')">⋯</button></td></tr>';});
+h3+='</tbody></table>';
 document.getElementById('it').innerHTML=h3;}
 function RP(){var ps=S.projects;document.getElementById('pc').textContent=ps.length+'项';
 var ss=['全部',...new Set(ps.map(function(p){return p.st}))];var fh='';
@@ -2085,7 +2099,9 @@ var fl2=PF==='全部'?ps:ps.filter(function(p){return p.st===PF});
 if(ProjectSel>=ps.length)ProjectSel=Math.max(0,ps.length-1);
 if(!fl2.includes(ps[ProjectSel])&&fl2.length)ProjectSel=ps.indexOf(fl2[0]);
 if(!fl2.length){document.getElementById('pt').innerHTML='<div class="work-empty">无匹配项目</div>';return;}
-var h4='';fl2.forEach(function(p,i){var idx=ps.indexOf(p);h4+='<article class="work-card'+(idx===ProjectSel?' on':'')+'" onclick="selectProject('+idx+')" ondblclick="oem(\'proj\','+idx+')"><span class="work-check"></span><div class="work-main"><div class="work-title">'+F(p.c||'未命名项目')+'</div><div class="work-note">'+(p.note?F(p.note):'<span style="color:#94a3b8;">暂无备注</span>')+'</div></div><span class="work-status" style="'+statusSelectStyle(p.st)+'">'+E(p.st||'-')+'</span><span class="work-date-inline">'+workDateText(p.sdt,p.dl)+'</span>'+renderInlineThumbs(p,p.c||'项目图片')+'<button class="work-more" type="button" onclick="event.stopPropagation();openWorkDetail(\'proj\','+idx+')">⋯</button></article>';});
+var h4='<table class="work-table"><colgroup><col style="width:34px"><col style="width:52px"><col><col style="width:96px"><col style="width:108px"><col style="width:108px"><col style="width:94px"><col style="width:58px"></colgroup><thead><tr><th class="work-check-cell"><span class="work-check"></span></th><th class="work-index">序号</th><th>项目内容</th><th>状态</th><th>开始</th><th>截止</th><th>图片</th><th>操作</th></tr></thead><tbody>';
+fl2.forEach(function(p,i){var idx=ps.indexOf(p);h4+='<tr class="'+(idx===ProjectSel?'on':'')+'" onclick="selectProject('+idx+')" ondblclick="oem(\'proj\','+idx+')"><td class="work-check-cell"><span class="work-check"></span></td><td class="work-index">'+(i+1)+'</td><td class="work-title-cell"><span class="work-link">'+F(p.c||'未命名项目')+'</span>'+(p.note?'<span class="work-note-line">'+F(p.note)+'</span>':'')+'</td><td class="work-status-cell"><span class="work-status" style="'+statusSelectStyle(p.st)+'">'+E(p.st||'-')+'</span></td><td class="work-date-cell">'+(p.sdt?E(p.sdt):'-')+'</td><td class="work-date-cell">'+(p.dl?E(p.dl):'-')+'</td><td class="work-image-cell">'+renderInlineThumbs(p,p.c||'项目图片')+'</td><td class="work-op-cell"><button class="work-more" type="button" onclick="event.stopPropagation();openWorkDetail(\'proj\','+idx+')">⋯</button></td></tr>';});
+h4+='</tbody></table>';
 document.getElementById('pt').innerHTML=h4;}
 function RD(){var ds=S.discusses;document.getElementById('dc').textContent=ds.length+'项';
 if(!ds.length){document.getElementById('dl').innerHTML='<div style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">暂无</div>';return;}
