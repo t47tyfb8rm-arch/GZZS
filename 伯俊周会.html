@@ -949,11 +949,20 @@ body.dark-mode .auth-card input,body.dark-mode .admin-panel input,body.dark-mode
 .viewer-control{display:none;align-items:center;gap:8px;font-size:12px;color:#6b7280;font-weight:800;}
 .viewer-control.show{display:inline-flex;}
 .viewer-control select{height:34px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;color:#111827;padding:0 28px 0 10px;outline:none;}
+.workspace-head{margin:12px 16px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.05);display:grid;grid-template-columns:minmax(300px,1fr) auto;gap:12px 18px;align-items:center;}
+.workspace-left{display:flex;align-items:center;gap:18px;min-width:0;}
+.workspace-brand{min-width:120px;border-right:1px solid #edf2f7;padding-right:18px;}
+.workspace-brand strong{display:block;font-size:18px;color:#111827;line-height:1.15;}
+.workspace-brand span{display:block;font-size:12px;color:#6b7280;margin-top:3px;}
+.workspace-title{min-width:0;}
+.workspace-title h2{font-size:20px;line-height:1.25;color:#111827;margin:0 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.workspace-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:0;}
+.workspace-tools{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;}
 .meeting-context{background:#fff;border:1px solid #e5e7eb;border-radius:10px;margin:12px 16px 8px;padding:12px 14px;box-shadow:0 10px 30px rgba(15,23,42,.05);}
 .meeting-context-top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
 .meeting-context h2{font-size:19px;line-height:1.25;color:#111827;margin:0 0 6px;}
 .meeting-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:#6b7280;}
-.content-kpis{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-left:2px;}
+.content-kpis{display:none!important;}
 .content-kpi{height:24px;display:inline-flex;align-items:center;gap:5px;padding:0 9px;border:1px solid #e2e8f0;border-radius:999px;background:#f8fafc;color:#52667a;font-size:12px;font-weight:800;}
 .content-kpi strong{color:#111827;font-size:13px;}
 body.dark-mode .content-kpi{background:#252b33;border-color:rgba(70,79,92,.72);color:var(--text-sub);}
@@ -962,6 +971,9 @@ body.dark-mode .content-kpi strong{color:var(--text-main);}
 .mode-pill.readonly{background:#fffbeb;color:#92400e;}
 .meeting-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
 .meeting-actions .tbb,.tr .tbb{display:inline-flex;align-items:center;gap:7px;}
+.meeting-actions .tbb{min-height:34px!important;padding:7px 12px!important;box-shadow:none!important;}
+.meeting-actions .tbg{min-width:auto!important;}
+.workspace-head .readonly-note{grid-column:1 / -1;margin-top:0;}
 .readonly-note{display:none;margin-top:12px;border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:800;}
 .readonly-note.show{display:block;}
 .metric-row{display:none!important;}
@@ -1023,6 +1035,10 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
   .auth-wrap{grid-template-columns:1fr;gap:22px;}
   .auth-copy h1{font-size:34px;}
   .auth-values,.metric-row{grid-template-columns:1fr;}
+  .workspace-head{grid-template-columns:1fr;}
+  .workspace-left{align-items:flex-start;flex-direction:column;gap:8px;}
+  .workspace-brand{border-right:0;padding-right:0;}
+  .workspace-right{align-items:flex-start;}
   .meeting-context-top{flex-direction:column;}
   .meeting-actions{justify-content:flex-start;}
 }
@@ -1073,37 +1089,26 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div>
 </div>
 <div class="main">
-<div class="top">
-<div class="tl">
-<div class="ti">
-<div class="product-title"><strong>一周有数</strong><span>伯俊周会空间</span></div>
-<label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
-</div>
-<div class="tr">
-<button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">深色</button>
-<span class="user-pill" id="user-pill">未登录</span>
-<button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button>
-<button class="tbb tbp" type="button" onclick="logout()">退出</button>
-<input type="file" id="mi" accept=".md" style="display:none">
-</div>
-</div>
-
-</div>
-<div class="meeting-context">
-<div class="meeting-context-top">
-<div>
+<div class="workspace-head">
+<div class="workspace-left">
+<div class="workspace-brand"><strong>一周有数</strong><span>伯俊周会空间</span></div>
+<div class="workspace-title">
 <h2 id="mtg">未选择周会</h2>
 <div class="meeting-meta">
 <span>日期：<span id="cd" style="cursor:pointer;border-bottom:1px dashed #ccc;" onclick="openDatePicker()" title="点击修改日期"></span></span>
 <span>所属用户：<span id="current-owner">-</span></span>
 <span class="mode-pill" id="mode-pill">可编辑</span>
-<span class="content-kpis">
-<span class="content-kpi">事项 <strong id="metric-issues">0</strong></span>
-<span class="content-kpi">项目 <strong id="metric-projects">0</strong></span>
-<span class="content-kpi">讨论 <strong id="metric-discusses">0</strong></span>
-<span class="content-kpi">风险 <strong id="metric-risks">0</strong></span>
-</span>
 </div>
+</div>
+</div>
+<div class="workspace-right">
+<div class="workspace-tools">
+<label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
+<button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">深色</button>
+<span class="user-pill" id="user-pill">未登录</span>
+<button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button>
+<button class="tbb tbp" type="button" onclick="logout()">退出</button>
+<input type="file" id="mi" accept=".md" style="display:none">
 </div>
 <div class="meeting-actions">
 <button class="tbb tbp" onclick="openFilePicker()"><span class="btn-icon"><svg viewBox="0 0 24 24"><path d="M4 6h6l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></span>切换周会</button>
@@ -1114,12 +1119,6 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div>
 </div>
 <div class="readonly-note" id="readonly-note">查看模式：你正在查看其他用户的周会，仅支持查看和导出。</div>
-</div>
-<div class="metric-row">
-<div class="metric-card"><span>当前事项</span><strong>0</strong></div>
-<div class="metric-card"><span>项目进展</span><strong>0</strong></div>
-<div class="metric-card"><span>讨论事项</span><strong>0</strong></div>
-<div class="metric-card"><span>风险提醒</span><strong>0</strong></div>
 </div>
 <div class="nv">
 <div class="nt" data-t="0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项 <span class="nm" id="n0"></span></div>
