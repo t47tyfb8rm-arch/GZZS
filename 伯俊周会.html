@@ -1166,6 +1166,67 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 .app.sidebar-collapsed .module-main{gap:0!important;}
 .app.sidebar-collapsed .sidebar-toggle{position:absolute;left:52px;top:18px;}
 @media(max-width:1100px){.yzy-v1{grid-template-columns:76px minmax(0,1fr)!important}.yzy-brand div,.module-label,.module-text,.module-count,.yzy-side-actions{display:none!important}.yzy-topbar{grid-template-columns:1fr}.yzy-top-actions{justify-content:flex-start}.work-head,.work-row{grid-template-columns:18px minmax(0,1fr) 76px 46px}.work-head .hide-sm,.work-row .hide-sm{display:none!important}}
+
+/* Final mockup layer: reset the workspace to the selected visual direction. */
+.yzy-v1{
+  --ink:#101827;--muted:#6f7f91;--line:#e4ecf5;--soft:#f6f9fc;--blue:#2f6feb;--blue2:#eef6ff;
+  grid-template-columns:168px minmax(0,1fr)!important;background:#f5f7fa!important;font-size:13px!important;
+}
+.yzy-sidebar{background:#fff!important;border-right:1px solid #dfe8f2!important;box-shadow:none!important}
+.yzy-brand{height:92px!important;padding:18px 12px!important;border-bottom:1px solid #e5edf6!important;gap:10px!important}
+.yzy-logo{width:34px!important;height:34px!important;border-radius:9px!important;font-size:17px!important;box-shadow:0 8px 18px rgba(47,111,235,.18)!important}
+.yzy-brand strong{font-size:17px!important;letter-spacing:0!important;color:var(--ink)!important}
+.yzy-brand span span,.yzy-brand div span{font-size:12px!important;color:#7d8da0!important;margin-top:3px!important}
+.sidebar-toggle{width:32px!important;height:32px!important;border-radius:10px!important;background:#f0f6fc!important;color:#2a6fbc!important}
+.module-nav{padding:18px 10px!important}
+.module-label{margin:12px 8px 10px!important;font-size:11px!important;color:#9aaabc!important;font-weight:800!important}
+.module-item{height:42px!important;padding:0 10px!important;margin:4px 0!important;border-radius:11px!important;color:#3d4b5e!important;font-size:13px!important;font-weight:800!important;border:1px solid transparent!important;background:transparent!important}
+.module-item:hover{background:#f6f9fd!important}
+.module-item.on{background:#eaf4ff!important;color:#2372bf!important;border-color:#d6eaff!important;box-shadow:inset 3px 0 0 #5aa2dd!important}
+.module-main{gap:9px!important}.module-icon{width:18px!important;font-size:17px!important;color:#536274!important}.module-item.on .module-icon{color:#2372bf!important}
+.module-count{min-width:25px!important;height:22px!important;border-radius:12px!important;font-size:12px!important;background:#fff!important;border:1px solid #dce9f8!important;color:#6f8bb1!important}
+.yzy-side-actions{padding:12px 10px 16px!important;border-top:1px solid #e5edf6!important;gap:8px!important}
+.sbn,.sba{height:34px!important;border-radius:10px!important;font-size:12px!important;font-weight:800!important}
+.sbn{background:#4f95d1!important;color:#fff!important;box-shadow:0 8px 20px rgba(79,149,209,.18)!important}.sba{background:#fff!important;color:#263445!important}
+.yzy-main{padding:12px 14px!important;gap:10px!important;overflow:auto!important;background:#f5f7fa!important}
+.yzy-topbar{min-height:72px!important;padding:14px 18px!important;border:1px solid #dde7f1!important;border-radius:12px!important;box-shadow:0 5px 16px rgba(15,23,42,.035)!important;background:#fff!important;grid-template-columns:minmax(260px,1fr) auto!important}
+.yzy-file-title h2{font-size:19px!important;line-height:1.15!important;font-weight:900!important;margin:0 0 8px!important;color:#071226!important}
+.meeting-meta{font-size:12px!important;color:#718196!important;gap:8px!important}.mode-pill{height:22px!important;padding:0 8px!important;border-radius:999px!important;font-size:12px!important;background:#eef6ff!important;color:#0d63c6!important}
+.yzy-top-actions{gap:8px!important}.viewer-control{height:34px!important;padding:0!important;gap:6px!important;border:0!important;background:transparent!important;font-size:12px!important;color:#6b7b8f!important;box-shadow:none!important}
+.viewer-control select{height:34px!important;border:1px solid #dbe7f3!important;border-radius:10px!important;background:#fff!important;padding:0 28px 0 10px!important;font-size:12px!important;color:#263445!important}
+.tbb,.section-add,.primary{height:34px!important;min-height:34px!important;border-radius:10px!important;border:1px solid #dbe7f3!important;background:#fff!important;color:#18283a!important;padding:0 12px!important;font-size:12px!important;font-weight:850!important;box-shadow:none!important}
+.tbb:hover,.section-add:hover{background:#f7fbff!important;border-color:#bfd8ef!important}.tbg{background:#4f95d1!important;color:#fff!important;border-color:#4f95d1!important;box-shadow:0 8px 20px rgba(79,149,209,.2)!important}
+.yzy-panel{border:1px solid #dde7f1!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(15,23,42,.04)!important;background:#fff!important;min-height:calc(100vh - 118px)!important}
+.yzy-section-head{display:none!important}
+.yzy-v1 .fb{padding:18px 28px 8px!important;gap:8px!important;background:#fff!important}
+.yzy-v1 .fbb{height:30px!important;border-radius:8px!important;padding:0 12px!important;font-size:12px!important;font-weight:850!important;border:1px solid #dbe7f3!important;color:#44576c!important;background:#fff!important}
+.yzy-v1 .fbb.on{background:#4f95d1!important;border-color:#4f95d1!important;color:#fff!important}
+.work-list{margin:0 28px 24px!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#fff!important}
+.work-head,.work-row{display:grid!important;grid-template-columns:22px minmax(280px,1.5fr) 102px 100px 100px 72px 50px!important;gap:12px!important;align-items:center!important}
+.work-head{height:36px!important;padding:0 12px!important;background:#eef5fb!important;border:0!important;color:#607288!important;font-size:12px!important;font-weight:900!important}
+.work-row{min-height:58px!important;padding:8px 12px!important;border-bottom:1px solid #eef2f6!important;color:#1f2d3d!important;background:#fff!important}
+.work-row:nth-child(odd){background:#fff!important}.work-row:hover{background:#f8fbff!important}
+.work-dot{width:16px!important;height:16px!important;border:1.5px solid #c6d5e6!important;border-radius:5px!important;background:#fff!important}
+.work-title strong{font-size:13px!important;line-height:1.35!important;color:#111b2c!important;font-weight:900!important}
+.work-title span{font-size:12px!important;line-height:1.45!important;color:#53667b!important;margin-top:4px!important;max-width:680px!important}
+.work-date{font-size:12px!important;color:#21344d!important;font-weight:800!important}
+.work-status,.status-wrap{height:28px!important;min-width:76px!important;border-radius:999px!important}
+.work-row .status-select{height:28px!important;font-size:12px!important;font-weight:850!important}
+.work-images{justify-content:flex-start!important}.issue-thumb{width:28px!important;height:28px!important;border-radius:7px!important}
+.image-more{height:22px!important;min-width:28px!important;border-radius:7px!important;font-size:11px!important}
+.work-op button{width:28px!important;height:28px!important;border-radius:8px!important;font-size:17px!important;color:#5d7085!important;background:#fff!important;border:0!important}
+.work-empty{padding:60px 20px!important;color:#9aaabc!important;text-align:center!important;font-size:13px!important}
+#tm .tm-bd,.tm-bd{width:min(640px,calc(100vw - 48px))!important;max-height:82vh!important;border-radius:16px!important;border:1px solid #e0e8f1!important;background:#fff!important;box-shadow:0 30px 90px rgba(15,23,42,.18)!important;overflow:hidden!important}
+.tm-hd{height:58px!important;padding:0 22px!important;border-bottom:1px solid #e7edf4!important;background:#fff!important}.tm-hd h3{font-size:17px!important;font-weight:900!important;color:#101827!important}
+.tm-x{width:32px!important;height:32px!important;border-radius:9px!important;background:#f4f7fa!important;color:#66778a!important;font-size:20px!important}
+.tm-body{padding:20px 22px 22px!important;font-size:13px!important;line-height:1.7!important;color:#243449!important}
+.detail-grid{grid-template-columns:72px 1fr!important;gap:10px 14px!important;background:#f8fbff!important;border:1px solid #e6eff8!important;border-radius:12px!important;padding:14px!important}
+.detail-grid span{font-size:12px!important;color:#8391a3!important}.detail-grid strong{font-size:13px!important;color:#1f2d3d!important}
+.detail-note{margin-top:14px!important;border:1px solid #e8eef5!important;border-radius:12px!important;background:#fff!important;padding:14px!important;font-size:13px!important;line-height:1.7!important}
+.detail-gallery{margin-top:14px!important;display:grid!important;grid-template-columns:repeat(auto-fill,minmax(92px,1fr))!important;gap:10px!important}
+.detail-gallery button{height:86px!important;border-radius:12px!important;border:1px solid #e0e9f2!important;overflow:hidden!important;background:#f8fafc!important}.detail-gallery img{width:100%!important;height:100%!important;object-fit:cover!important}
+.eab{height:34px!important;border-radius:10px!important;font-size:12px!important;font-weight:850!important;padding:0 14px!important}.e-save{background:#4f95d1!important;color:#fff!important;border:0!important}.e-cancel{background:#f2f5f8!important;color:#48596d!important;border:0!important}.danger{background:#fff2f2!important;color:#d33f3f!important}
+@media(max-width:1100px){.yzy-v1{grid-template-columns:64px minmax(0,1fr)!important}.work-head,.work-row{grid-template-columns:20px minmax(0,1fr) 84px 44px!important}.yzy-topbar{grid-template-columns:1fr!important}.yzy-top-actions{justify-content:flex-start!important}.work-list{margin:0 16px 18px!important}.yzy-v1 .fb{padding:14px 16px 6px!important}}
 </style>
 </head>
 <body>
@@ -1198,14 +1259,14 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
   <div class="yzy-brand"><span class="yzy-logo">数</span><div><strong>一周有数</strong><span>每周事项跟进</span></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
   <nav class="module-nav yzy-nav">
     <div class="module-label">功能模块</div>
-    <button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">▤</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
-    <button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon">□</span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
-    <button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">◌</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
-    <button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">▣</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
+    <button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">⌁</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
+    <button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon">⌘</span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
+    <button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">☰</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
+    <button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">◷</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
     <div class="module-label">管理</div>
-    <button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">▭</span><span class="module-text">文件管理</span></span><span class="module-count" id="side-file-count">0</span></button>
-    <button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">▱</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
-    <button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">＋</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
+    <button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">▢</span><span class="module-text">文件管理</span></span><span class="module-count" id="side-file-count">0</span></button>
+    <button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">▣</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
+    <button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">◉</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
   </nav>
   <div class="yzy-side-actions"><button class="sbn edit-only" onclick="nw()">新建文件</button><button class="sba" onclick="openFilePicker()">选择文件</button></div>
 </aside>
