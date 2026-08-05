@@ -1006,7 +1006,54 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 .pt td{padding:9px 12px!important;line-height:1.45!important;border-bottom-color:#edf2f7!important;color:#152238!important;}
 .pt tr:nth-child(even) td{background:#fbfaf8!important;}
 .pt tr:hover td{background:#f5faff!important;}
+.work-list{display:grid;gap:0;border:1px solid #e5edf6;border-radius:10px;background:#fff;overflow:hidden;box-shadow:0 8px 20px rgba(15,23,42,.035);}
+.work-empty{padding:28px 12px;text-align:center;color:#94a3b8;font-size:12px;background:#fff;}
+.work-head,.work-row{display:grid;grid-template-columns:24px minmax(220px,1fr) 92px 92px 96px 72px 52px;gap:12px;align-items:center;}
+.work-head{height:38px;padding:0 16px;background:#f8fbff;border-bottom:1px solid #e5edf6;color:#64748b;font-size:12px;font-weight:800;}
+.work-row{min-height:58px;padding:9px 16px;border-bottom:1px solid #edf2f7;cursor:pointer;transition:background .12s;}
+.work-row:last-child{border-bottom:0;}
+.work-row:hover{background:#f8fbff;}
+.work-row.on{background:#f1f7ff;}
+.work-dot{width:7px;height:7px;border-radius:999px;background:#cbd5e1;justify-self:center;}
+.work-title{min-width:0;}
+.work-title strong{display:block;font-size:13px;line-height:1.35;color:#111827;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-title span{display:block;margin-top:3px;font-size:11px;line-height:1.35;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-date{font-size:12px;color:#334155;white-space:nowrap;}
+.work-status{display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:24px;padding:0 9px;border-radius:7px;background:var(--sc1,#f8fafc);border:1px solid var(--scb,#e5edf6);color:var(--sct,#475569);font-size:12px;font-weight:800;white-space:nowrap;}
+.work-images{display:flex;align-items:center;gap:5px;color:#64748b;font-size:12px;}
+.work-images button{border:0;background:transparent;padding:0;cursor:pointer;}
+.issue-thumb{width:30px;height:24px;border-radius:5px;border:1px solid #d9e2ef;object-fit:cover;background:#f8fafc;}
+.issue-img-count{display:inline-flex;align-items:center;justify-content:center;height:22px;min-width:22px;border-radius:999px;background:#eef6ff;color:#2563eb;font-size:11px;font-weight:800;}
+.work-op{display:flex;justify-content:flex-end;gap:4px;}
+.work-op button{width:26px;height:26px;border:0;border-radius:6px;background:transparent;color:#94a3b8;font-size:18px;line-height:1;cursor:pointer;}
+.work-op button:hover{background:#eef6ff;color:#2563eb;}
+.detail-grid{display:grid;grid-template-columns:86px minmax(0,1fr);gap:12px 14px;margin:4px 0 16px;font-size:13px;}
+.detail-grid span{color:#94a3b8;font-weight:800;}
+.detail-grid strong{color:#334155;font-weight:700;word-break:break-word;}
+.detail-note{padding:12px;border:1px solid #edf2f7;border-radius:8px;background:#fbfdff;color:#334155;font-size:13px;line-height:1.75;word-break:break-word;}
+.detail-gallery{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.detail-gallery button{border:0;background:transparent;padding:0;cursor:pointer;}
+.detail-gallery img{width:72px;height:56px;border-radius:7px;border:1px solid #d9e2ef;object-fit:cover;background:#f8fafc;}
+.image-uploader{display:grid;gap:8px;}
+.image-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.image-upload-btn{height:30px;border:1px solid #d9e2ef;border-radius:7px;background:#fff;color:#2563eb;font-size:12px;font-weight:800;padding:0 10px;cursor:pointer;}
+.image-list{display:flex;gap:8px;flex-wrap:wrap;}
+.image-item{position:relative;width:64px;height:52px;border:1px solid #d9e2ef;border-radius:7px;overflow:hidden;background:#f8fafc;}
+.image-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.image-remove{position:absolute;right:3px;top:3px;width:18px;height:18px;border:0;border-radius:5px;background:rgba(15,23,42,.72);color:#fff;cursor:pointer;font-size:12px;line-height:18px;}
+.image-preview-list{display:grid;gap:12px;}
+.image-preview-item{margin:0;border:1px solid #d9e2ef;border-radius:8px;background:#fff;overflow:hidden;}
+.image-preview-item img{display:block;width:100%;max-height:70vh;object-fit:contain;background:#f8fafc;}
+.image-preview-item figcaption{padding:8px 10px;font-size:12px;color:#64748b;border-top:1px solid #edf2f7;}
+#tm .mb2{max-width:620px;width:min(620px,calc(100vw - 40px));}
+#tm .mh{background:#fff;border-bottom:1px solid #edf2f7;}
+#tm .mh h3{font-size:20px;color:#111827;}
+.tm-body{font-size:13px!important;}
+.app.readonly-mode .work-op .danger{display:none!important;}
+@media(max-width:1100px){.work-head,.work-row{grid-template-columns:20px minmax(0,1fr) 82px 52px;}.work-head .hide-sm,.work-row .hide-sm{display:none;}}
 .status-select{min-height:34px!important;}
+.work-row .status-select{min-height:24px!important;min-width:58px!important;padding:2px 18px 2px 8px!important;font-size:12px!important;box-shadow:none!important;border-radius:7px!important;}
+.work-row .status-wrap::after{right:5px!important;font-size:8px!important;}
 .app.readonly-mode .edit-only{display:none!important;}
 .app.readonly-mode .status-select{pointer-events:none;opacity:.72;}
 .app.readonly-mode .p-del,.app.readonly-mode .p-move,.app.readonly-mode .dd,.app.readonly-mode .dm,.app.readonly-mode .ix{display:none!important;}
@@ -1047,7 +1094,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div>
 <div class="app">
 <div class="sidebar">
-<div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">伯俊周会空间</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
+<div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">每周事项跟进</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
 <div class="module-nav">
 <div class="module-label">功能模块</div>
 <button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">📌</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
@@ -1055,20 +1102,20 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">💬</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
 <button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">📅</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
 <div class="module-label">管理</div>
-<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">🗂</span><span class="module-text">周会文件</span></span><span class="module-count" id="side-file-count">0</span></button>
+<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">🗂</span><span class="module-text">文件管理</span></span><span class="module-count" id="side-file-count">0</span></button>
 <button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">📦</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
 <button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">👤</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
 </div>
 <div class="s-ft">
-<button class="sbn edit-only" onclick="nw()">➕ 新建周会</button>
-<button class="sba" onclick="openFilePicker()">切换周会</button>
+<button class="sbn edit-only" onclick="nw()">➕ 新建文件</button>
+<button class="sba" onclick="openFilePicker()">选择文件</button>
 </div>
 </div>
 <div class="main">
 <div class="top">
 <div class="tl">
 <div class="ti">
-<div class="product-title"><strong>一周有数</strong><span>伯俊周会空间</span></div>
+<div class="product-title"><strong>一周有数</strong><span>每周事项跟进</span></div>
 <label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
 </div>
 <div class="tr">
@@ -1111,35 +1158,31 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 <div class="nt" data-t="0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项 <span class="nm" id="n0"></span></div>
 <div class="nt" data-t="1"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="4" rx="2"/><rect x="14" y="11" width="7" height="9" rx="2"/><rect x="3" y="14" width="7" height="6" rx="2"/></svg></span>项目 <span class="nm" id="n1"></span></div>
 <div class="nt" data-t="2">💬 讨论 <span class="nm" id="n2"></span></div>
-<div class="nt on" data-t="3">📅 日历</div>
+<div class="nt" data-t="3">📅 日历</div>
 <div class="nv-spacer"></div>
 <div class="nv-action" id="nv-add-0"><button class="section-add" onclick="addIssue()">+ 新增事项</button></div>
 <div class="nv-action" id="nv-add-1"><button class="section-add" onclick="addProject()">+ 新增项目</button></div>
 <div class="nv-action" id="nv-add-2"><button class="section-add" onclick="addDiscuss()">+ 新增讨论</button></div>
 </div>
-<div class="tc" id="c0">
+<div class="tc on" id="c0">
 <div class="ca">
 <div class="ch ch-issue"><h3><span class="ico sec-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项</h3><span class="cr" id="ic2">0项</span></div>
 <div class="cb">
 <div class="fb" id="ifb"></div>
-<div style="overflow-x:auto;">
-<table class="pt"><thead><tr><th style="width:20px;">#</th><th style="width:130px;">事项内容</th><th style="width:80px;">开始</th><th style="width:80px;">截止</th><th style="width:224px;">描述</th><th style="width:30px;padding-left:2px;text-align:center;">状态</th><th style="width:30px;text-align:center;">操作</th></tr></thead>
-<tbody id="it"></tbody></table>
-</div></div></div></div>
+<div class="work-list" id="it"></div>
+</div></div></div>
 <div class="tc" id="c1">
 <div class="ca">
 <div class="ch ch-proj"><h3><span class="ico sec-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="4" rx="2"/><rect x="14" y="11" width="7" height="9" rx="2"/><rect x="3" y="14" width="7" height="6" rx="2"/></svg></span>项目进展</h3><span class="cr" id="pc">0项</span></div>
 <div class="cb">
 <div class="fb" id="pfb"></div>
-<div style="overflow-x:auto;">
-<table class="pt"><thead><tr><th style="width:20px;">#</th><th style="width:130px;">内容</th><th style="width:70px;">开始</th><th style="width:70px;">截止</th><th style="width:204px;">备注</th><th style="width:30px;padding-left:2px;text-align:center;">状态</th><th style="width:30px;text-align:center;">操作</th></tr></thead>
-<tbody id="pt"></tbody></table>
-</div></div></div></div>
+<div class="work-list" id="pt"></div>
+</div></div></div>
 <div class="tc" id="c2">
 <div class="ca">
 <div class="ch ch-disc"><h3>💬 讨论</h3><span class="cr" id="dc">0项</span></div>
 <div class="cb"><div class="dl" id="dl"></div></div></div></div>
-<div class="tc on" id="c3">
+<div class="tc" id="c3">
 <div class="ca">
 <div class="ch ch-link"><h3>📅 日历视图</h3><span class="cr" id="cld-info"></span></div>
 <div class="cb">
@@ -1190,7 +1233,7 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </div></div>
 <div class="mod" id="file-picker" onclick="if(event.target===this)closeFilePicker()">
 <div class="mb2 file-picker-box">
-<div class="mh"><h3>🗂 选择周会</h3><button class="mc2" onclick="closeFilePicker()">✕</button></div>
+<div class="mh"><h3>🗂 选择文件</h3><button class="mc2" onclick="closeFilePicker()">✕</button></div>
 <div class="mc">
 <div class="file-picker-tools"><input id="sw" placeholder="搜索周会、日期或用户..." oninput="fw()"><button class="tbb tbi edit-only" onclick="nw();closeFilePicker()">+ 新建</button></div>
 <div class="wl file-picker-list" id="wl"></div>
@@ -1241,7 +1284,7 @@ function refreshStatusButtonGroup(group){
 }
 let S={week:'第?周',date:'',issues:[],projects:[],discusses:[]};
 let SH=[],CF=null,WF=[],SF='全部',AR=[],FI=0,FT=null,IF='全部',PF='全部';
-let eT=null,eI=null;
+let eT=null,eI=null,EditImages=[];
 let SaveHandle=null,SaveHandleName='';
 let SaveDirHandle=null,SaveDirName='';
 let sidebarCollapsed=false;
@@ -1426,24 +1469,29 @@ function oem(type,idx){
   let html='';
   if(type==='issue'){
     const it=S.issues[idx];
+    EditImages=itemImagesOf(it).slice();
     document.getElementById('emt').textContent='📌 编辑事项 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="i">当前事项</option><option value="p">项目</option><option value="d">讨论</option></select></div>';
     html+='<div class="eg"><label>事项内容</label><input id="eit" value="'+E(it.t)+'"></div>';
 html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(it.sd||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)" title="选择日期">📅</button></div></div>';
 html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(it.ed||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)" title="选择日期">📅</button></div></div>';
     html+='<div class="eg"><label>描述</label><div id="eid" class="rich-editor" contenteditable="true" data-placeholder="请输入描述">'+H(it.d)+'</div>'+fmtBar("eid")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
+    html+='<div class="eg"><label>相关图片</label><div id="image-uploader-box">'+renderImageUploader()+'</div></div>';
     html+='<div class="eg" id="esg"><label>状态</label><div class="sg-c">'+ISL.map(function(s){return '<button class="'+(s===it.g?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===it.g)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(type==='proj'){
     const p=S.projects[idx];
+    EditImages=itemImagesOf(p).slice();
     document.getElementById('emt').textContent='📊 编辑需求 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="p">项目</option><option value="i">当前事项</option><option value="d">讨论</option></select></div>';
     html+='<div class="eg"><label>需求内容</label><input id="epc" value="'+E(p.c)+'"></div>';
 html+='<div class="eg"><label>开始时间</label><div class="inl"><input id="epsdt" class="date-trigger" value="'+E(p.sdt||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epsdt\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epsdt\',document.getElementById(\'epsdt\').value)">📅</button></div></div>';
 html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="epdl" class="date-trigger" value="'+E(p.dl||'')+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epdl\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epdl\',document.getElementById(\'epdl\').value)">📅</button></div></div>';
     html+='<div class="eg"><label>备注</label><div id="epn" class="rich-editor" contenteditable="true" data-placeholder="可选备注">'+H(p.note||'')+'</div>'+fmtBar("epn")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
+    html+='<div class="eg"><label>相关图片</label><div id="image-uploader-box">'+renderImageUploader()+'</div></div>';
     html+='<div class="eg" id="esg"><label>状态</label><div class="sg-c">'+PSL.map(function(s){return '<button class="'+(s===p.st?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===p.st)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(type==='disc'){
     const d=S.discusses[idx];
+    EditImages=[];
     document.getElementById('emt').textContent='💬 编辑讨论 #'+(idx+1);
     html+='<div class="eg"><label>类型</label><select id="etypes" onchange="ecs()"><option value="d">讨论</option><option value="i">当前事项</option><option value="p">项目</option></select></div>';
     const ics=['🔴','🟡','🔵','🟢','🟣','🟠'];
@@ -1484,6 +1532,7 @@ function ecs(){
 html+='<div class="eg"><label>开始日期</label><div class="inl"><input id="eisd" class="date-trigger" value="'+E(sd2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eisd\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eisd\',document.getElementById(\'eisd\').value)">📅</button></div></div>';
 html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="eied" class="date-trigger" value="'+E(ed2)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'eied\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'eied\',document.getElementById(\'eied\').value)">📅</button></div></div>';
     html+='<div class="eg"><label>描述</label><div id="eid" class="rich-editor" contenteditable="true" data-placeholder="请输入描述">'+H(d2)+'</div>'+fmtBar("eid")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
+    html+='<div class="eg"><label>相关图片</label><div id="image-uploader-box">'+renderImageUploader()+'</div></div>';
     html+='<div class="eg"><label>状态</label><div class="sg-c">'+ISL.map(function(s){return '<button class="'+(s===g?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===g)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(v==='p'){
     document.getElementById('emt').textContent='📊 编辑需求 #'+(eI+1);
@@ -1496,6 +1545,7 @@ html+='<div class="eg"><label>截止日期</label><div class="inl"><input id="ei
 html+='<div class="eg"><label>开始时间</label><div class="inl"><input id="epsdt" class="date-trigger" value="'+E(sdt)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epsdt\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epsdt\',document.getElementById(\'epsdt\').value)">📅</button></div></div>';
 html+='<div class="eg"><label>截止时间</label><div class="inl"><input id="epdl" class="date-trigger" value="'+E(dl)+'" placeholder="如 20260707" readonly onclick="openDPFor(\'epdl\',this.value)"><button class="date-pick-btn" onclick="openDPFor(\'epdl\',document.getElementById(\'epdl\').value)">📅</button></div></div>';
     html+='<div class="eg"><label>备注</label><div id="epn" class="rich-editor" contenteditable="true" data-placeholder="可选备注">'+H(note)+'</div>'+fmtBar("epn")+'<div class="eg-tip">直接编辑彩色和加粗后的文字；保存时会自动转换</div></div>';
+    html+='<div class="eg"><label>相关图片</label><div id="image-uploader-box">'+renderImageUploader()+'</div></div>';
     html+='<div class="eg"><label>状态</label><div class="sg-c">'+PSL.map(function(s){return '<button class="'+(s===st2?'s-on':'')+'" data-s="'+s+'" style="'+statusBtnStyle(s,s===st2)+'">'+(SvgIc[s]||'')+' '+s+'</button>';}).join('')+'</div></div>';
   }else if(v==='d'){
     document.getElementById('emt').textContent='💬 编辑讨论 #'+(eI+1);
@@ -1523,17 +1573,17 @@ function esv(){
     else if(oldKey==='proj')item=S.projects.splice(eI,1)[0];
     else if(oldKey==='disc')item=S.discusses.splice(eI,1)[0];
     if(!item){T('错误',1);return;}
-    if(newKey==='issue'){var t2=GV('eit').trim()||item.t||item.c||'';var sd2=GV('eisd').trim()||item.sd||'';var ed2=GV('eied').trim()||item.ed||'';var d3=GV('eid').trim()||item.d||item.note||'';var sel2=document.querySelector('#eff .sg-c .s-on');var g2=sel2?sel2.dataset.s||sel2.dataset.ic||'处理中':'处理中';S.issues.push({t:t2,sd:sd2,ed:ed2,d:d3,g:g2});}
-    else if(newKey==='proj'){var c2=GV('epc').trim()||item.c||item.t||'';var note2=GV('epn').trim()||item.note||item.d||'';var sdt2=GV('epsdt').trim()||item.sdt||'';var dl2=GV('epdl').trim()||item.dl||'-';var sel2=document.querySelector('#eff .sg-c .s-on');var st3=sel2?sel2.dataset.s||sel2.dataset.ic||'进行中':'开发中';S.projects.push({c:c2,note:note2,sdt:sdt2,dl:dl2,st:st3});}
+    if(newKey==='issue'){var t2=GV('eit').trim()||item.t||item.c||'';var sd2=GV('eisd').trim()||item.sd||'';var ed2=GV('eied').trim()||item.ed||'';var d3=GV('eid').trim()||item.d||item.note||'';var sel2=document.querySelector('#eff .sg-c .s-on');var g2=sel2?sel2.dataset.s||sel2.dataset.ic||'处理中':'处理中';S.issues.push({t:t2,sd:sd2,ed:ed2,d:d3,g:g2,imgs:EditImages.slice()});}
+    else if(newKey==='proj'){var c2=GV('epc').trim()||item.c||item.t||'';var note2=GV('epn').trim()||item.note||item.d||'';var sdt2=GV('epsdt').trim()||item.sdt||'';var dl2=GV('epdl').trim()||item.dl||'-';var sel2=document.querySelector('#eff .sg-c .s-on');var st3=sel2?sel2.dataset.s||sel2.dataset.ic||'进行中':'开发中';S.projects.push({c:c2,note:note2,sdt:sdt2,dl:dl2,st:st3,imgs:EditImages.slice()});}
     else if(newKey==='disc'){var tx2=GV('edt').trim()||item.tx||item.t||item.c||'';var sel2=document.querySelector('#eff .sg-c .s-on');var ic2=sel2?sel2.dataset.ic||sel2.dataset.s||'蓝':'蓝';S.discusses.push({tx:tx2,ic:ic2});}
   }else{
-    if(eT==='issue'){var it2=S.issues[eI];var t2=GV('eit').trim();if(!t2){T('空',1);return;}it2.t=t2;it2.sd=GV('eisd').trim();it2.ed=GV('eied').trim();it2.d=GV('eid').trim();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)it2.g=sel2.dataset.s;}
-    else if(eT==='proj'){var p2=S.projects[eI];var c2=GV('epc').trim();if(!c2){T('空',1);return;}p2.c=c2;p2.note=GV('epn').trim();p2.sdt=GV('epsdt').trim();p2.dl=GV('epdl').trim();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)p2.st=sel2.dataset.s;}
+    if(eT==='issue'){var it2=S.issues[eI];var t2=GV('eit').trim();if(!t2){T('空',1);return;}it2.t=t2;it2.sd=GV('eisd').trim();it2.ed=GV('eied').trim();it2.d=GV('eid').trim();it2.imgs=EditImages.slice();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)it2.g=sel2.dataset.s;}
+    else if(eT==='proj'){var p2=S.projects[eI];var c2=GV('epc').trim();if(!c2){T('空',1);return;}p2.c=c2;p2.note=GV('epn').trim();p2.sdt=GV('epsdt').trim();p2.dl=GV('epdl').trim();p2.imgs=EditImages.slice();var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)p2.st=sel2.dataset.s;}
     else if(eT==='disc'){var d2=S.discusses[eI];var tx2=GV('edt').trim();if(!tx2){T('空',1);return;}d2.tx=tx2;var sel2=document.querySelector('#eff .sg-c .s-on');if(sel2)d2.ic=sel2.dataset.ic;}
   }
   ecm();RA();SC();T('已保存');
 }
-function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI=null;}
+function ecm(){document.getElementById('em').classList.remove('show');eT=null;eI=null;EditImages=[];}
 (function(){document.querySelectorAll('.nt,.module-item[data-t]').forEach(function(e){e.addEventListener('click',function(){switchModule(this.dataset.t);});});
 document.getElementById('mi').addEventListener('change',function(e){var f0=e.target.files[0];if(!f0||!f0.name.endsWith('.md'))return;var r=new FileReader();r.onload=function(ev){LF(ev.target.result,f0.name);};r.readAsText(f0);e.value='';});
 document.addEventListener('drop',function(e){e.preventDefault();Array.from(e.dataTransfer.files).forEach(function(f){if(f.name.endsWith('.md')){var r2=new FileReader();r2.onload=function(ev){LF(ev.target.result,f.name)};r2.readAsText(f);}});});document.addEventListener('dragover',function(e){e.preventDefault()});})();
@@ -1562,11 +1612,11 @@ async function renameFile(oldName,reportId){
   if(CF===newName)RA();
   T('已重命名为 "'+newName.replace('.md','')+'"');
 }
-function normalizeLoadedData(d){d=d||{};d.projects=d.projects||[];d.issues=d.issues||[];d.discusses=d.discusses||[];d.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});d.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});return d;}
+function normalizeLoadedData(d){d=d||{};d.projects=d.projects||[];d.issues=d.issues||[];d.discusses=d.discusses||[];d.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';if(!Array.isArray(p.imgs))p.imgs=[];});d.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';if(!Array.isArray(it.imgs))it.imgs=[];});return d;}
 function OW(n,reportId){CF=n;CurrentReportId=reportId||null;SaveHandle=null;SaveHandleName='';document.getElementById('mtg').textContent=(n||'未选择周会').replace(/\.md$/,'');var d=normalizeLoadedData(ReportCache[reportId]);S=d;SH=d.shots||[];RA();RW();closeFilePicker();T('已加载');}
 function OWN(n){var f=WF.find(function(x){return x.name===n});if(f){OW(f.name,f.id);return;}var now=new Date();CurrentReportId=null;CF=n;S={week:n.replace('.md','').replace('周会-','').replace('第','周')||'第?周',date:fmtDateCompact(now.getFullYear(),now.getMonth()+1,now.getDate()),issues:[],projects:[],discusses:[]};SH=[];RA();}
 async function LF(t,f){var d=PM(t);if(!d){T('解析失败',1);return;}
-S=d;SH=d.shots||[];S.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';});S.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';});CF=f||'周会-第X周.md';SaveHandle=null;SaveHandleName='';
+S=d;SH=d.shots||[];S.projects.forEach(function(p){if(p.note===undefined)p.note='';if(p.sdt===undefined)p.sdt='';if(!Array.isArray(p.imgs))p.imgs=[];});S.issues.forEach(function(it){if(it.sd===undefined)it.sd='';if(it.ed===undefined)it.ed='';if(!Array.isArray(it.imgs))it.imgs=[];});CF=f||'周会-第X周.md';SaveHandle=null;SaveHandleName='';
 CurrentReportId=null;await SC();RA();RW();T(CF);}
 function PM(t){try{
 var w='第?周',dt='',is=[],ps=[],ds=[];
@@ -1632,17 +1682,19 @@ ss.forEach(function(s){var c=s==='全部'?is.length:is.filter(function(i){return
 document.getElementById('ifb').innerHTML=fh;
 document.getElementById('ifb').querySelectorAll('.fbb').forEach(function(b){b.addEventListener('click',function(){IF=this.dataset.f;RI();});});
 var fl=IF==='全部'?is:is.filter(function(i){return i.g===IF});
-if(!fl.length){document.getElementById('it').innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">无匹配</td></tr>';return;}
-var h3='';fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<tr onclick="oem(\'issue\','+idx+')"><td>'+(i+1)+'</td><td style="font-size:12px;font-weight:600;line-height:1.5;">'+F(it.t)+'</td><td style="font-size:12px;color:#1e293b;">'+(it.sd?E(it.sd):'-')+'</td><td style="font-size:12px;color:#1e293b;">'+(it.ed?E(it.ed):'-')+'</td><td style="font-size:12px;color:#1e293b;line-height:1.5;">'+(it.d?renderFoldText(it.d,'事项详情',buildIssueDetailHtml(it)): '-')+'</td><td class="status-cell">'+statusSelect('issue',idx,it.g,ISL)+'</td><td style="width:30px;"><div class="p-act" onclick="event.stopPropagation();"><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',-1)" title="上移">↑</span><span class="p-move '+(idx===is.length-1?'off':'')+'" onclick="moveEntry(\'issue\','+idx+',1)" title="下移">↓</span><span class="ix" data-del="i" data-idx="'+idx+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div></td></tr>';});
-document.getElementById('it').innerHTML=h3;document.querySelectorAll('[data-del="i"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此事项？'))return;S.issues.splice(idx,1);RA();SC();T('已删除');});});}
+if(!fl.length){document.getElementById('it').innerHTML='<div class="work-empty">无匹配事项</div>';return;}
+var h3='<div class="work-head"><span></span><span>事项</span><span class="hide-sm">状态</span><span class="hide-sm">开始</span><span class="hide-sm">截止</span><span>附件</span><span>操作</span></div>';
+fl.forEach(function(it,i){var idx=is.indexOf(it);h3+='<div class="work-row" onclick="openWorkDetail(\'issue\','+idx+')"><span class="work-dot"></span><div class="work-title"><strong>'+F(it.t||'未命名事项')+'</strong><span>'+(it.d?F(it.d):'暂无描述')+'</span></div><div class="hide-sm">'+statusSelect('issue',idx,it.g,ISL)+'</div><span class="work-date hide-sm">'+(it.sd?E(it.sd):'-')+'</span><span class="work-date hide-sm">'+(it.ed?E(it.ed):'-')+'</span>'+renderInlineImages(it,it.t||'事项图片')+'<div class="work-op" onclick="event.stopPropagation();"><button type="button" onclick="openWorkDetail(\'issue\','+idx+')" title="详情">⋮</button></div></div>';});
+document.getElementById('it').innerHTML=h3;}
 function RP(){var ps=S.projects;document.getElementById('pc').textContent=ps.length+'项';
 var ss=['全部',...new Set(ps.map(function(p){return p.st}))];var fh='';
 ss.forEach(function(s){var c=s==='全部'?ps.length:ps.filter(function(p){return p.st===s}).length;fh+='<button class="fbb'+(s===PF?' on':'')+'" data-f="'+s+'">'+(SvgIc[s]||'')+' '+s+' ('+c+')</button>';});
 document.getElementById('pfb').innerHTML=fh;document.getElementById('pfb').querySelectorAll('.fbb').forEach(function(b){b.addEventListener('click',function(){PF=this.dataset.f;RP();});});
 var fl2=PF==='全部'?ps:ps.filter(function(p){return p.st===PF});
-if(!fl2.length){document.getElementById('pt').innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">无匹配</td></tr>';return;}
-var h4='';fl2.forEach(function(p,i){var idx=ps.indexOf(p);var od=p.dl&&(p.dl.includes('超期')||p.dl.includes('已超'));h4+='<tr onclick="oem(\'proj\','+idx+')"><td>'+(i+1)+'</td><td style="font-size:12px;font-weight:600;line-height:1.5;">'+F(p.c)+'</td><td style="font-size:12px;color:#1e293b;">'+(p.sdt||'-')+'</td><td'+(od?' class="dr"':'')+'>'+E(p.dl||'-')+'</td><td style="font-size:12px;color:#1e293b;line-height:1.5;">'+(p.note?renderFoldText(p.note,'项目详情',buildProjectDetailHtml(p)): '-')+'</td><td class="status-cell">'+statusSelect('proj',idx,p.st,PSL)+'</td><td style="width:30px;"><div class="p-act" onclick="event.stopPropagation();"><span class="p-move '+(idx===0?'off':'')+'" onclick="moveEntry(\'proj\','+idx+',-1)" title="上移">↑</span><span class="p-move '+(idx===ps.length-1?'off':'')+'" onclick="moveEntry(\'proj\','+idx+',1)" title="下移">↓</span><span class="p-del" data-del="p" data-idx="'+idx+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div></td></tr>';});
-document.getElementById('pt').innerHTML=h4;document.querySelectorAll('[data-del="p"]').forEach(function(el){el.addEventListener('click',function(){var idx=parseInt(this.dataset.idx);if(!confirm('删除此需求？'))return;S.projects.splice(idx,1);RA();SC();T('已删除');});});}
+if(!fl2.length){document.getElementById('pt').innerHTML='<div class="work-empty">无匹配项目</div>';return;}
+var h4='<div class="work-head"><span></span><span>项目</span><span class="hide-sm">状态</span><span class="hide-sm">开始</span><span class="hide-sm">截止</span><span>附件</span><span>操作</span></div>';
+fl2.forEach(function(p,i){var idx=ps.indexOf(p);h4+='<div class="work-row" onclick="openWorkDetail(\'proj\','+idx+')"><span class="work-dot"></span><div class="work-title"><strong>'+F(p.c||'未命名项目')+'</strong><span>'+(p.note?F(p.note):'暂无备注')+'</span></div><div class="hide-sm">'+statusSelect('proj',idx,p.st,PSL)+'</div><span class="work-date hide-sm">'+(p.sdt?E(p.sdt):'-')+'</span><span class="work-date hide-sm">'+(p.dl?E(p.dl):'-')+'</span>'+renderInlineImages(p,p.c||'项目图片')+'<div class="work-op" onclick="event.stopPropagation();"><button type="button" onclick="openWorkDetail(\'proj\','+idx+')" title="详情">⋮</button></div></div>';});
+document.getElementById('pt').innerHTML=h4;}
 function RD(){var ds=S.discusses;document.getElementById('dc').textContent=ds.length+'项';
 if(!ds.length){document.getElementById('dl').innerHTML='<div style="text-align:center;padding:16px;color:#94a3b8;font-size:11px;">暂无</div>';return;}
 var h5='<div class="dl">';ds.forEach(function(d,i){h5+='<div class="di" onclick="oem(\'disc\','+i+')"><span class="di-i">'+d.ic+'</span><span class="di-t" style="line-height:1.5;">'+F(d.tx)+'</span><div class="da" onclick="event.stopPropagation();"><span class="dm '+(i===0?'off':'')+'" onclick="moveEntry(\'disc\','+i+',-1)" title="上移">↑</span><span class="dm '+(i===ds.length-1?'off':'')+'" onclick="moveEntry(\'disc\','+i+',1)" title="下移">↓</span><span class="dd" data-del="d" data-idx="'+i+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div></div>';});h5+='</div>';document.getElementById('dl').innerHTML=h5;
@@ -1673,7 +1725,7 @@ function moveEntry(kind,idx,dir){
   RA();SC();
   T(dir<0?'已上移':'已下移');
 }
-function addIssue(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.issues.push({t:'新事项',sd:'',ed:'',d:'填写描述',g:'处理中'});RA();SC();T('已新增');}function addProject(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.projects.push({c:'新需求',note:'',sdt:'',dl:'-',st:'进行中'});RA();SC();T('已新增');}
+function addIssue(){if(isReadOnly()){T('查看模式下不能新增',1);return;}var idx=S.issues.length;S.issues.push({t:'新事项',sd:'',ed:'',d:'填写描述',g:'处理中',imgs:[]});RA();SC();T('已新增');oem('issue',idx);}function addProject(){if(isReadOnly()){T('查看模式下不能新增',1);return;}var idx=S.projects.length;S.projects.push({c:'新需求',note:'',sdt:'',dl:'-',st:'进行中',imgs:[]});RA();SC();T('已新增');oem('proj',idx);}
 function addDiscuss(){if(isReadOnly()){T('查看模式下不能新增',1);return;}S.discusses.push({ic:'🔵',tx:'新讨论项'});RA();SC();T('已新增');}
 async function nw(){if(CurrentUser&&CurrentUser.role==='admin'&&OwnerFilter!=='all'&&OwnerFilter!==CurrentUser.id){T('只能为自己新建周会',1);return;}var wn=prompt('请输入日报名称（如：第10周、10月第2周、2025Q3等）：');if(!wn)return;var fn=wn.trim()+'.md';
 var exist=WF.find(function(f){return f.name===fn&&(!CurrentUser||f.ownerId===CurrentUser.id)});if(exist){if(!confirm(wn+' 已存在，打开？'))return;OW(exist.name,exist.id);return;}
@@ -1865,6 +1917,73 @@ document.getElementById('mtg').textContent='存档：'+E(AR[idx].name);
 }
 function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function J(s){return encodeURIComponent(String(s===undefined||s===null?'':s));}
+function itemImagesOf(item){return Array.isArray(item&&item.imgs)?item.imgs:[];}
+function imageSrc(img){return typeof img==='string'?img:(img&&img.src)||'';}
+function imageName(img,i){return (img&&img.name)||('图片 '+(i+1));}
+function renderInlineImages(item,title){
+  var imgs=itemImagesOf(item);
+  if(!imgs.length)return '<span class="work-images">-</span>';
+  var html='<span class="work-images">';
+  imgs.slice(0,1).forEach(function(img,i){html+='<button type="button" onclick="event.stopPropagation();openImagePreview(\''+J(title||'图片')+'\',\''+J(JSON.stringify(imgs))+'\')"><img class="issue-thumb" src="'+E(imageSrc(img))+'" alt="图片"></button>';});
+  html+='<span class="issue-img-count">'+imgs.length+'</span></span>';
+  return html;
+}
+function renderDetailGallery(item,title){
+  var imgs=itemImagesOf(item);
+  if(!imgs.length)return '<div style="color:#94a3b8;font-size:12px;margin-top:10px;">暂无图片</div>';
+  var html='<div class="detail-gallery">';
+  imgs.forEach(function(img){html+='<button type="button" onclick="openImagePreview(\''+J(title||'图片')+'\',\''+J(JSON.stringify(imgs))+'\')"><img src="'+E(imageSrc(img))+'" alt="图片"></button>';});
+  html+='</div>';
+  return html;
+}
+function renderImageUploader(){
+  var html='<div class="image-uploader"><div class="image-actions"><button class="image-upload-btn" type="button" onclick="document.getElementById(\'image-file-input\').click()">上传图片</button><input id="image-file-input" type="file" accept="image/*" multiple style="display:none" onchange="handleImageFiles(this.files)"><span class="eg-tip">支持上传多张图片，保存后会跟随当前文件存储。</span></div><div class="image-list">';
+  EditImages.forEach(function(img,i){html+='<div class="image-item"><img src="'+E(imageSrc(img))+'" alt="图片"><button class="image-remove" type="button" onclick="removeEditImage('+i+')">×</button></div>';});
+  html+='</div></div>';
+  return html;
+}
+function refreshImageUploader(){
+  var box=document.getElementById('image-uploader-box');
+  if(box)box.innerHTML=renderImageUploader();
+}
+function handleImageFiles(files){
+  Array.from(files||[]).filter(function(f){return /^image\//.test(f.type);}).forEach(function(file){
+    var reader=new FileReader();
+    reader.onload=function(ev){EditImages.push({name:file.name,type:file.type,src:ev.target.result});refreshImageUploader();};
+    reader.readAsDataURL(file);
+  });
+}
+function removeEditImage(idx){EditImages.splice(idx,1);refreshImageUploader();}
+function openImagePreview(title,imagesJson){
+  var realTitle=decodeURIComponent(title||'图片');
+  var imgs=[];
+  try{imgs=JSON.parse(decodeURIComponent(imagesJson||'[]'));}catch(e){imgs=[];}
+  var html='<div class="image-preview-list">';
+  imgs.forEach(function(img,i){html+='<figure class="image-preview-item"><img src="'+E(imageSrc(img))+'" alt="图片"><figcaption>'+E(imageName(img,i))+'</figcaption></figure>';});
+  html+='</div>';
+  openDetailPreview(J(realTitle),J(html));
+}
+function openWorkDetail(kind,idx){
+  var isIssue=kind==='issue';
+  var item=isIssue?S.issues[idx]:S.projects[idx];
+  if(!item)return;
+  var title=isIssue?(item.t||'未命名事项'):(item.c||'未命名项目');
+  var status=isIssue?item.g:item.st;
+  var start=isIssue?item.sd:item.sdt;
+  var end=isIssue?item.ed:item.dl;
+  var note=isIssue?item.d:item.note;
+  var html='<div class="detail-grid"><span>状态</span><strong><span class="work-status" style="'+statusSelectStyle(status)+'">'+E(status||'-')+'</span></strong><span>开始日期</span><strong>'+(start?E(start):'-')+'</strong><span>截止日期</span><strong>'+(end?E(end):'-')+'</strong><span>附件</span><strong>'+itemImagesOf(item).length+' 张</strong></div>'
+    +'<div class="detail-note">'+(note?F(note):'<span style="color:#94a3b8;">暂无内容</span>')+'</div>'
+    +renderDetailGallery(item,title)
+    +'<div style="display:flex;justify-content:space-between;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid #edf2f7;"><button class="eab e-cancel danger edit-only" onclick="deleteWorkEntry(\''+kind+'\','+idx+')">删除</button><span style="flex:1"></span><button class="eab e-cancel" onclick="closeTextPreview()">关闭</button><button class="eab e-save edit-only" onclick="closeTextPreview();oem(\''+kind+'\','+idx+')">编辑</button></div>';
+  openDetailPreview(J(title),J(html));
+}
+function deleteWorkEntry(kind,idx){
+  if(isReadOnly()){T('查看模式下不能删除',1);return;}
+  if(!confirm(kind==='issue'?'删除此事项？':'删除此项目？'))return;
+  if(kind==='issue')S.issues.splice(idx,1);else S.projects.splice(idx,1);
+  closeTextPreview();RA();SC();T('已删除');
+}
 function iconIssue(cls){
   return '<span class="ico '+(cls||'')+'" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>';
 }
@@ -2506,6 +2625,7 @@ async function toggleAccountActive(uid,active){
   document.getElementById('cld-mode').addEventListener('click',onCLDMode);
 })();
 </script></body></html>
+
 
 
 
