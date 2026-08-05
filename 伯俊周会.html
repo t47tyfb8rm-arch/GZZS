@@ -1065,6 +1065,107 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
   .meeting-context-top{flex-direction:column;}
   .meeting-actions{justify-content:flex-start;}
 }
+.yzy-v1{height:100vh!important;display:grid!important;grid-template-columns:220px minmax(0,1fr)!important;gap:0!important;padding:0!important;background:#f6f8fb!important;color:#111827!important;font-family:"Inter","Segoe UI","Microsoft YaHei",Arial,sans-serif!important;overflow:hidden!important;}
+.yzy-sidebar{min-width:0;background:#fff;border-right:1px solid #e5edf6;display:flex;flex-direction:column;height:100vh;box-shadow:2px 0 18px rgba(15,23,42,.035);z-index:2;}
+.yzy-brand{height:86px;padding:18px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #edf2f7;position:relative;}
+.yzy-logo{width:42px;height:42px;border-radius:10px;background:#2563eb;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:900;box-shadow:0 12px 24px rgba(37,99,235,.18);}
+.yzy-brand strong{display:block;font-size:18px;line-height:1.2;color:#111827;font-weight:900;}
+.yzy-brand span:not(.yzy-logo){display:block;margin-top:4px;font-size:12px;color:#64748b;}
+.yzy-brand .sidebar-toggle{margin-left:auto;width:30px;height:30px;border:0;border-radius:9px;background:#eef6ff;color:#2b6cb0;font-size:16px;cursor:pointer;}
+.yzy-nav{padding:18px 12px!important;display:flex!important;flex-direction:column!important;gap:6px!important;flex:1;overflow:auto;}
+.yzy-nav .module-label{padding:12px 10px 6px!important;font-size:11px!important;color:#94a3b8!important;font-weight:900!important;letter-spacing:.02em!important;}
+.yzy-nav .module-item{height:42px!important;width:100%!important;border:0!important;background:transparent!important;border-radius:9px!important;color:#475569!important;padding:0 10px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;font-size:14px!important;font-weight:800!important;cursor:pointer!important;}
+.yzy-nav .module-item:hover{background:#f4f8ff!important;color:#2563eb!important;}
+.yzy-nav .module-item.on{background:#eaf4ff!important;color:#2563eb!important;box-shadow:inset 3px 0 0 #5b9bd5!important;}
+.yzy-nav .module-main{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;}
+.yzy-nav .module-icon{width:18px!important;height:18px!important;display:grid!important;place-items:center!important;color:currentColor!important;font-size:16px!important;}
+.yzy-nav .module-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.yzy-nav .module-count{min-width:26px;height:22px;padding:0 7px;border-radius:999px;background:#fff;border:1px solid #dbeafe;color:#64748b;display:grid;place-items:center;font-size:12px;font-weight:900;}
+.yzy-side-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px;border-top:1px solid #edf2f7;background:#fff;}
+.yzy-side-actions button{height:38px;border-radius:9px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;}
+.yzy-side-actions .sbn{border:0;background:#4f95d1;color:#fff;box-shadow:0 10px 20px rgba(79,149,209,.18);}
+.yzy-side-actions .sba{border:1px solid #dbe3ee;background:#fff;color:#111827;}
+.yzy-main{min-width:0;height:100vh;overflow:auto;padding:16px 18px 28px;background:#f6f8fb;}
+.yzy-topbar{min-height:82px;background:#fff;border:1px solid #e5edf6;border-radius:12px;box-shadow:0 10px 28px rgba(15,23,42,.045);display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:16px;align-items:center;padding:14px 18px;margin-bottom:12px;}
+.yzy-file-title h2{margin:0 0 8px;font-size:22px;line-height:1.2;color:#111827;font-weight:900;letter-spacing:0;}
+.yzy-file-title .meeting-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#64748b;font-size:13px;}
+.yzy-file-title .meeting-meta span{color:#64748b;}
+.yzy-file-title #cd{color:#334155;border-bottom:1px dashed #cbd5e1;}
+.mode-pill{height:24px;display:inline-flex!important;align-items:center;padding:0 9px;border-radius:999px;background:#eaf4ff;color:#1d4ed8!important;font-size:12px;font-weight:900;}
+.mode-pill.readonly{background:#fff7ed;color:#c2410c!important;}
+.yzy-top-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;}
+.yzy-top-actions .tbb,.yzy-top-actions label select{height:34px;border-radius:8px!important;border:1px solid #d9e2ef!important;background:#fff!important;color:#334155!important;box-shadow:none!important;font-size:13px!important;font-weight:850!important;padding:0 12px!important;font-family:inherit!important;}
+.yzy-top-actions .tbg{background:#2563eb!important;border-color:#2563eb!important;color:#fff!important;box-shadow:0 10px 18px rgba(37,99,235,.18)!important;}
+.viewer-control{display:none;align-items:center;gap:8px;font-size:12px;color:#64748b;font-weight:900;}
+.viewer-control.show{display:inline-flex;}
+.readonly-note{display:none;margin:0 0 12px;border:1px solid #fde68a;background:#fffbeb;color:#92400e;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:800;}
+.readonly-note.show{display:block;}
+.yzy-v1 .tc{display:none!important;margin:0!important;border:1px solid #e5edf6!important;border-radius:12px!important;background:#fff!important;box-shadow:0 10px 28px rgba(15,23,42,.04)!important;padding:0!important;overflow:hidden!important;}
+.yzy-v1 .tc.on{display:block!important;}
+.yzy-section-head{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid #edf2f7;background:#fff;}
+.yzy-section-head h3{margin:0;font-size:18px;line-height:1.2;color:#111827;font-weight:900;}
+.yzy-section-head p{margin:5px 0 0;color:#64748b;font-size:12px;}
+.yzy-section-head .cr{margin-left:auto;color:#64748b;background:#f8fafc;border:1px solid #e5edf6;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:900;}
+.yzy-section-head .section-add{height:34px;border:0;border-radius:8px;background:#2563eb;color:#fff;font-size:13px;font-weight:900;padding:0 14px;cursor:pointer;box-shadow:0 10px 18px rgba(37,99,235,.16);}
+.yzy-v1 .fb{display:flex!important;gap:8px!important;flex-wrap:wrap!important;padding:14px 20px 8px!important;margin:0!important;background:#fff!important;}
+.yzy-v1 .fbb{height:30px!important;border-radius:8px!important;border:1px solid #dbe3ee!important;background:#fff!important;color:#52667a!important;padding:0 11px!important;font-size:12px!important;font-weight:850!important;box-shadow:none!important;cursor:pointer!important;}
+.yzy-v1 .fbb.on{background:#4f95d1!important;border-color:#4f95d1!important;color:#fff!important;}
+.work-list{display:grid!important;gap:0!important;border:0!important;border-top:1px solid #edf2f7!important;border-radius:0!important;background:#fff!important;overflow:hidden!important;box-shadow:none!important;margin-top:8px!important;}
+.work-empty{padding:36px 12px;text-align:center;color:#94a3b8;font-size:13px;background:#fff;}
+.work-head,.work-row{display:grid;grid-template-columns:18px minmax(260px,1fr) 92px 98px 98px 76px 46px;gap:14px;align-items:center;}
+.work-head{height:38px;padding:0 20px;background:#f8fbff;border-bottom:1px solid #edf2f7;color:#64748b;font-size:12px;font-weight:900;}
+.work-row{min-height:62px;padding:10px 20px;border-bottom:1px solid #edf2f7;cursor:pointer;transition:background .12s;}
+.work-row:last-child{border-bottom:0;}
+.work-row:hover{background:#f8fbff;}
+.work-dot{width:7px;height:7px;border-radius:999px;background:#2563eb;justify-self:center;opacity:.75;}
+.work-title{min-width:0;}
+.work-title strong{display:block;font-size:14px;line-height:1.35;color:#111827;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-title span{display:block;margin-top:4px;font-size:12px;line-height:1.35;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.work-date{font-size:13px;color:#334155;white-space:nowrap;}
+.work-status{display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:24px;padding:0 9px;border-radius:7px;background:var(--sc1,#f8fafc);border:1px solid var(--scb,#e5edf6);color:var(--sct,#475569);font-size:12px;font-weight:900;white-space:nowrap;}
+.work-images{display:flex;align-items:center;gap:5px;color:#64748b;font-size:12px;}
+.work-images button{border:0;background:transparent;padding:0;cursor:pointer;}
+.issue-thumb{width:30px;height:24px;border-radius:5px;border:1px solid #d9e2ef;object-fit:cover;background:#f8fafc;}
+.issue-img-count{display:inline-flex;align-items:center;justify-content:center;height:22px;min-width:22px;border-radius:999px;background:#eef6ff;color:#2563eb;font-size:11px;font-weight:900;}
+.work-op{display:flex;justify-content:flex-end;gap:4px;}
+.work-op button{width:26px;height:26px;border:0;border-radius:6px;background:transparent;color:#94a3b8;font-size:18px;line-height:1;cursor:pointer;}
+.work-op button:hover{background:#eef6ff;color:#2563eb;}
+.work-row .status-select{min-height:24px!important;min-width:58px!important;padding:2px 18px 2px 8px!important;font-size:12px!important;box-shadow:none!important;border-radius:7px!important;}
+.work-row .status-wrap::after{right:5px!important;font-size:8px!important;}
+.detail-grid{display:grid;grid-template-columns:86px minmax(0,1fr);gap:12px 14px;margin:4px 0 16px;font-size:13px;}
+.detail-grid span{color:#94a3b8;font-weight:900;}
+.detail-grid strong{color:#334155;font-weight:750;word-break:break-word;}
+.detail-note{padding:12px;border:1px solid #edf2f7;border-radius:8px;background:#fbfdff;color:#334155;font-size:13px;line-height:1.75;word-break:break-word;}
+.detail-gallery{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.detail-gallery button{border:0;background:transparent;padding:0;cursor:pointer;}
+.detail-gallery img{width:72px;height:56px;border-radius:7px;border:1px solid #d9e2ef;object-fit:cover;background:#f8fafc;}
+.image-uploader{display:grid;gap:8px;}
+.image-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.image-upload-btn{height:30px;border:1px solid #d9e2ef;border-radius:7px;background:#fff;color:#2563eb;font-size:12px;font-weight:900;padding:0 10px;cursor:pointer;}
+.image-list{display:flex;gap:8px;flex-wrap:wrap;}
+.image-item{position:relative;width:64px;height:52px;border:1px solid #d9e2ef;border-radius:7px;overflow:hidden;background:#f8fafc;}
+.image-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.image-remove{position:absolute;right:3px;top:3px;width:18px;height:18px;border:0;border-radius:5px;background:rgba(15,23,42,.72);color:#fff;cursor:pointer;font-size:12px;line-height:18px;}
+.image-preview-list{display:grid;gap:12px;}
+.image-preview-item{margin:0;border:1px solid #d9e2ef;border-radius:8px;background:#fff;overflow:hidden;}
+.image-preview-item img{display:block;width:100%;max-height:70vh;object-fit:contain;background:#f8fafc;}
+.image-preview-item figcaption{padding:8px 10px;font-size:12px;color:#64748b;border-top:1px solid #edf2f7;}
+#tm .mb2{max-width:620px!important;width:min(620px,calc(100vw - 40px))!important;border-radius:12px!important;}
+#tm .mh{background:#fff!important;border-bottom:1px solid #edf2f7!important;}
+#tm .mh h3{font-size:20px!important;color:#111827!important;}
+.tm-body{font-size:13px!important;}
+.yzy-v1 .cld-hd{display:flex!important;align-items:center!important;gap:8px!important;padding:16px 20px!important;border-bottom:1px solid #edf2f7!important;}
+.yzy-v1 #cld-title{font-size:15px!important;font-weight:900!important;color:#111827!important;min-width:130px!important;text-align:center!important;}
+.yzy-v1 #cld-body{padding:18px 20px!important;}
+.yzy-v1 #cld-detail{margin:0 20px 20px!important;border-top:1px solid #edf2f7!important;padding-top:14px!important;}
+.yzy-v1 .dl{padding:16px 20px 22px!important;}
+.app.sidebar-collapsed{grid-template-columns:76px minmax(0,1fr)!important;}
+.app.sidebar-collapsed .yzy-brand{justify-content:center;padding:18px 10px;}
+.app.sidebar-collapsed .yzy-brand div,.app.sidebar-collapsed .module-label,.app.sidebar-collapsed .module-text,.app.sidebar-collapsed .module-count,.app.sidebar-collapsed .yzy-side-actions{display:none!important;}
+.app.sidebar-collapsed .module-item{width:48px!important;height:48px!important;justify-content:center!important;margin:0 auto!important;padding:0!important;}
+.app.sidebar-collapsed .module-main{gap:0!important;}
+.app.sidebar-collapsed .sidebar-toggle{position:absolute;left:52px;top:18px;}
+@media(max-width:1100px){.yzy-v1{grid-template-columns:76px minmax(0,1fr)!important}.yzy-brand div,.module-label,.module-text,.module-count,.yzy-side-actions{display:none!important}.yzy-topbar{grid-template-columns:1fr}.yzy-top-actions{justify-content:flex-start}.work-head,.work-row{grid-template-columns:18px minmax(0,1fr) 76px 46px}.work-head .hide-sm,.work-row .hide-sm{display:none!important}}
 </style>
 </head>
 <body>
@@ -1092,113 +1193,58 @@ body.dark-mode .file-picker-tools input{background:#252b33;color:#eef2f7;border-
 </form>
 </div>
 </div>
-<div class="app">
-<div class="sidebar">
-<div class="s-hd"><div><h2><span class="hd-i">数</span> 一周有数</h2><div class="sub">每周事项跟进</div></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
-<div class="module-nav">
-<div class="module-label">功能模块</div>
-<button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">📌</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
-<button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon">▦</span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
-<button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">💬</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
-<button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">📅</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
-<div class="module-label">管理</div>
-<button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">🗂</span><span class="module-text">文件管理</span></span><span class="module-count" id="side-file-count">0</span></button>
-<button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">📦</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
-<button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">👤</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
-</div>
-<div class="s-ft">
-<button class="sbn edit-only" onclick="nw()">➕ 新建文件</button>
-<button class="sba" onclick="openFilePicker()">选择文件</button>
-</div>
-</div>
-<div class="main">
-<div class="top">
-<div class="tl">
-<div class="ti">
-<div class="product-title"><strong>一周有数</strong><span>每周事项跟进</span></div>
-<label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
-</div>
-<div class="tr">
-<button class="tbb tbp" id="theme-toggle" type="button" onclick="toggleTheme()">🌙 深色</button>
-<span class="user-pill" id="user-pill">未登录</span>
-<button class="tbb tbi" id="user-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;">账号</button>
-<button class="tbb tbp" type="button" onclick="logout()">退出</button>
-<input type="file" id="mi" accept=".md" style="display:none">
-</div>
-</div>
-
-</div>
-<div class="meeting-context">
-<div class="meeting-context-top">
-<div>
-<h2 id="mtg">未选择周会</h2>
-<div class="meeting-meta">
-<span>日期：<span id="cd" style="cursor:pointer;border-bottom:1px dashed #ccc;" onclick="openDatePicker()" title="点击修改日期"></span></span>
-<span>所属用户：<span id="current-owner">-</span></span>
-<span class="mode-pill" id="mode-pill">可编辑</span>
-</div>
-</div>
-<div class="meeting-actions">
-<button class="tbb tbp" onclick="openFilePicker()">🗂 切换周会</button>
-<button class="tbb tbi edit-only" id="module-add-btn" type="button" onclick="addIssue()">+ 新增事项</button>
-<button class="tbb tbi edit-only" onclick="document.getElementById('mi').click()">📂 导入</button>
-<button class="tbb tbp" onclick="dlmd()">⬇️ 下载MD</button>
-<button class="tbb tbg edit-only" onclick="st()">💾 保存</button>
-</div>
-</div>
-<div class="readonly-note" id="readonly-note">查看模式：你正在查看其他用户的周会，仅支持查看和导出。</div>
-</div>
-<div class="metric-row">
-<div class="metric-card"><span>当前事项</span><strong id="metric-issues">0</strong></div>
-<div class="metric-card"><span>项目进展</span><strong id="metric-projects">0</strong></div>
-<div class="metric-card"><span>讨论事项</span><strong id="metric-discusses">0</strong></div>
-<div class="metric-card"><span>风险提醒</span><strong id="metric-risks">0</strong></div>
-</div>
-<div class="nv">
-<div class="nt" data-t="0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项 <span class="nm" id="n0"></span></div>
-<div class="nt" data-t="1"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="4" rx="2"/><rect x="14" y="11" width="7" height="9" rx="2"/><rect x="3" y="14" width="7" height="6" rx="2"/></svg></span>项目 <span class="nm" id="n1"></span></div>
-<div class="nt" data-t="2">💬 讨论 <span class="nm" id="n2"></span></div>
-<div class="nt" data-t="3">📅 日历</div>
-<div class="nv-spacer"></div>
-<div class="nv-action" id="nv-add-0"><button class="section-add" onclick="addIssue()">+ 新增事项</button></div>
-<div class="nv-action" id="nv-add-1"><button class="section-add" onclick="addProject()">+ 新增项目</button></div>
-<div class="nv-action" id="nv-add-2"><button class="section-add" onclick="addDiscuss()">+ 新增讨论</button></div>
-</div>
-<div class="tc on" id="c0">
-<div class="ca">
-<div class="ch ch-issue"><h3><span class="ico sec-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M8 7h8"/><path d="m7 11 5 10 5-10"/><path d="M5 11h14"/></svg></span>当前事项</h3><span class="cr" id="ic2">0项</span></div>
-<div class="cb">
-<div class="fb" id="ifb"></div>
-<div class="work-list" id="it"></div>
-</div></div></div>
-<div class="tc" id="c1">
-<div class="ca">
-<div class="ch ch-proj"><h3><span class="ico sec-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="4" rx="2"/><rect x="14" y="11" width="7" height="9" rx="2"/><rect x="3" y="14" width="7" height="6" rx="2"/></svg></span>项目进展</h3><span class="cr" id="pc">0项</span></div>
-<div class="cb">
-<div class="fb" id="pfb"></div>
-<div class="work-list" id="pt"></div>
-</div></div></div>
-<div class="tc" id="c2">
-<div class="ca">
-<div class="ch ch-disc"><h3>💬 讨论</h3><span class="cr" id="dc">0项</span></div>
-<div class="cb"><div class="dl" id="dl"></div></div></div></div>
-<div class="tc" id="c3">
-<div class="ca">
-<div class="ch ch-link"><h3>📅 日历视图</h3><span class="cr" id="cld-info"></span></div>
-<div class="cb">
-<div class="cld-hd">
-<button class="tbb tbp" id="cld-prev">‹</button>
-<span id="cld-title" style="font-size:14px;font-weight:700;color:#333;min-width:150px;text-align:center;"></span>
-<button class="tbb tbp" id="cld-next">›</button>
-<div style="flex:1;"></div>
-<button class="tbb tbi" id="cld-today">今天</button>
-<button class="tbb tbp" id="cld-mode">📆 月</button>
-</div>
-<div id="cld-body"></div>
-<div id="cld-detail" style="margin-top:14px;display:none;border-top:1px solid #eef0f4;padding-top:14px;"></div>
-</div></div></div>
-</div></div>
-<div class="admin-panel" id="admin-panel">
+<div class="app yzy-v1">
+<aside class="yzy-sidebar">
+  <div class="yzy-brand"><span class="yzy-logo">数</span><div><strong>一周有数</strong><span>每周事项跟进</span></div><button class="sidebar-toggle" id="sidebar-toggle" type="button" onclick="toggleSidebar()" title="收起左侧列表">‹</button></div>
+  <nav class="module-nav yzy-nav">
+    <div class="module-label">功能模块</div>
+    <button class="module-item on" type="button" data-t="0"><span class="module-main"><span class="module-icon">▤</span><span class="module-text">当前事项</span></span><span class="module-count" id="side-n0">0</span></button>
+    <button class="module-item" type="button" data-t="1"><span class="module-main"><span class="module-icon">□</span><span class="module-text">项目</span></span><span class="module-count" id="side-n1">0</span></button>
+    <button class="module-item" type="button" data-t="2"><span class="module-main"><span class="module-icon">◌</span><span class="module-text">讨论</span></span><span class="module-count" id="side-n2">0</span></button>
+    <button class="module-item" type="button" data-t="3"><span class="module-main"><span class="module-icon">▣</span><span class="module-text">日历</span></span><span class="module-count"> </span></button>
+    <div class="module-label">管理</div>
+    <button class="module-item" type="button" onclick="openFilePicker()"><span class="module-main"><span class="module-icon">▭</span><span class="module-text">文件管理</span></span><span class="module-count" id="side-file-count">0</span></button>
+    <button class="module-item" type="button" onclick="oa()"><span class="module-main"><span class="module-icon">▱</span><span class="module-text">存档</span></span><span class="module-count"> </span></button>
+    <button class="module-item" id="side-admin-btn" type="button" onclick="toggleAdminPanel()" style="display:none;"><span class="module-main"><span class="module-icon">＋</span><span class="module-text">账号管理</span></span><span class="module-count"> </span></button>
+  </nav>
+  <div class="yzy-side-actions"><button class="sbn edit-only" onclick="nw()">新建文件</button><button class="sba" onclick="openFilePicker()">选择文件</button></div>
+</aside>
+<main class="yzy-main">
+  <header class="yzy-topbar">
+    <div class="yzy-file-title"><h2 id="mtg">周会-第31周</h2><div class="meeting-meta">日期：<span id="cd">-</span><span>所属用户：</span><span id="current-owner">-</span><span class="mode-pill" id="mode-pill">可编辑</span></div></div>
+    <div class="yzy-top-actions">
+      <label class="viewer-control" id="viewer-control">查看用户 <select id="owner-filter" onchange="setOwnerFilter(this.value)"><option value="all">全部用户</option></select></label>
+      <button class="tbb" id="dark-btn" onclick="toggleDarkMode()">深色</button>
+      <button class="tbb" onclick="openFilePicker()">选择文件</button>
+      <button class="tbb edit-only" onclick="document.getElementById('mi').click()">导入</button>
+      <button class="tbb" onclick="dlmd()">下载MD</button>
+      <button class="tbb tbg edit-only" onclick="st()">保存</button>
+      <input id="mi" type="file" accept=".md,text/markdown" style="display:none">
+    </div>
+  </header>
+  <div class="readonly-note" id="readonly-note">查看模式：你正在查看其他用户的周会，仅支持查看和导出。</div>
+  <div class="yzy-tabs" style="display:none"><span id="n0"></span><span id="n1"></span><span id="n2"></span></div>
+  <section class="tc on yzy-panel" id="c0">
+    <div class="yzy-section-head"><div><h3>当前事项</h3><p>本周需要持续跟进的事项</p></div><span class="cr" id="ic2">0项</span><button class="section-add edit-only" onclick="addIssue()">新增事项</button></div>
+    <div class="fb" id="ifb"></div>
+    <div class="work-list" id="it"></div>
+  </section>
+  <section class="tc yzy-panel" id="c1">
+    <div class="yzy-section-head"><div><h3>项目</h3><p>项目进展、风险与交付节点</p></div><span class="cr" id="pc">0项</span><button class="section-add edit-only" onclick="addProject()">新增项目</button></div>
+    <div class="fb" id="pfb"></div>
+    <div class="work-list" id="pt"></div>
+  </section>
+  <section class="tc yzy-panel" id="c2">
+    <div class="yzy-section-head"><div><h3>讨论</h3><p>会议中的讨论与结论</p></div><span class="cr" id="dc">0项</span><button class="section-add edit-only" onclick="addDiscuss()">新增讨论</button></div>
+    <div class="dl" id="dl"></div>
+  </section>
+  <section class="tc yzy-panel" id="c3">
+    <div class="yzy-section-head"><div><h3>日历</h3><p>按日期查看文件和事项</p></div><span class="cr" id="cld-info"></span></div>
+    <div class="cld-hd"><button class="tbb tbp" id="cld-prev">‹</button><span id="cld-title"></span><button class="tbb tbp" id="cld-next">›</button><div style="flex:1"></div><button class="tbb tbi" id="cld-today">今天</button><button class="tbb tbp" id="cld-mode">月</button></div>
+    <div id="cld-body"></div><div id="cld-detail"></div>
+  </section>
+</main>
+</div><div class="admin-panel" id="admin-panel">
 <h3>账号管理</h3>
 <div style="display:grid;grid-template-columns:1fr 1fr 88px;gap:8px;margin-bottom:10px;">
 <input id="new-user" placeholder="账号">
@@ -2625,6 +2671,7 @@ async function toggleAccountActive(uid,active){
   document.getElementById('cld-mode').addEventListener('click',onCLDMode);
 })();
 </script></body></html>
+
 
 
 
